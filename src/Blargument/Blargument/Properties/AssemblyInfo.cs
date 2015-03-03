@@ -14,8 +14,13 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
+// Expose the internals to the unit test project. This might feel dirty,
+// but I think it's a reasonable compromise between unit testing and not
+// making all the production code public for testing's sake.
+[assembly: InternalsVisibleTo( "Blargument.UnitTests" )]
+
+// Setting ComVisible to false makes the types in this assembly not visible
+// to COM components.  If you need to access a type in this assembly from
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
