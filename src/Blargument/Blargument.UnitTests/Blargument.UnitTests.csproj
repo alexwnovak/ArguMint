@@ -57,6 +57,12 @@
     <Compile Include="ArgumentAnalyzerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Blargument\Blargument.csproj">
+      <Project>{82c4bd66-3088-4c6b-9cca-ea5f332ef46c}</Project>
+      <Name>Blargument</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
