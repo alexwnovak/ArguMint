@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Any.cs" />
     <Compile Include="ArgumentAnalyzerTest.cs" />
+    <Compile Include="Dummies\ClassWithNoAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
