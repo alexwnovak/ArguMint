@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentAnalyzer.cs" />
+    <Compile Include="ArgumentAttribute.cs" />
     <Compile Include="Dependency.cs" />
     <Compile Include="MissingAttributesException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
