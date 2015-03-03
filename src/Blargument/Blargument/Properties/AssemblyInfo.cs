@@ -18,6 +18,7 @@ using System.Runtime.InteropServices;
 // but I think it's a reasonable compromise between unit testing and not
 // making all the production code public for testing's sake.
 [assembly: InternalsVisibleTo( "Blargument.UnitTests" )]
+[assembly: InternalsVisibleTo( "DynamicProxyGenAssembly2" )]
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from
