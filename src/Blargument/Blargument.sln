@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blargument", "Blargument\Blargument.csproj", "{82C4BD66-3088-4C6B-9CCA-EA5F332EF46C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blargument.UnitTests", "Blargument.UnitTests\Blargument.UnitTests.csproj", "{0D5DAABC-2E5E-465C-9CCF-B98B9CA3574F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{82C4BD66-3088-4C6B-9CCA-EA5F332EF46C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82C4BD66-3088-4C6B-9CCA-EA5F332EF46C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82C4BD66-3088-4C6B-9CCA-EA5F332EF46C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D5DAABC-2E5E-465C-9CCF-B98B9CA3574F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D5DAABC-2E5E-465C-9CCF-B98B9CA3574F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D5DAABC-2E5E-465C-9CCF-B98B9CA3574F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D5DAABC-2E5E-465C-9CCF-B98B9CA3574F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
