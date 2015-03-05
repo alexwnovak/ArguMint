@@ -4,14 +4,14 @@ namespace Blargument.UnitTests.Dummies
 {
    internal class ClassWithTwoPropertiesMarkedObsolete
    {
-      [Obsolete]
+      [Obsolete( "Property X" )]
       public double X
       {
          get;
          set;
       }
 
-      [Obsolete]
+      [Obsolete( "Property Y" )]
       public double Y
       {
          get;

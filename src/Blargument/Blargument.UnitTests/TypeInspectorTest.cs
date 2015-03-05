@@ -50,15 +50,15 @@ namespace Blargument.UnitTests
       }
 
       [TestMethod]
-      public void GetMarkedProperties_TypeHasTwoPropertiesBothAreMarkedWithObsolete_ReturnsBothObsoleteAttributesWithProperties()
+      public void GetMarkedProperties_TypeHasTwoPropertiesBothAreMarkedWithObsolete_ReturnsBothObsoleteAttributesWithPropertiesAndAttributeParameter()
       {
          var typeInspector = new TypeInspector();
 
          var markedProperties = typeInspector.GetMarkedProperties<ClassWithTwoPropertiesMarkedObsolete, ObsoleteAttribute>();
 
          Assert.AreEqual( 2, markedProperties.Length );
-         Assert.IsTrue( markedProperties.Any( p => p.PropertyInfo.Name == "X" ) );
-         Assert.IsTrue( markedProperties.Any( p => p.PropertyInfo.Name == "Y" ) );
+         Assert.IsTrue( markedProperties.Any( p => p.PropertyInfo.Name == "X" && p.Attribute.Message == "Property X" ) );
+         Assert.IsTrue( markedProperties.Any( p => p.PropertyInfo.Name == "Y" && p.Attribute.Message == "Property Y" ) );
       }
    }
 }
