@@ -33,7 +33,7 @@ namespace Blargument
 
          if ( AutoInitialize )
          {
-            // Real wire-ups go here
+            unityContainer.RegisterType<ITypeInspector, TypeInspector>();
          }
 
          return unityContainer;
