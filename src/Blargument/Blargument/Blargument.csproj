@@ -51,6 +51,7 @@
     <Compile Include="ArgumentAnalyzer.cs" />
     <Compile Include="ArgumentAttribute.cs" />
     <Compile Include="MarkedProperty.cs" />
+    <Compile Include="TypeInspector.cs" />
     <Compile Include="Dependency.cs" />
     <Compile Include="ITypeInspector.cs" />
     <Compile Include="MissingAttributesException.cs" />
