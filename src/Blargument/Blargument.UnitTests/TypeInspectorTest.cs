@@ -16,5 +16,15 @@ namespace Blargument.UnitTests
 
          Assert.AreEqual( 0, markedProperties.Length );
       }
+
+      [TestMethod]
+      public void GetMarkedProperties_TypeHasOnePropertyButHasNoAttributes_ReturnsEmptyArray()
+      {
+         var typeInspector = new TypeInspector();
+
+         var markedProperties = typeInspector.GetMarkedProperties<ClassWithOneUnmarkedProperty, Attribute>();
+
+         Assert.AreEqual( 0, markedProperties.Length );
+      }
    }
 }
