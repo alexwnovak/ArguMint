@@ -26,5 +26,15 @@ namespace Blargument.UnitTests
 
          Assert.AreEqual( 0, markedProperties.Length );
       }
+
+      [TestMethod]
+      public void GetMarkedProperties_TypeHasObsoletePropertyAndWeAskForIt_ReturnsThePropertyAndAttribute()
+      {
+         var typeInspector = new TypeInspector();
+
+         var markedProperties = typeInspector.GetMarkedProperties<ClassWithOnePropertyMarkedAsObsolete, ObsoleteAttribute>();
+
+         Assert.AreEqual( 1, markedProperties.Length );
+      }
    }
 }
