@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Blargument.UnitTests.Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -46,6 +47,18 @@ namespace Blargument.UnitTests
 
          Assert.AreEqual( 1, markedProperties.Length );
          Assert.AreEqual( "TheInt", markedProperties[0].PropertyInfo.Name  );
+      }
+
+      [TestMethod]
+      public void GetMarkedProperties_TypeHasTwoPropertiesBothAreMarkedWithObsolete_ReturnsBothObsoleteAttributesWithProperties()
+      {
+         var typeInspector = new TypeInspector();
+
+         var markedProperties = typeInspector.GetMarkedProperties<ClassWithTwoPropertiesMarkedObsolete, ObsoleteAttribute>();
+
+         Assert.AreEqual( 2, markedProperties.Length );
+         Assert.IsTrue( markedProperties.Any( p => p.PropertyInfo.Name == "X" ) );
+         Assert.IsTrue( markedProperties.Any( p => p.PropertyInfo.Name == "Y" ) );
       }
    }
 }

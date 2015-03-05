@@ -73,6 +73,7 @@
     <Compile Include="Dummies\ClassWithOnePropertyMarkedAsObsolete.cs" />
     <Compile Include="Dummies\ClassWithOneUnmarkedProperty.cs" />
     <Compile Include="Dummies\ClassWithTwoAttributesOneMarkedAsObsolete.cs" />
+    <Compile Include="Dummies\ClassWithTwoPropertiesMarkedObsolete.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeInspectorTest.cs" />
   </ItemGroup>
