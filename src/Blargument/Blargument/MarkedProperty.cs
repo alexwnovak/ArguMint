@@ -3,17 +3,8 @@ using System.Reflection;
 
 namespace Blargument
 {
-   internal class MarkedProperty<T> where T: Attribute
+   internal class MarkedProperty<T> : IMarkedProperty<T> where T : Attribute
    {
-      private readonly PropertyInfo _propertyInfo;
-      public PropertyInfo PropertyInfo
-      {
-         get
-         {
-            return _propertyInfo;
-         }
-      }
-
       private readonly T _attribute;
       public T Attribute
       {
@@ -23,10 +14,24 @@ namespace Blargument
          }
       }
 
+      private readonly PropertyInfo _propertyInfo;
+      public string PropertyName
+      {
+         get
+         {
+            return _propertyInfo.Name;
+         }
+      }
+
       public MarkedProperty( PropertyInfo propertyInfo, T attribute )
       {
          _propertyInfo = propertyInfo;
          _attribute = attribute;
+      }
+
+      public void SetProperty( object instance, object value )
+      {
+         _propertyInfo.SetValue( instance, value, null );
       }
    }
 }
