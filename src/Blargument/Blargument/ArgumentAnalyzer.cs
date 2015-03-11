@@ -12,6 +12,27 @@ namespace Blargument
             throw new ArgumentException( "Arguments must not be null", "arguments" );
          }
 
+         var markedProperties = GetMarkedProperties<T>();
+         var argumentClass = new T();
+
+         for ( int index = 0; index < arguments.Length; index++ )
+         {
+            string thisArgument = arguments[index];
+
+            foreach ( var markedProperty in markedProperties )
+            {
+               if ( thisArgument == markedProperty.Attribute.Argument )
+               {
+                  markedProperty.SetProperty( argumentClass, true );
+               }
+            }
+         }
+
+         return argumentClass;
+      }
+
+      private static IMarkedProperty<ArgumentAttribute>[] GetMarkedProperties<T>()
+      {
          var typeInspector = Dependency.UnityContainer.Resolve<ITypeInspector>();
 
          var markedProperties = typeInspector.GetMarkedProperties<T, ArgumentAttribute>();
@@ -21,7 +42,7 @@ namespace Blargument
             throw new MissingAttributesException( "No Argument attributes were found on class: " + typeof( T ).Name );
          }
 
-         throw new NotImplementedException();
+         return markedProperties;
       }
    }
 }

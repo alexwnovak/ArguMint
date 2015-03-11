@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -37,6 +38,26 @@ namespace Blargument.UnitTests
          // Test
 
          ArgumentAnalyzer.Analyze<ClassWithNoAttributes>( new string[0] );
+      }
+
+      [TestMethod]
+      public void Analyze_PassedArgumentThatMatchesAttribute_SetsTheDecoratedProperty()
+      {
+         var markedPropertyMock = MarkedPropertyHelper.Create( "/?" );
+         var markedProperties = ArrayHelper.Create( markedPropertyMock.Object );
+         var arguments = ArrayHelper.Create( "/?" );
+
+         // Setup
+
+         var typeInspectorMock = new Mock<ITypeInspector>();
+         typeInspectorMock.Setup( ti => ti.GetMarkedProperties<ClassWithArgumentText, ArgumentAttribute>() ).Returns( markedProperties );
+         Dependency.UnityContainer.RegisterInstance( typeInspectorMock.Object );
+
+         // Test
+
+         var argumentClass = ArgumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
+
+         markedPropertyMock.Verify( mp => mp.SetProperty( argumentClass, true ), Times.Once() );
       }
    }
 }
