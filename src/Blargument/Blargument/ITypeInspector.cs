@@ -4,6 +4,6 @@ namespace Blargument
 {
    internal interface ITypeInspector
    {
-      MarkedProperty<TAttribute>[] GetMarkedProperties<TType, TAttribute>() where TAttribute: Attribute;
+      IMarkedProperty<TAttribute>[] GetMarkedProperties<TType, TAttribute>() where TAttribute: Attribute;
    }
 }
