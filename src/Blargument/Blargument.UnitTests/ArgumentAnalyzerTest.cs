@@ -19,7 +19,7 @@ namespace Blargument.UnitTests
       [ExpectedException( typeof( ArgumentException ) )]
       public void Analyze_ArgumentsAreNull_ThrowsArgumentException()
       {
-         ArgumentAnalyzer.Analyze<Any>( null );
+         ArgumentAnalyzer.Analyze<DontCare>( null );
       }
 
       [TestMethod]

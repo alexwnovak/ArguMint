@@ -67,7 +67,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Any.cs" />
+    <Compile Include="DontCare.cs" />
     <Compile Include="ArgumentAnalyzerTest.cs" />
     <Compile Include="ArrayHelper.cs" />
     <Compile Include="Dummies\ClassWithArgumentText.cs" />
