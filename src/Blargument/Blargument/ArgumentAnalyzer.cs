@@ -12,8 +12,14 @@ namespace Blargument
             throw new ArgumentException( "Arguments must not be null", "arguments" );
          }
 
-         var markedProperties = GetMarkedProperties<T>();
          var argumentClass = new T();
+
+         if ( arguments.Length == 0 )
+         {
+            return argumentClass;
+         }
+
+         var markedProperties = GetMarkedProperties<T>();
 
          for ( int index = 0; index < arguments.Length; index++ )
          {

@@ -23,9 +23,27 @@ namespace Blargument.UnitTests
       }
 
       [TestMethod]
+      public void Analyze_ArgumentArrayIsEmpty_DoesNotQueryForProperties()
+      {
+         // Setup
+
+         var typeInspectorMock = new Mock<ITypeInspector>();
+         Dependency.UnityContainer.RegisterInstance( typeInspectorMock.Object );
+
+         // Test
+
+         ArgumentAnalyzer.Analyze<DontCare>( new string[0] );
+
+         // Assert
+
+         typeInspectorMock.Verify( ti => ti.GetMarkedProperties<DontCare, ArgumentAttribute>(), Times.Never() );
+      }
+
+      [TestMethod]
       [ExpectedException( typeof( MissingAttributesException ) )]
       public void Analyze_TypeNotDecoratedWithAnyAttributes_ThrowsMissingAttributesException()
       {
+         var arguments = ArrayHelper.Create( "/?" );
          var markedProperties = new MarkedProperty<ArgumentAttribute>[0];
 
          // Setup
@@ -36,7 +54,7 @@ namespace Blargument.UnitTests
 
          // Test
 
-         ArgumentAnalyzer.Analyze<ClassWithNoAttributes>( new string[0] );
+         ArgumentAnalyzer.Analyze<ClassWithNoAttributes>( arguments );
       }
 
       [TestMethod]
