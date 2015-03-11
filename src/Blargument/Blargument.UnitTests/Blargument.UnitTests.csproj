@@ -70,6 +70,7 @@
     <Compile Include="Any.cs" />
     <Compile Include="ArgumentAnalyzerTest.cs" />
     <Compile Include="ArrayHelper.cs" />
+    <Compile Include="Dummies\ClassWithArgumentText.cs" />
     <Compile Include="Dummies\ClassWithNoAttributes.cs" />
     <Compile Include="Dummies\ClassWithOnePropertyMarkedAsObsolete.cs" />
     <Compile Include="Dummies\ClassWithOneUnmarkedProperty.cs" />
