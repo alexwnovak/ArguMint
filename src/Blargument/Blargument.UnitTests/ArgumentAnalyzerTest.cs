@@ -58,5 +58,25 @@ namespace Blargument.UnitTests
 
          markedPropertyMock.Verify( mp => mp.SetProperty( argumentClass, true ), Times.Once() );
       }
+
+      [TestMethod]
+      public void Analyze_PassedArgumentThatDoesNotMatchAttribute_DoesNotSetTheDecoratedProperty()
+      {
+         var markedPropertyMock = MarkedPropertyHelper.Create( "/?" );
+         var markedProperties = ArrayHelper.Create( markedPropertyMock.Object );
+         var arguments = ArrayHelper.Create( "someArgument" );
+
+         // Setup
+
+         var typeInspectorMock = new Mock<ITypeInspector>();
+         typeInspectorMock.Setup( ti => ti.GetMarkedProperties<ClassWithArgumentText, ArgumentAttribute>() ).Returns( markedProperties );
+         Dependency.UnityContainer.RegisterInstance( typeInspectorMock.Object );
+
+         // Test
+
+         var argumentClass = ArgumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
+
+         markedPropertyMock.Verify( mp => mp.SetProperty( argumentClass, true ), Times.Never() );
+      }
    }
 }
