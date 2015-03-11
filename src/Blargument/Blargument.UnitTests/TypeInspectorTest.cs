@@ -46,7 +46,7 @@ namespace Blargument.UnitTests
          var markedProperties = typeInspector.GetMarkedProperties<ClassWithTwoAttributesOneMarkedAsObsolete, ObsoleteAttribute>();
 
          Assert.AreEqual( 1, markedProperties.Length );
-         Assert.AreEqual( "TheInt", markedProperties[0].PropertyInfo.Name );
+         Assert.AreEqual( "TheInt", markedProperties[0].PropertyName );
       }
 
       [TestMethod]
@@ -57,8 +57,8 @@ namespace Blargument.UnitTests
          var markedProperties = typeInspector.GetMarkedProperties<ClassWithTwoPropertiesMarkedObsolete, ObsoleteAttribute>();
 
          Assert.AreEqual( 2, markedProperties.Length );
-         Assert.IsTrue( markedProperties.Any( p => p.PropertyInfo.Name == "X" && p.Attribute.Message == "Property X" ) );
-         Assert.IsTrue( markedProperties.Any( p => p.PropertyInfo.Name == "Y" && p.Attribute.Message == "Property Y" ) );
+         Assert.IsTrue( markedProperties.Any( p => p.PropertyName == "X" && p.Attribute.Message == "Property X" ) );
+         Assert.IsTrue( markedProperties.Any( p => p.PropertyName == "Y" && p.Attribute.Message == "Property Y" ) );
       }
    }
 }
