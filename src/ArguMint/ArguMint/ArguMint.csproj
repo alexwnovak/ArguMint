@@ -7,8 +7,8 @@
     <ProjectGuid>{82C4BD66-3088-4C6B-9CCA-EA5F332EF46C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Blargument</RootNamespace>
-    <AssemblyName>Blargument</AssemblyName>
+    <RootNamespace>ArguMint</RootNamespace>
+    <AssemblyName>ArguMint</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

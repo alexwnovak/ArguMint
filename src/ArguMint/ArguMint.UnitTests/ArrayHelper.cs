@@ -1,4 +1,4 @@
-﻿namespace Blargument.UnitTests
+﻿namespace ArguMint.UnitTests
 {
    public static class ArrayHelper
    {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blargument.UnitTests.Dummies
+namespace ArguMint.UnitTests.Dummies
 {
    internal class ClassWithTwoAttributesOneMarkedAsObsolete
    {

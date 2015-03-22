@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
+using ArguMint.UnitTests.Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Blargument.UnitTests.Dummies;
 
-namespace Blargument.UnitTests
+namespace ArguMint.UnitTests
 {
    [TestClass]
    public class TypeInspectorTest
@@ -15,7 +15,7 @@ namespace Blargument.UnitTests
 
          var markedProperties = typeInspector.GetMarkedProperties<ClassWithNoAttributes, Attribute>();
 
-         Assert.AreEqual( 0, markedProperties.Length );
+         Assert.AreEqual<int>( 0, markedProperties.Length );
       }
 
       [TestMethod]
@@ -25,7 +25,7 @@ namespace Blargument.UnitTests
 
          var markedProperties = typeInspector.GetMarkedProperties<ClassWithOneUnmarkedProperty, Attribute>();
 
-         Assert.AreEqual( 0, markedProperties.Length );
+         Assert.AreEqual<int>( 0, markedProperties.Length );
       }
 
       [TestMethod]
@@ -35,7 +35,7 @@ namespace Blargument.UnitTests
 
          var markedProperties = typeInspector.GetMarkedProperties<ClassWithOnePropertyMarkedAsObsolete, ObsoleteAttribute>();
 
-         Assert.AreEqual( 1, markedProperties.Length );
+         Assert.AreEqual<int>( 1, markedProperties.Length );
       }
 
       [TestMethod]
@@ -45,8 +45,8 @@ namespace Blargument.UnitTests
 
          var markedProperties = typeInspector.GetMarkedProperties<ClassWithTwoAttributesOneMarkedAsObsolete, ObsoleteAttribute>();
 
-         Assert.AreEqual( 1, markedProperties.Length );
-         Assert.AreEqual( "TheInt", markedProperties[0].PropertyName );
+         Assert.AreEqual<int>( 1, markedProperties.Length );
+         Assert.AreEqual<string>( "TheInt", markedProperties[0].PropertyName );
       }
 
       [TestMethod]
@@ -56,8 +56,8 @@ namespace Blargument.UnitTests
 
          var markedProperties = typeInspector.GetMarkedProperties<ClassWithTwoPropertiesMarkedObsolete, ObsoleteAttribute>();
 
-         Assert.AreEqual( 2, markedProperties.Length );
-         Assert.IsTrue( markedProperties.Any( p => p.PropertyName == "X" && p.Attribute.Message == "Property X" ) );
+         Assert.AreEqual<int>( 2, markedProperties.Length );
+         Assert.IsTrue( markedProperties.Any<IMarkedProperty<ObsoleteAttribute>>( p => p.PropertyName == "X" && p.Attribute.Message == "Property X" ) );
          Assert.IsTrue( markedProperties.Any( p => p.PropertyName == "Y" && p.Attribute.Message == "Property Y" ) );
       }
    }

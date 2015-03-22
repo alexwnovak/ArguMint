@@ -1,4 +1,4 @@
-﻿namespace Blargument.UnitTests
+﻿namespace ArguMint.UnitTests
 {
    internal class DontCare
    {

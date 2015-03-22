@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blargument
+namespace ArguMint
 {
    internal interface IMarkedProperty<out T> where T : Attribute
    {
