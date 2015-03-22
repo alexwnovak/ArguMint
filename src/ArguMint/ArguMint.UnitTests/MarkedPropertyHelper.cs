@@ -1,6 +1,7 @@
-﻿using Moq;
+﻿using Blargument;
+using Moq;
 
-namespace Blargument.UnitTests
+namespace ArguMint.UnitTests
 {
    public static class MarkedPropertyHelper
    {

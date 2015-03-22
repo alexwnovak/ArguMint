@@ -1,10 +1,11 @@
 ﻿using System;
+using ArguMint.UnitTests.Dummies;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Blargument.UnitTests.Dummies;
+using ArguMint;
 
-namespace Blargument.UnitTests
+namespace ArguMint.UnitTests
 {
    [TestClass]
    public class ArgumentAnalyzerTest
