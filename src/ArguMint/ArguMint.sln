@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArguMint", "ArguMint\ArguMint.csproj", "{82C4BD66-3088-4C6B-9CCA-EA5F332EF46C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArguMint.UnitTests", "Blargument.UnitTests\ArguMint.UnitTests.csproj", "{0D5DAABC-2E5E-465C-9CCF-B98B9CA3574F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArguMint.UnitTests", "ArguMint.UnitTests\ArguMint.UnitTests.csproj", "{0D5DAABC-2E5E-465C-9CCF-B98B9CA3574F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
