@@ -81,7 +81,7 @@
     <Compile Include="TypeInspectorTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Blargument\ArguMint.csproj">
+    <ProjectReference Include="..\ArguMint\ArguMint.csproj">
       <Project>{82c4bd66-3088-4c6b-9cca-ea5f332ef46c}</Project>
       <Name>ArguMint</Name>
     </ProjectReference>
