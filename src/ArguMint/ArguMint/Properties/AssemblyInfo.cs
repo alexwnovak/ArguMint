@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 // Expose the internals to the unit test project. This might feel dirty,
 // but I think it's a reasonable compromise between unit testing and not
 // making all the production code public for testing's sake.
-[assembly: InternalsVisibleTo( "Blargument.UnitTests" )]
+[assembly: InternalsVisibleTo( "ArguMint.UnitTests" )]
 [assembly: InternalsVisibleTo( "DynamicProxyGenAssembly2" )]  // For Moq
 
 // Setting ComVisible to false makes the types in this assembly not visible
