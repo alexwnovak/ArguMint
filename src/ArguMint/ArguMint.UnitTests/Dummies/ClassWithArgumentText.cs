@@ -1,6 +1,4 @@
-﻿using Blargument;
-
-namespace ArguMint.UnitTests.Dummies
+﻿namespace ArguMint.UnitTests.Dummies
 {
    internal class ClassWithArgumentText
    {

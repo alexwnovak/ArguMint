@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Blargument
+namespace ArguMint
 {
    internal class MarkedProperty<T> : IMarkedProperty<T> where T : Attribute
    {

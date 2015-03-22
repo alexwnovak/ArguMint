@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Practices.Unity;
 
-namespace Blargument
+namespace ArguMint
 {
    internal static class Dependency
    {

@@ -1,5 +1,4 @@
-﻿using Blargument;
-using Moq;
+﻿using Moq;
 
 namespace ArguMint.UnitTests
 {

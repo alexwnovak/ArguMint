@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Blargument
+namespace ArguMint
 {
    [Serializable]
    public class MissingAttributesException : Exception
