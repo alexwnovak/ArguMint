@@ -6,8 +6,8 @@
     <ProjectGuid>{0D5DAABC-2E5E-465C-9CCF-B98B9CA3574F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Blargument.UnitTests</RootNamespace>
-    <AssemblyName>Blargument.UnitTests</AssemblyName>
+    <RootNamespace>ArguMint.UnitTests</RootNamespace>
+    <AssemblyName>ArguMint.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
