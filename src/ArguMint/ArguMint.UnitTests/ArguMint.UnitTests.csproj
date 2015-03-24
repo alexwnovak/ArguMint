@@ -78,6 +78,7 @@
     <Compile Include="Dummies\ClassWithTwoAttributesOneMarkedAsObsolete.cs" />
     <Compile Include="Dummies\ClassWithTwoPropertiesMarkedObsolete.cs" />
     <Compile Include="Dummies\DummyAttribute.cs" />
+    <Compile Include="Dummies\DummyAttributePropertyNoGetter.cs" />
     <Compile Include="Dummies\DummyAttributePropertyNoSetter.cs" />
     <Compile Include="Dummies\DummyAttributePropertyPrivateSetter.cs" />
     <Compile Include="MarkedPropertyHelper.cs" />

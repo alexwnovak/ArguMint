@@ -46,6 +46,21 @@ namespace ArguMint.UnitTests
       }
 
       [TestMethod]
+      [ExpectedException( typeof( ArgumentException ) )]
+      public void Constructor_PropertyDoesNotHaveGetter_ThrowsArgumentException()
+      {
+         // Setup
+
+         var propertyInfo = typeof( DummyAttributePropertyNoGetter ).GetProperty( "StringProperty", BindingFlags.Public | BindingFlags.Instance );
+
+         // Test
+
+         var dummyAttribute = new DummyAttributePropertyNoGetter();
+
+         var markedProperty = new MarkedProperty<DummyAttributePropertyNoGetter>( propertyInfo, dummyAttribute );
+      }
+
+      [TestMethod]
       public void PropertyName_HasValidProperty_ReturnsPropertyName()
       {
          const string propertyName = "DummyProperty";

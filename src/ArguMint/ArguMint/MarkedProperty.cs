@@ -35,7 +35,7 @@ namespace ArguMint
             throw new ArgumentNullException( "attribute", "Attribute instance must not be null" );
          }
 
-         if ( !propertyInfo.CanWrite )
+         if ( !propertyInfo.CanRead || !propertyInfo.CanWrite )
          {
             throw new ArgumentException( "Properties must have getters and setters" );
          }
