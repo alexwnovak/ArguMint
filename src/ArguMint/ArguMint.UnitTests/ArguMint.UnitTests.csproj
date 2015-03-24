@@ -70,6 +70,7 @@
     <Compile Include="DontCare.cs" />
     <Compile Include="ArgumentAnalyzerTest.cs" />
     <Compile Include="ArrayHelper.cs" />
+    <Compile Include="DontCareAttribute.cs" />
     <Compile Include="Dummies\ClassWithArgumentText.cs" />
     <Compile Include="Dummies\ClassWithNoAttributes.cs" />
     <Compile Include="Dummies\ClassWithOnePropertyMarkedAsObsolete.cs" />
