@@ -31,6 +31,21 @@ namespace ArguMint.UnitTests
       }
 
       [TestMethod]
+      [ExpectedException( typeof( ArgumentException ) )]
+      public void Constructor_PropertyDoesNotHaveSetter_ThrowsArgumentException()
+      {
+         // Setup
+
+         var propertyInfo = typeof( DummyAttributePropertyNoSetter ).GetProperty( "StringProperty", BindingFlags.Public | BindingFlags.Instance );
+
+         // Test
+
+         var dummyAttribute = new DummyAttributePropertyNoSetter();
+
+         var markedProperty = new MarkedProperty<DummyAttributePropertyNoSetter>( propertyInfo, dummyAttribute );
+      }
+
+      [TestMethod]
       public void PropertyName_HasValidProperty_ReturnsPropertyName()
       {
          const string propertyName = "DummyProperty";
