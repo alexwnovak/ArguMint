@@ -73,7 +73,7 @@ namespace ArguMint.UnitTests
 
          // Test
 
-         var argumentClass = ArgumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
+         ArgumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
 
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( true ), Times.Once() );
       }
@@ -93,7 +93,7 @@ namespace ArguMint.UnitTests
 
          // Test
 
-         var argumentClass = ArgumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
+         ArgumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
 
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( true ), Times.Never() );
       }
