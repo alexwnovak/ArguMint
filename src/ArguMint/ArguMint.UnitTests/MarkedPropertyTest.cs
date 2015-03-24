@@ -28,5 +28,21 @@ namespace ArguMint.UnitTests
 
          var markedProperty = new MarkedProperty<DontCareAttribute>( propertyInfo, null );
       }
+
+      [TestMethod]
+      public void PropertyName_HasValidProperty_ReturnsPropertyName()
+      {
+         const string propertyName = "DummyProperty";
+
+         // Setup
+
+         var propertyInfo = typeof( MarkedPropertyTest ).GetProperty( propertyName, BindingFlags.NonPublic | BindingFlags.Instance );
+
+         // Test
+
+         var markedProperty = new MarkedProperty<DontCareAttribute>( propertyInfo, new DontCareAttribute() );
+
+         Assert.AreEqual( propertyName, markedProperty.PropertyName );
+      }
    }
 }
