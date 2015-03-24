@@ -39,9 +39,9 @@ namespace ArguMint
          _attribute = attribute;
       }
 
-      public void SetProperty( object instance, object value )
+      public void SetProperty( object value )
       {
-         _propertyInfo.SetValue( instance, value, null );
+         _propertyInfo.SetValue( _attribute, value, null );
       }
    }
 }
