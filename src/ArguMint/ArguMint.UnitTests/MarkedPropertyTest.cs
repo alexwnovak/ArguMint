@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using ArguMint.UnitTests.Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ArguMint.UnitTests
@@ -59,6 +60,32 @@ namespace ArguMint.UnitTests
          var markedProperty = new MarkedProperty<DontCareAttribute>( propertyInfo, attribute );
 
          Assert.AreEqual( attribute, markedProperty.Attribute );
+      }
+
+      [TestMethod]
+      public void SetProperty_HasValidAttribute_SetsPropertyCorrectly()
+      {
+         const string oldValue = "OldValue";
+         const string newValue = "NewValue";
+
+         // Setup
+
+         var propertyInfo = typeof( DummyAttribute ).GetProperty( "StringProperty", BindingFlags.Public | BindingFlags.Instance );
+
+         // Test
+
+         var dummyAttribute = new DummyAttribute
+         {
+            StringProperty = oldValue
+         };
+
+         var markedProperty = new MarkedProperty<DummyAttribute>( propertyInfo, dummyAttribute );
+
+         markedProperty.SetProperty( dummyAttribute, newValue );
+
+         // Assert
+
+         Assert.AreEqual( newValue, dummyAttribute.StringProperty );
       }
    }
 }
