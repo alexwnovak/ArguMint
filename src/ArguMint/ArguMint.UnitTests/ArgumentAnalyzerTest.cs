@@ -75,7 +75,7 @@ namespace ArguMint.UnitTests
 
          var argumentClass = ArgumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
 
-         markedPropertyMock.Verify( mp => mp.SetProperty( true ), Times.Once() );
+         markedPropertyMock.Verify( mp => mp.SetPropertyValue( true ), Times.Once() );
       }
 
       [TestMethod]
@@ -95,7 +95,7 @@ namespace ArguMint.UnitTests
 
          var argumentClass = ArgumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
 
-         markedPropertyMock.Verify( mp => mp.SetProperty( true ), Times.Never() );
+         markedPropertyMock.Verify( mp => mp.SetPropertyValue( true ), Times.Never() );
       }
    }
 }
