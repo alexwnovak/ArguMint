@@ -102,5 +102,27 @@ namespace ArguMint.UnitTests
 
          Assert.AreEqual( newValue, dummyAttribute.StringProperty );
       }
+
+      [TestMethod]
+      public void SetProperty_PropertyHasPrivateSetter_AllowsPropertyToBeSet()
+      {
+         const string newValue = "NewValue";
+
+         // Setup
+
+         var propertyInfo = typeof( DummyAttributePropertyPrivateSetter ).GetProperty( "StringProperty", BindingFlags.Public | BindingFlags.Instance );
+
+         // Test
+
+         var dummyAttribute = new DummyAttributePropertyPrivateSetter();
+
+         var markedProperty = new MarkedProperty<DummyAttributePropertyPrivateSetter>( propertyInfo, dummyAttribute );
+
+         markedProperty.SetProperty( newValue );
+
+         // Assert
+
+         Assert.AreEqual( newValue, markedProperty.Attribute.StringProperty );
+      }
    }
 }

@@ -79,6 +79,7 @@
     <Compile Include="Dummies\ClassWithTwoPropertiesMarkedObsolete.cs" />
     <Compile Include="Dummies\DummyAttribute.cs" />
     <Compile Include="Dummies\DummyAttributePropertyNoSetter.cs" />
+    <Compile Include="Dummies\DummyAttributePropertyPrivateSetter.cs" />
     <Compile Include="MarkedPropertyHelper.cs" />
     <Compile Include="MarkedPropertyTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
