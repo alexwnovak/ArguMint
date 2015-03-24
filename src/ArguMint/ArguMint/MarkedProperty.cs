@@ -25,6 +25,11 @@ namespace ArguMint
 
       public MarkedProperty( PropertyInfo propertyInfo, T attribute )
       {
+         if ( propertyInfo == null )
+         {
+            throw new ArgumentNullException( "propertyInfo", "PropertyInfo instance must not be null" );
+         }
+
          _propertyInfo = propertyInfo;
          _attribute = attribute;
       }
