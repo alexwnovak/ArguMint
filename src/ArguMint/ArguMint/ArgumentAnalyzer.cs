@@ -19,7 +19,7 @@ namespace ArguMint
       {
          if ( arguments == null )
          {
-            throw new ArgumentException( "Arguments must not be null", "arguments" );
+            throw new ArgumentException( "Arguments must not be null", nameof( arguments ) );
          }
 
          var argumentClass = new T();

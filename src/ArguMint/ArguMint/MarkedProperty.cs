@@ -17,12 +17,12 @@ namespace ArguMint
       {
          if ( propertyInfo == null )
          {
-            throw new ArgumentNullException( "propertyInfo", "PropertyInfo instance must not be null" );
+            throw new ArgumentNullException( nameof( propertyInfo ), "PropertyInfo instance must not be null" );
          }
 
          if ( attribute == null )
          {
-            throw new ArgumentNullException( "attribute", "Attribute instance must not be null" );
+            throw new ArgumentNullException( nameof( attribute ), "Attribute instance must not be null" );
          }
 
          if ( !propertyInfo.CanRead || !propertyInfo.CanWrite )
