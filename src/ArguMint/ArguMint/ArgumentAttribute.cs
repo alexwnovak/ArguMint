@@ -2,7 +2,7 @@
 
 namespace ArguMint
 {
-   [AttributeUsage( AttributeTargets.Property, AllowMultiple = false, Inherited = true )]
+   [AttributeUsage( AttributeTargets.Property )]
    public class ArgumentAttribute : Attribute
    {
       public string Argument
