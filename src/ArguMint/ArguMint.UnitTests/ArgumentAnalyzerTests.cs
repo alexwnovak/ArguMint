@@ -12,7 +12,9 @@ namespace ArguMint.UnitTests
       {
          var argumentAnalyzer = new ArgumentAnalyzer();
 
-         argumentAnalyzer.Invoking( aa => aa.Analyze<DontCare>( null ) ).ShouldThrow<ArgumentException>();
+         Action analyze = () => argumentAnalyzer.Analyze<DontCare>( null );
+
+         analyze.ShouldThrow<ArgumentException>();
       }
 
       public void Analyze_ArgumentArrayIsEmpty_DoesNotQueryForProperties()
@@ -44,7 +46,10 @@ namespace ArguMint.UnitTests
          // Test
 
          var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object );
-         argumentAnalyzer.Invoking( aa => aa.Analyze<ClassWithNoAttributes>( arguments ) ).ShouldThrow<MissingAttributesException>();
+
+         Action analyze = () => argumentAnalyzer.Analyze<ClassWithNoAttributes>( arguments );
+
+         analyze.ShouldThrow<MissingAttributesException>();
       }
 
       public void Analyze_PassedArgumentThatMatchesAttribute_SetsTheDecoratedProperty()
