@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ArguMint.UnitTests
+namespace ArguMint.UnitTests.Dummies
 {
    internal class DontCareAttribute : Attribute
    {

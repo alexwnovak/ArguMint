@@ -69,10 +69,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="DontCare.cs" />
+    <Compile Include="Dummies\DontCare.cs" />
     <Compile Include="ArgumentAnalyzerTests.cs" />
     <Compile Include="Helpers\ArrayHelper.cs" />
-    <Compile Include="DontCareAttribute.cs" />
+    <Compile Include="Dummies\DontCareAttribute.cs" />
     <Compile Include="Dummies\ClassWithArgumentText.cs" />
     <Compile Include="Dummies\ClassWithNoAttributes.cs" />
     <Compile Include="Dummies\ClassWithOnePropertyMarkedAsObsolete.cs" />
