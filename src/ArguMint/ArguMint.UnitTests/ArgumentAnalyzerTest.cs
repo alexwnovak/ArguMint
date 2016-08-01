@@ -1,6 +1,5 @@
 ﻿using System;
 using ArguMint.UnitTests.Dummies;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using ArguMint;
@@ -10,12 +9,6 @@ namespace ArguMint.UnitTests
    [TestClass]
    public class ArgumentAnalyzerTest
    {
-      [TestInitialize]
-      public void Initialize()
-      {
-         Dependency.AutoInitialize = false;
-      }
-
       [TestMethod]
       [ExpectedException( typeof( ArgumentException ) )]
       public void Analyze_ArgumentsAreNull_ThrowsArgumentException()
@@ -92,7 +85,6 @@ namespace ArguMint.UnitTests
 
          var typeInspectorMock = new Mock<ITypeInspector>();
          typeInspectorMock.Setup( ti => ti.GetMarkedProperties<ClassWithArgumentText, ArgumentAttribute>() ).Returns( markedProperties );
-         Dependency.UnityContainer.RegisterInstance( typeInspectorMock.Object );
 
          // Test
 
