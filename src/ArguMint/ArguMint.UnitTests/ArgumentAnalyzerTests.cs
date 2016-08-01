@@ -1,6 +1,5 @@
 ﻿using System;
 using ArguMint.UnitTests.Dummies;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using ArguMint;
 using FluentAssertions;
