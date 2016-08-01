@@ -3,7 +3,7 @@ using Microsoft.Practices.Unity;
 
 namespace ArguMint
 {
-   public static class ArgumentAnalyzer
+   public class ArgumentAnalyzer
    {
       public static T Analyze<T>( string[] arguments ) where T : class, new()
       {
