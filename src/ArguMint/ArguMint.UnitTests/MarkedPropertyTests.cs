@@ -13,48 +13,51 @@ namespace ArguMint.UnitTests
          set;
       }
 
-      //public void Constructor_PropertyInfoIsNull_ThrowsArgumentNullException()
-      //{
-      //   // TODO: How should I expect an ArgumentException from a constructor??
-      //   var markedProperty = new MarkedProperty<DontCareAttribute>( null, new DontCareAttribute() );
-      //}
+      public void Constructor_PropertyInfoIsNull_ThrowsArgumentNullException()
+      {
+         Action ctor = () => new MarkedProperty<DontCareAttribute>( null, new DontCareAttribute() );
 
-      //public void Constructor_AttributeIsNull_ThrowsArgumentNullException()
-      //{
-      //   // TODO: This one too!
+         ctor.ShouldThrow<ArgumentException>();
+      }
 
-      //   var propertyInfo = typeof( MarkedPropertyTests ).GetProperty( "DummyProperty", BindingFlags.NonPublic | BindingFlags.Instance );
+      public void Constructor_AttributeIsNull_ThrowsArgumentNullException()
+      {
+         var propertyInfo = typeof( MarkedPropertyTests ).GetProperty( "DummyProperty", BindingFlags.NonPublic | BindingFlags.Instance );
 
-      //   var markedProperty = new MarkedProperty<DontCareAttribute>( propertyInfo, null );
-      //}
+         Action ctor = () => new MarkedProperty<DontCareAttribute>( propertyInfo, null );
 
-      //public void Constructor_PropertyDoesNotHaveSetter_ThrowsArgumentException()
-      //{
-      //   // TODO: And this!
-      //   // Setup
+         ctor.ShouldThrow<ArgumentException>();
+      }
 
-      //   var propertyInfo = typeof( DummyAttributePropertyNoSetter ).GetProperty( "StringProperty", BindingFlags.Public | BindingFlags.Instance );
+      public void Constructor_PropertyDoesNotHaveSetter_ThrowsArgumentException()
+      {
+         // Setup
 
-      //   // Test
+         var propertyInfo = typeof( DummyAttributePropertyNoSetter ).GetProperty( "StringProperty", BindingFlags.Public | BindingFlags.Instance );
 
-      //   var dummyAttribute = new DummyAttributePropertyNoSetter();
+         // Test
 
-      //   var markedProperty = new MarkedProperty<DummyAttributePropertyNoSetter>( propertyInfo, dummyAttribute );
-      //}
+         var dummyAttribute = new DummyAttributePropertyNoSetter();
 
-      //public void Constructor_PropertyDoesNotHaveGetter_ThrowsArgumentException()
-      //{
-      //   // TODO: And this!
-      //   // Setup
+         Action ctor = () => new MarkedProperty<DummyAttributePropertyNoSetter>( propertyInfo, dummyAttribute );
 
-      //   var propertyInfo = typeof( DummyAttributePropertyNoGetter ).GetProperty( "StringProperty", BindingFlags.Public | BindingFlags.Instance );
+         ctor.ShouldThrow<ArgumentException>();
+      }
 
-      //   // Test
+      public void Constructor_PropertyDoesNotHaveGetter_ThrowsArgumentException()
+      {
+         // Setup
 
-      //   var dummyAttribute = new DummyAttributePropertyNoGetter();
+         var propertyInfo = typeof( DummyAttributePropertyNoGetter ).GetProperty( "StringProperty", BindingFlags.Public | BindingFlags.Instance );
 
-      //   var markedProperty = new MarkedProperty<DummyAttributePropertyNoGetter>( propertyInfo, dummyAttribute );
-      //}
+         // Test
+
+         var dummyAttribute = new DummyAttributePropertyNoGetter();
+
+         Action ctor = () => new MarkedProperty<DummyAttributePropertyNoGetter>( propertyInfo, dummyAttribute );
+
+         ctor.ShouldThrow<ArgumentException>();
+      }
 
       public void PropertyName_HasValidProperty_ReturnsPropertyName()
       {
