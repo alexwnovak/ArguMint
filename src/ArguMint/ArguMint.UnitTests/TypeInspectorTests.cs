@@ -1,6 +1,6 @@
 ﻿using System;
-using ArguMint.UnitTests.Dummies;
 using FluentAssertions;
+using ArguMint.UnitTests.Dummies;
 
 namespace ArguMint.UnitTests
 {

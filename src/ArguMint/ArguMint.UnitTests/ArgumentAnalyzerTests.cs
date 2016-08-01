@@ -1,8 +1,7 @@
 ﻿using System;
-using ArguMint.UnitTests.Dummies;
 using Moq;
-using ArguMint;
 using FluentAssertions;
+using ArguMint.UnitTests.Dummies;
 
 namespace ArguMint.UnitTests
 {
