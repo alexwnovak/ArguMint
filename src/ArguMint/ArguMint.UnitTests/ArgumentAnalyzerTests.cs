@@ -3,22 +3,19 @@ using ArguMint.UnitTests.Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using ArguMint;
+using FluentAssertions;
 
 namespace ArguMint.UnitTests
 {
-   [TestClass]
-   public class ArgumentAnalyzerTest
+   public class ArgumentAnalyzerTests
    {
-      [TestMethod]
-      [ExpectedException( typeof( ArgumentException ) )]
       public void Analyze_ArgumentsAreNull_ThrowsArgumentException()
       {
          var argumentAnalyzer = new ArgumentAnalyzer();
 
-         argumentAnalyzer.Analyze<DontCare>( null );
+         argumentAnalyzer.Invoking( aa => aa.Analyze<DontCare>( null ) ).ShouldThrow<ArgumentException>();
       }
 
-      [TestMethod]
       public void Analyze_ArgumentArrayIsEmpty_DoesNotQueryForProperties()
       {
          // Setup
@@ -35,8 +32,6 @@ namespace ArguMint.UnitTests
          typeInspectorMock.Verify( ti => ti.GetMarkedProperties<DontCare, ArgumentAttribute>(), Times.Never() );
       }
 
-      [TestMethod]
-      [ExpectedException( typeof( MissingAttributesException ) )]
       public void Analyze_TypeNotDecoratedWithAnyAttributes_ThrowsMissingAttributesException()
       {
          var arguments = ArrayHelper.Create( "/?" );
@@ -50,10 +45,9 @@ namespace ArguMint.UnitTests
          // Test
 
          var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object );
-         argumentAnalyzer.Analyze<ClassWithNoAttributes>( arguments );
+         argumentAnalyzer.Invoking( aa => aa.Analyze<ClassWithNoAttributes>( arguments ) ).ShouldThrow<MissingAttributesException>();
       }
 
-      [TestMethod]
       public void Analyze_PassedArgumentThatMatchesAttribute_SetsTheDecoratedProperty()
       {
          var markedPropertyMock = MarkedPropertyHelper.Create( "/?" );
@@ -74,7 +68,6 @@ namespace ArguMint.UnitTests
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( true ), Times.Once() );
       }
 
-      [TestMethod]
       public void Analyze_PassedArgumentThatDoesNotMatchAttribute_DoesNotSetTheDecoratedProperty()
       {
          var markedPropertyMock = MarkedPropertyHelper.Create( "/?" );
