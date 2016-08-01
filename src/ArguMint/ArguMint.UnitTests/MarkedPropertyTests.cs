@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ArguMint.UnitTests
 {
    [TestClass]
-   public class MarkedPropertyTest
+   public class MarkedPropertyTests
    {
       private string DummyProperty
       {
@@ -25,7 +25,7 @@ namespace ArguMint.UnitTests
       [ExpectedException( typeof( ArgumentNullException ) )]
       public void Constructor_AttributeIsNull_ThrowsArgumentNullException()
       {
-         var propertyInfo = typeof( MarkedPropertyTest ).GetProperty( "DummyProperty", BindingFlags.NonPublic | BindingFlags.Instance );
+         var propertyInfo = typeof( MarkedPropertyTests ).GetProperty( "DummyProperty", BindingFlags.NonPublic | BindingFlags.Instance );
 
          var markedProperty = new MarkedProperty<DontCareAttribute>( propertyInfo, null );
       }
@@ -67,7 +67,7 @@ namespace ArguMint.UnitTests
 
          // Setup
 
-         var propertyInfo = typeof( MarkedPropertyTest ).GetProperty( propertyName, BindingFlags.NonPublic | BindingFlags.Instance );
+         var propertyInfo = typeof( MarkedPropertyTests ).GetProperty( propertyName, BindingFlags.NonPublic | BindingFlags.Instance );
 
          // Test
 
@@ -83,7 +83,7 @@ namespace ArguMint.UnitTests
 
          // Setup
 
-         var propertyInfo = typeof( MarkedPropertyTest ).GetProperty( "DummyProperty", BindingFlags.NonPublic | BindingFlags.Instance );
+         var propertyInfo = typeof( MarkedPropertyTests ).GetProperty( "DummyProperty", BindingFlags.NonPublic | BindingFlags.Instance );
 
          // Test
 

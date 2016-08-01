@@ -88,7 +88,7 @@
     <Compile Include="Dummies\DummyAttributePropertyNoSetter.cs" />
     <Compile Include="Dummies\DummyAttributePropertyPrivateSetter.cs" />
     <Compile Include="MarkedPropertyHelper.cs" />
-    <Compile Include="MarkedPropertyTest.cs" />
+    <Compile Include="MarkedPropertyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeInspectorTest.cs" />
   </ItemGroup>
