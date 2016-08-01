@@ -5,34 +5,24 @@ namespace ArguMint
 {
    internal class MarkedProperty<T> : IMarkedProperty<T> where T : Attribute
    {
-      private readonly T _attribute;
       public T Attribute
       {
-         get
-         {
-            return _attribute;
-         }
+         get;
       }
 
       private readonly PropertyInfo _propertyInfo;
-      public string PropertyName
-      {
-         get
-         {
-            return _propertyInfo.Name;
-         }
-      }
+      public string PropertyName => _propertyInfo.Name;
 
       public MarkedProperty( PropertyInfo propertyInfo, T attribute )
       {
          if ( propertyInfo == null )
          {
-            throw new ArgumentNullException( "propertyInfo", "PropertyInfo instance must not be null" );
+            throw new ArgumentNullException( nameof( propertyInfo ), "PropertyInfo instance must not be null" );
          }
 
          if ( attribute == null )
          {
-            throw new ArgumentNullException( "attribute", "Attribute instance must not be null" );
+            throw new ArgumentNullException( nameof( attribute ), "Attribute instance must not be null" );
          }
 
          if ( !propertyInfo.CanRead || !propertyInfo.CanWrite )
@@ -41,12 +31,12 @@ namespace ArguMint
          }
 
          _propertyInfo = propertyInfo;
-         _attribute = attribute;
+         Attribute = attribute;
       }
 
       public void SetPropertyValue( object value )
       {
-         _propertyInfo.SetValue( _attribute, value, null );
+         _propertyInfo.SetValue( Attribute, value, null );
       }
    }
 }

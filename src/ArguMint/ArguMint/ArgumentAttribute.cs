@@ -2,21 +2,17 @@
 
 namespace ArguMint
 {
-   [AttributeUsage( AttributeTargets.Property, AllowMultiple = false, Inherited = true )]
+   [AttributeUsage( AttributeTargets.Property )]
    public class ArgumentAttribute : Attribute
    {
-      private readonly string _argument;
       public string Argument
       {
-         get
-         {
-            return _argument;
-         }
+         get;
       }
 
       public ArgumentAttribute( string argument )
       {
-         _argument = argument;
+         Argument = argument;
       }
    }
 }
