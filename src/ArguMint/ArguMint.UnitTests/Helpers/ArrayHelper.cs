@@ -1,4 +1,4 @@
-﻿namespace ArguMint.UnitTests
+﻿namespace ArguMint.UnitTests.Helpers
 {
    public static class ArrayHelper
    {
