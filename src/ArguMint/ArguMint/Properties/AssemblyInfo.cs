@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "" )]
 [assembly: AssemblyProduct( "ArguMint" )]
-[assembly: AssemblyCopyright( "Copyright © 2015 Alex Novak" )]
+[assembly: AssemblyCopyright( "Copyright © 2015-2016 Alex Novak" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
