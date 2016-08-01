@@ -20,7 +20,9 @@ namespace ArguMint.UnitTests
       [ExpectedException( typeof( ArgumentException ) )]
       public void Analyze_ArgumentsAreNull_ThrowsArgumentException()
       {
-         ArgumentAnalyzer.Analyze<DontCare>( null );
+         var argumentAnalyzer = new ArgumentAnalyzer();
+
+         argumentAnalyzer.Analyze<DontCare>( null );
       }
 
       [TestMethod]
@@ -29,11 +31,11 @@ namespace ArguMint.UnitTests
          // Setup
 
          var typeInspectorMock = new Mock<ITypeInspector>();
-         Dependency.UnityContainer.RegisterInstance( typeInspectorMock.Object );
 
          // Test
 
-         ArgumentAnalyzer.Analyze<DontCare>( new string[0] );
+         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object );
+         argumentAnalyzer.Analyze<DontCare>( new string[0] );
 
          // Assert
 
@@ -51,11 +53,11 @@ namespace ArguMint.UnitTests
 
          var typeInspectorMock = new Mock<ITypeInspector>();
          typeInspectorMock.Setup( ti => ti.GetMarkedProperties<ClassWithNoAttributes, ArgumentAttribute>() ).Returns( markedProperties );
-         Dependency.UnityContainer.RegisterInstance( typeInspectorMock.Object );
 
          // Test
 
-         ArgumentAnalyzer.Analyze<ClassWithNoAttributes>( arguments );
+         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object );
+         argumentAnalyzer.Analyze<ClassWithNoAttributes>( arguments );
       }
 
       [TestMethod]
@@ -69,11 +71,12 @@ namespace ArguMint.UnitTests
 
          var typeInspectorMock = new Mock<ITypeInspector>();
          typeInspectorMock.Setup( ti => ti.GetMarkedProperties<ClassWithArgumentText, ArgumentAttribute>() ).Returns( markedProperties );
-         Dependency.UnityContainer.RegisterInstance( typeInspectorMock.Object );
 
          // Test
 
-         ArgumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
+         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object );
+
+         argumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
 
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( true ), Times.Once() );
       }
@@ -93,7 +96,9 @@ namespace ArguMint.UnitTests
 
          // Test
 
-         ArgumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
+         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object );
+
+         argumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
 
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( true ), Times.Never() );
       }
