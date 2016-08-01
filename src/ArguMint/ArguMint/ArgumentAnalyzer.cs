@@ -1,11 +1,21 @@
 ﻿using System;
-using Microsoft.Practices.Unity;
 
 namespace ArguMint
 {
-   public static class ArgumentAnalyzer
+   public class ArgumentAnalyzer
    {
-      public static T Analyze<T>( string[] arguments ) where T : class, new()
+      private readonly ITypeInspector _typeInspector;
+
+      internal ArgumentAnalyzer() : this( new TypeInspector() )
+      {
+      }
+
+      internal ArgumentAnalyzer( ITypeInspector typeInspector )
+      {
+         _typeInspector = typeInspector;
+      }
+
+      public T Analyze<T>( string[] arguments ) where T : class, new()
       {
          if ( arguments == null )
          {
@@ -37,11 +47,9 @@ namespace ArguMint
          return argumentClass;
       }
 
-      private static IMarkedProperty<ArgumentAttribute>[] GetMarkedProperties<T>()
+      private IMarkedProperty<ArgumentAttribute>[] GetMarkedProperties<T>()
       {
-         var typeInspector = Dependency.UnityContainer.Resolve<ITypeInspector>();
-
-         var markedProperties = typeInspector.GetMarkedProperties<T, ArgumentAttribute>();
+         var markedProperties = _typeInspector.GetMarkedProperties<T, ArgumentAttribute>();
 
          if ( markedProperties.Length == 0 )
          {
