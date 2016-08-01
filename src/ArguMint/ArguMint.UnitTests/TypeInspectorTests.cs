@@ -1,64 +1,55 @@
 ﻿using System;
-using System.Linq;
 using ArguMint.UnitTests.Dummies;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace ArguMint.UnitTests
 {
-   [TestClass]
-   public class TypeInspectorTest
+   public class TypeInspectorTests
    {
-      [TestMethod]
       public void GetMarkedProperties_TypeHasNoProperties_ReturnsEmptyArrayOfMarkedProperties()
       {
          var typeInspector = new TypeInspector();
 
          var markedProperties = typeInspector.GetMarkedProperties<ClassWithNoAttributes, Attribute>();
 
-         Assert.AreEqual( 0, markedProperties.Length );
+         markedProperties.Should().BeEmpty();
       }
 
-      [TestMethod]
       public void GetMarkedProperties_TypeHasOnePropertyButHasNoAttributes_ReturnsEmptyArray()
       {
          var typeInspector = new TypeInspector();
 
          var markedProperties = typeInspector.GetMarkedProperties<ClassWithOneUnmarkedProperty, Attribute>();
 
-         Assert.AreEqual( 0, markedProperties.Length );
+         markedProperties.Should().BeEmpty();
       }
 
-      [TestMethod]
       public void GetMarkedProperties_TypeHasObsoletePropertyAndWeAskForIt_ReturnsThePropertyAndAttribute()
       {
          var typeInspector = new TypeInspector();
 
          var markedProperties = typeInspector.GetMarkedProperties<ClassWithOnePropertyMarkedAsObsolete, ObsoleteAttribute>();
 
-         Assert.AreEqual( 1, markedProperties.Length );
+         markedProperties.Should().HaveCount( 1 );
       }
 
-      [TestMethod]
       public void GetMarkedProperties_TypeHasTwoPropertiesButOneIsMarkedWithObsolete_ReturnsTheObsoleteAttributeWithProperty()
       {
          var typeInspector = new TypeInspector();
 
          var markedProperties = typeInspector.GetMarkedProperties<ClassWithTwoAttributesOneMarkedAsObsolete, ObsoleteAttribute>();
 
-         Assert.AreEqual( 1, markedProperties.Length );
-         Assert.AreEqual( "TheInt", markedProperties[0].PropertyName );
+         markedProperties.Should().ContainSingle( p => p.PropertyName == "TheInt" );
       }
 
-      [TestMethod]
       public void GetMarkedProperties_TypeHasTwoPropertiesBothAreMarkedWithObsolete_ReturnsBothObsoleteAttributesWithPropertiesAndAttributeParameter()
       {
          var typeInspector = new TypeInspector();
 
          var markedProperties = typeInspector.GetMarkedProperties<ClassWithTwoPropertiesMarkedObsolete, ObsoleteAttribute>();
 
-         Assert.AreEqual( 2, markedProperties.Length );
-         Assert.IsTrue( markedProperties.Any( p => p.PropertyName == "X" && p.Attribute.Message == "Property X" ) );
-         Assert.IsTrue( markedProperties.Any( p => p.PropertyName == "Y" && p.Attribute.Message == "Property Y" ) );
+         markedProperties.Should().Contain( p => p.PropertyName == "X" && p.Attribute.Message == "Property X" );
+         markedProperties.Should().Contain( p => p.PropertyName == "Y" && p.Attribute.Message == "Property Y" );
       }
    }
 }
