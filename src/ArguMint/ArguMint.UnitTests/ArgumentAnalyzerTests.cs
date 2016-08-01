@@ -2,6 +2,7 @@
 using Moq;
 using FluentAssertions;
 using ArguMint.UnitTests.Dummies;
+using ArguMint.UnitTests.Helpers;
 
 namespace ArguMint.UnitTests
 {
