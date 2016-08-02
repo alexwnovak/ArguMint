@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="ArgumentAnalyzer.cs" />
     <Compile Include="ArgumentAttribute.cs" />
+    <Compile Include="ArgumentPosition.cs" />
     <Compile Include="IMarkedProperty.cs" />
     <Compile Include="MarkedProperty.cs" />
     <Compile Include="TypeInspector.cs" />
