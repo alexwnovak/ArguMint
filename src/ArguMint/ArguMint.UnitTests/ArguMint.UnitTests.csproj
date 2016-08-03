@@ -70,6 +70,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ArgumentPositionExtensionsTests.cs" />
+    <Compile Include="Dummies\ClassWithStringArgumentFirst.cs" />
     <Compile Include="Dummies\DontCare.cs" />
     <Compile Include="ArgumentAnalyzerTests.cs" />
     <Compile Include="Helpers\ArrayHelper.cs" />

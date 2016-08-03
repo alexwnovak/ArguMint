@@ -26,6 +26,7 @@ namespace ArguMint.UnitTests
          // Test
 
          var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object );
+
          argumentAnalyzer.Analyze<DontCare>( new string[0] );
 
          // Assert
@@ -90,6 +91,25 @@ namespace ArguMint.UnitTests
          argumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
 
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( It.IsAny<object>(), true ), Times.Never() );
+      }
+
+      public void Analyze_ClassHasFirstArgumentAttribute_MapsArgument()
+      {
+         const string fileName = "SomeFileName.txt";
+
+         // Arrange
+
+         var stringArgs = ArrayHelper.Create( fileName );
+
+         // Act
+
+         var argumentAnalyzer = new ArgumentAnalyzer();
+
+         var arguments = argumentAnalyzer.Analyze<ClassWithStringArgumentFirst>( stringArgs );
+
+         // Assert
+
+         arguments.FileName.Should().Be( fileName );
       }
    }
 }
