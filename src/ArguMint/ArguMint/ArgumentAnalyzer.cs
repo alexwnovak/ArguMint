@@ -37,7 +37,10 @@ namespace ArguMint
             {
                int index = markedProperty.Attribute.Position.ToIndex();
 
-               markedProperty.SetPropertyValue( argumentClass, arguments[index] );
+               if ( arguments.Length >= index + 1 )
+               {
+                  markedProperty.SetPropertyValue( argumentClass, arguments[index] );
+               }
             }
          }
 

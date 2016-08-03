@@ -112,5 +112,22 @@ namespace ArguMint.UnitTests
          arguments.SourceFileName.Should().Be( firstArgument );
          arguments.DestinationFileName.Should().Be( secondArgument );
       }
+
+      public void Analyze_HasSecondPositionAttributeAndOneArgument_DoesNotSet()
+      {
+         // Arrange
+
+         var stringArgs = ArrayHelper.Create( "someargument" );
+
+         // Act
+
+         var argumentAnalyzer = new ArgumentAnalyzer();
+
+         var arguments = argumentAnalyzer.Analyze<SecondPositionArgumentOnly>( stringArgs );
+
+         // Assert
+
+         arguments.SomeArgument.Should().BeNull();
+      }
    }
 }
