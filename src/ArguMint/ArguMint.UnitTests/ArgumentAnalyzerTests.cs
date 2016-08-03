@@ -53,26 +53,6 @@ namespace ArguMint.UnitTests
          analyze.ShouldThrow<MissingAttributesException>();
       }
 
-      //public void Analyze_PassedArgumentThatMatchesAttribute_SetsTheDecoratedProperty()
-      //{
-      //   var markedPropertyMock = MarkedPropertyHelper.Create( "/?" );
-      //   var markedProperties = ArrayHelper.Create( markedPropertyMock.Object );
-      //   var arguments = ArrayHelper.Create( "/?" );
-
-      //   // Setup
-
-      //   var typeInspectorMock = new Mock<ITypeInspector>();
-      //   typeInspectorMock.Setup( ti => ti.GetMarkedProperties<ClassWithArgumentText, ArgumentAttribute>() ).Returns( markedProperties );
-
-      //   // Test
-
-      //   var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object );
-
-      //   argumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
-
-      //   markedPropertyMock.Verify( mp => mp.SetPropertyValue( null, true ), Times.Once() );
-      //}
-
       public void Analyze_PassedArgumentThatDoesNotMatchAttribute_DoesNotSetTheDecoratedProperty()
       {
          var markedPropertyMock = MarkedPropertyHelper.Create( "/?" );
