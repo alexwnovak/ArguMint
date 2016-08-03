@@ -89,7 +89,7 @@ namespace ArguMint.UnitTests
 
          argumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
 
-         markedPropertyMock.Verify( mp => mp.SetPropertyValue( true ), Times.Never() );
+         markedPropertyMock.Verify( mp => mp.SetPropertyValue( It.IsAny<object>(), true ), Times.Never() );
       }
    }
 }

@@ -39,7 +39,7 @@ namespace ArguMint
             {
                if ( thisArgument == markedProperty.Attribute.Argument )
                {
-                  markedProperty.SetPropertyValue( true );
+                  markedProperty.SetPropertyValue( argumentClass, arguments[index] );
                }
             }
          }

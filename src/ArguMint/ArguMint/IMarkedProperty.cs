@@ -14,6 +14,6 @@ namespace ArguMint
          get;
       }
 
-      void SetPropertyValue( object value );
+      void SetPropertyValue( object instance, object value );
    }
 }
