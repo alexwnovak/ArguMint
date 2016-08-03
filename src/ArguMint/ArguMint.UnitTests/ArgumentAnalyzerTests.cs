@@ -91,5 +91,26 @@ namespace ArguMint.UnitTests
 
          arguments.FileName.Should().Be( fileName );
       }
+
+      public void Analyze_ClassHasFirstArgumentAttributeButNotTheArgument_DoesNotSet()
+      {
+         const string firstArgument = "Source.txt";
+         const string secondArgument = "Destination.txt";
+
+         // Arrange
+
+         var stringArgs = ArrayHelper.Create( firstArgument, secondArgument );
+
+         // Act
+
+         var argumentAnalyzer = new ArgumentAnalyzer();
+
+         var arguments = argumentAnalyzer.Analyze<ClassWithTwoPositionalArguments>( stringArgs );
+
+         // Assert
+
+         arguments.SourceFileName.Should().Be( firstArgument );
+         arguments.DestinationFileName.Should().Be( secondArgument );
+      }
    }
 }
