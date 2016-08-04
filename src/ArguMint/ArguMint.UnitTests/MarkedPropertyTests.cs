@@ -107,7 +107,7 @@ namespace ArguMint.UnitTests
 
          var markedProperty = new MarkedProperty<DummyAttribute>( propertyInfo, dummyAttribute );
 
-         markedProperty.SetPropertyValue( newValue );
+         markedProperty.SetPropertyValue( dummyAttribute, newValue );
 
          // Assert
 
@@ -128,7 +128,7 @@ namespace ArguMint.UnitTests
 
          var markedProperty = new MarkedProperty<DummyAttributePropertyPrivateSetter>( propertyInfo, dummyAttribute );
 
-         markedProperty.SetPropertyValue( newValue );
+         markedProperty.SetPropertyValue( dummyAttribute, newValue );
 
          // Assert
 

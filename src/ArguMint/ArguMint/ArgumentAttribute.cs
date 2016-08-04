@@ -10,6 +10,16 @@ namespace ArguMint
          get;
       }
 
+      public ArgumentPosition Position
+      {
+         get;
+         set;
+      }
+
+      public ArgumentAttribute()
+      {
+      }
+
       public ArgumentAttribute( string argument )
       {
          Argument = argument;

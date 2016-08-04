@@ -26,6 +26,7 @@ namespace ArguMint.UnitTests
          // Test
 
          var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object );
+
          argumentAnalyzer.Analyze<DontCare>( new string[0] );
 
          // Assert
@@ -52,26 +53,6 @@ namespace ArguMint.UnitTests
          analyze.ShouldThrow<MissingAttributesException>();
       }
 
-      public void Analyze_PassedArgumentThatMatchesAttribute_SetsTheDecoratedProperty()
-      {
-         var markedPropertyMock = MarkedPropertyHelper.Create( "/?" );
-         var markedProperties = ArrayHelper.Create( markedPropertyMock.Object );
-         var arguments = ArrayHelper.Create( "/?" );
-
-         // Setup
-
-         var typeInspectorMock = new Mock<ITypeInspector>();
-         typeInspectorMock.Setup( ti => ti.GetMarkedProperties<ClassWithArgumentText, ArgumentAttribute>() ).Returns( markedProperties );
-
-         // Test
-
-         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object );
-
-         argumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
-
-         markedPropertyMock.Verify( mp => mp.SetPropertyValue( true ), Times.Once() );
-      }
-
       public void Analyze_PassedArgumentThatDoesNotMatchAttribute_DoesNotSetTheDecoratedProperty()
       {
          var markedPropertyMock = MarkedPropertyHelper.Create( "/?" );
@@ -89,7 +70,83 @@ namespace ArguMint.UnitTests
 
          argumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
 
-         markedPropertyMock.Verify( mp => mp.SetPropertyValue( true ), Times.Never() );
+         markedPropertyMock.Verify( mp => mp.SetPropertyValue( It.IsAny<object>(), true ), Times.Never() );
+      }
+
+      public void Analyze_ClassHasFirstArgumentAttribute_MapsArgument()
+      {
+         const string fileName = "SomeFileName.txt";
+
+         // Arrange
+
+         var stringArgs = ArrayHelper.Create( fileName );
+
+         // Act
+
+         var argumentAnalyzer = new ArgumentAnalyzer();
+
+         var arguments = argumentAnalyzer.Analyze<ClassWithStringArgumentFirst>( stringArgs );
+
+         // Assert
+
+         arguments.FileName.Should().Be( fileName );
+      }
+
+      public void Analyze_ClassHasFirstArgumentAttributeButNotTheArgument_DoesNotSet()
+      {
+         const string firstArgument = "Source.txt";
+         const string secondArgument = "Destination.txt";
+
+         // Arrange
+
+         var stringArgs = ArrayHelper.Create( firstArgument, secondArgument );
+
+         // Act
+
+         var argumentAnalyzer = new ArgumentAnalyzer();
+
+         var arguments = argumentAnalyzer.Analyze<ClassWithTwoPositionalArguments>( stringArgs );
+
+         // Assert
+
+         arguments.SourceFileName.Should().Be( firstArgument );
+         arguments.DestinationFileName.Should().Be( secondArgument );
+      }
+
+      public void Analyze_HasSecondPositionAttributeAndOneArgument_DoesNotSet()
+      {
+         // Arrange
+
+         var stringArgs = ArrayHelper.Create( "someargument" );
+
+         // Act
+
+         var argumentAnalyzer = new ArgumentAnalyzer();
+
+         var arguments = argumentAnalyzer.Analyze<SecondPositionArgumentOnly>( stringArgs );
+
+         // Assert
+
+         arguments.SomeArgument.Should().BeNull();
+      }
+
+      public void Analyze_HasPrefixPropertyAndOneMatch_SetsValue()
+      {
+         const string fileName = "FileName.txt";
+
+         // Arrange
+
+         var stringArgs = ArrayHelper.Create( $"/f:{fileName}" );
+
+         // Act
+
+         var argumentAnalyzer = new ArgumentAnalyzer();
+
+         var arguments = argumentAnalyzer.Analyze<PrefixStringArgumentWithSpace>( stringArgs );
+
+         // Assert
+
+         arguments.FileName.Should().Be( fileName );
       }
    }
 }

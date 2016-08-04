@@ -31,15 +31,29 @@ namespace ArguMint
 
          var markedProperties = GetMarkedProperties<T>();
 
-         for ( int index = 0; index < arguments.Length; index++ )
+         foreach ( var markedProperty in markedProperties )
          {
-            string thisArgument = arguments[index];
-
-            foreach ( var markedProperty in markedProperties )
+            if ( markedProperty.Attribute.Position != ArgumentPosition.Any )
             {
-               if ( thisArgument == markedProperty.Attribute.Argument )
+               int index = markedProperty.Attribute.Position.ToIndex();
+
+               if ( arguments.Length >= index + 1 )
                {
-                  markedProperty.SetPropertyValue( true );
+                  markedProperty.SetPropertyValue( argumentClass, arguments[index] );
+               }
+            }
+            else
+            {
+               if ( !string.IsNullOrEmpty( markedProperty.Attribute.Argument ) )
+               {
+                  foreach ( string argument in arguments )
+                  {
+                     if ( argument.StartsWith( markedProperty.Attribute.Argument ) )
+                     {
+                        string value = argument.Replace( markedProperty.Attribute.Argument, string.Empty );
+                        markedProperty.SetPropertyValue( argumentClass, value );
+                     }
+                  }
                }
             }
          }
