@@ -42,6 +42,20 @@ namespace ArguMint
                   markedProperty.SetPropertyValue( argumentClass, arguments[index] );
                }
             }
+            else
+            {
+               if ( !string.IsNullOrEmpty( markedProperty.Attribute.Argument ) )
+               {
+                  foreach ( string argument in arguments )
+                  {
+                     if ( argument.StartsWith( markedProperty.Attribute.Argument ) )
+                     {
+                        string value = argument.Replace( markedProperty.Attribute.Argument, string.Empty );
+                        markedProperty.SetPropertyValue( argumentClass, value );
+                     }
+                  }
+               }
+            }
          }
 
          return argumentClass;

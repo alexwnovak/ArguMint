@@ -129,5 +129,24 @@ namespace ArguMint.UnitTests
 
          arguments.SomeArgument.Should().BeNull();
       }
+
+      public void Analyze_HasPrefixPropertyAndOneMatch_SetsValue()
+      {
+         const string fileName = "FileName.txt";
+
+         // Arrange
+
+         var stringArgs = ArrayHelper.Create( $"/f:{fileName}" );
+
+         // Act
+
+         var argumentAnalyzer = new ArgumentAnalyzer();
+
+         var arguments = argumentAnalyzer.Analyze<PrefixStringArgumentWithSpace>( stringArgs );
+
+         // Assert
+
+         arguments.FileName.Should().Be( fileName );
+      }
    }
 }

@@ -89,6 +89,7 @@
     <Compile Include="Dummies\DummyAttributePropertyPrivateSetter.cs" />
     <Compile Include="Helpers\MarkedPropertyHelper.cs" />
     <Compile Include="MarkedPropertyTests.cs" />
+    <Compile Include="Dummies\PrefixStringArgumentWithSpace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeInspectorTests.cs" />
   </ItemGroup>
