@@ -1,6 +1,6 @@
 namespace ArguMint.UnitTests.Dummies
 {
-   public class PrefixStringArgumentWithSpace
+   public class PrefixStringArgumentWithoutSpace
    {
       [Argument( "/f:" ) ]
       public string FileName

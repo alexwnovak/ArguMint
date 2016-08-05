@@ -142,7 +142,7 @@ namespace ArguMint.UnitTests
 
          var argumentAnalyzer = new ArgumentAnalyzer();
 
-         var arguments = argumentAnalyzer.Analyze<PrefixStringArgumentWithSpace>( stringArgs );
+         var arguments = argumentAnalyzer.Analyze<PrefixStringArgumentWithoutSpace>( stringArgs );
 
          // Assert
 
