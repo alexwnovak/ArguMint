@@ -100,13 +100,25 @@ namespace ArguMint.UnitTests.Dynamic
 
          var attributeBuilder = new CustomAttributeBuilder( newExpression.Constructor, arguments );
 
-         var propertyBuilder = _propertyBuilders[propertyName];
+         var propertyBuilder = GetPropertyBuilderOrThrow( propertyName );
          propertyBuilder.SetCustomAttribute( attributeBuilder );
       }
 
       public void Build()
       {
          Type = _typeBuilder.CreateType();
+      }
+
+      private PropertyBuilder GetPropertyBuilderOrThrow( string propertyName )
+      {
+         PropertyBuilder propertyBuilder;
+
+         if ( !_propertyBuilders.TryGetValue( propertyName, out propertyBuilder ) )
+         {
+            throw new InvalidOperationException( $"Property must be defined first: {propertyName}" );
+         }
+
+         return propertyBuilder;
       }
    }
 }
