@@ -111,6 +111,11 @@ namespace ArguMint.UnitTests.Dynamic
 
       public void Build()
       {
+         if ( Type != null )
+         {
+            throw new InvalidOperationException( "Type has already been built" );
+         }
+
          Type = _typeBuilder.CreateType();
       }
 
