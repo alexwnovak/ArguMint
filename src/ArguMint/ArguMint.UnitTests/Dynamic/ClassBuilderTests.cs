@@ -114,5 +114,31 @@ namespace ArguMint.UnitTests.Dynamic
          var obsoleteAttribute = (ObsoleteAttribute) attributes[0];
          obsoleteAttribute.Message.Should().Be( message );
       }
+
+      public void AddAttribute_AttachesObsoleteAttributeWithConstructorParametersAndProperties_AttributeIsAttached()
+      {
+         const string propertyName = "FileName";
+         const int integerValue = 5;
+         const bool booleanValue = true;
+
+         // Act
+
+         var classBuilder = ClassBuilder.Create();
+         classBuilder.AddProperty<string>( propertyName );
+         classBuilder.AddAttribute( propertyName, () => new AttributeWithConstructorParameterAndProperty( integerValue )
+         {
+            BooleanValue = true
+         } );
+         classBuilder.Build();
+
+         // Assert
+
+         var propertyInfo = classBuilder.Type.GetProperty( propertyName, BindingFlags.Public | BindingFlags.Instance );
+         var attributes = propertyInfo.GetCustomAttributes( typeof( AttributeWithConstructorParameterAndProperty ), false );
+
+         var forTestAttribute = (AttributeWithConstructorParameterAndProperty) attributes[0];
+         forTestAttribute.IntegerValue.Should().Be( integerValue );
+         forTestAttribute.BooleanValue.Should().Be( booleanValue );
+      }
    }
 }

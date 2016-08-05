@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 using ArguMint.UnitTests.Helpers;
+using FluentAssertions;
 
 namespace ArguMint.UnitTests.Dynamic
 {
@@ -91,28 +93,51 @@ namespace ArguMint.UnitTests.Dynamic
             throw new ArgumentException( "Expression must not be null", nameof( expr ) );
          }
 
-         var newExpression = expr.Body as NewExpression;
-
-         if ( newExpression == null )
-         {
-            throw new ArgumentException( "Expression must allocate an attribute via new operator", nameof( expr ) );
-         }
-
          var propertyBuilder = GetPropertyBuilderOrThrow( propertyName );
 
-         var argumentList = new List<object>();
-
-         foreach ( var argument in newExpression.Arguments )
+         if ( expr.Body is NewExpression )
          {
-            var constantExpression = argument as ConstantExpression;
-            argumentList.Add( constantExpression.Value );
+            var newExpression = (NewExpression) expr.Body;
+
+            var argumentList = new List<object>();
+
+            foreach ( var argument in newExpression.Arguments )
+            {
+               var constantExpression = argument as ConstantExpression;
+               argumentList.Add( constantExpression.Value );
+            }
+
+            var arguments = argumentList.ToArray();
+
+            var attributeBuilder = new CustomAttributeBuilder( newExpression.Constructor, arguments );
+
+            propertyBuilder.SetCustomAttribute( attributeBuilder );
          }
+         else if ( expr.Body is MemberInitExpression )
+         {
+            var memberInitExpression = (MemberInitExpression) expr.Body;
+            var attributeInstance = expr.Compile()();
 
-         var arguments = argumentList.ToArray();
+            //memberInitExpression.NewExpression.Constructor
 
-         var attributeBuilder = new CustomAttributeBuilder( newExpression.Constructor, arguments );
+            var argumentList = new List<object>();
 
-         propertyBuilder.SetCustomAttribute( attributeBuilder );
+            foreach ( var argument in memberInitExpression.NewExpression.Arguments )
+            {
+               var constantExpression = argument as ConstantExpression;
+               argumentList.Add( constantExpression.Value );
+            }
+
+            var arguments = argumentList.ToArray();
+
+            var propertyNames = memberInitExpression.Bindings.Select( b => b.Member.As<PropertyInfo>() ).ToArray();
+            var propertyValues = memberInitExpression.Bindings.Select( b => b.Member.As<PropertyInfo>().GetValue( attributeInstance ) ).ToArray();
+
+            var attributeBuilder = new CustomAttributeBuilder( memberInitExpression.NewExpression.Constructor, arguments, propertyNames, propertyValues );
+
+            propertyBuilder.SetCustomAttribute( attributeBuilder );
+
+         }
       }
 
       public void Build()
