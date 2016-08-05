@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 using ArguMint.UnitTests.Helpers;
@@ -70,6 +71,31 @@ namespace ArguMint.UnitTests.Dynamic
 
          propertyBuilder.SetGetMethod( getterBuilder );
          propertyBuilder.SetSetMethod( setterBuilder );
+      }
+
+      public void AddAttribute( string propertyName, Expression<Func<Attribute>> expr )
+      {
+         var newExpression = expr.Body as NewExpression;
+
+         if ( newExpression == null )
+         {
+            throw new ArgumentException( "Expression must allocate an attribute via new operator", nameof( expr ) );
+         }
+
+         var argumentList = new List<object>();
+
+         foreach ( var argument in newExpression.Arguments )
+         {
+            var constantExpression = argument as ConstantExpression;
+            argumentList.Add( constantExpression.Value );
+         }
+
+         var arguments = argumentList.ToArray();
+
+         var attributeBuilder = new CustomAttributeBuilder( newExpression.Constructor, arguments );
+
+         var propertyBuilder = _propertyBuilders[propertyName];
+         propertyBuilder.SetCustomAttribute( attributeBuilder );
       }
    }
 }
