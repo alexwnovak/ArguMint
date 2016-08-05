@@ -15,7 +15,14 @@ namespace ArguMint.UnitTests.Helpers
             arguments
          };
 
-         return closedAnalyzeMethod.Invoke( argumentAnalyzer, parameters );
+         try
+         {
+            return closedAnalyzeMethod.Invoke( argumentAnalyzer, parameters );
+         }
+         catch ( TargetInvocationException ex ) when ( ex.InnerException != null )
+         {
+            throw ex.InnerException;
+         }
       }
    }
 }
