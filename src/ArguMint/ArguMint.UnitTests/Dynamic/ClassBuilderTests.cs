@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using FluentAssertions;
 
 namespace ArguMint.UnitTests.Dynamic
@@ -50,6 +51,68 @@ namespace ArguMint.UnitTests.Dynamic
          Action addAttribute = () => classBuilder.AddAttribute( "DoesNotExist", () => new ObsoleteAttribute() );
 
          addAttribute.ShouldThrow<InvalidOperationException>();
+      }
+
+      public void AddProperty_CreatesIntProperty_CreatesGetterAndSetterWithCorrectName()
+      {
+         const string propertyName = "Value";
+
+         // Act
+
+         var classBuilder = ClassBuilder.Create();
+         classBuilder.AddProperty<int>( propertyName );
+         classBuilder.Build();
+
+         // Assert
+
+         var propertyInfo = classBuilder.Type.GetProperty( propertyName, BindingFlags.Public | BindingFlags.Instance );
+
+         propertyInfo.Should().NotBeNull();
+         propertyInfo.Name.Should().Be( propertyName );
+         propertyInfo.PropertyType.Should().Be( typeof( int ) );
+         propertyInfo.CanRead.Should().BeTrue();
+         propertyInfo.CanWrite.Should().BeTrue();
+      }
+
+      public void AddAttribute_AttachesObsoleteAttributeWithNoSettings_AttributeIsAttached()
+      {
+         const string propertyName = "FileName";
+
+         // Act
+
+         var classBuilder = ClassBuilder.Create();
+         classBuilder.AddProperty<string>( propertyName );
+         classBuilder.AddAttribute( propertyName, () => new ObsoleteAttribute() );
+         classBuilder.Build();
+
+         // Assert
+
+         var propertyInfo = classBuilder.Type.GetProperty( propertyName, BindingFlags.Public | BindingFlags.Instance );
+         var attributes = propertyInfo.GetCustomAttributes( typeof( ObsoleteAttribute ), false );
+
+         attributes.Should().HaveCount( 1 );
+         attributes[0].Should().BeOfType<ObsoleteAttribute>();
+      }
+
+      public void AddAttribute_AttachesObsoleteAttributeWithConstructorParameters_AttributeIsAttached()
+      {
+         const string propertyName = "FileName";
+         const string message = "Constructor parameter for ObsoleteAttribute";
+
+         // Act
+
+         var classBuilder = ClassBuilder.Create();
+         classBuilder.AddProperty<string>( propertyName );
+         classBuilder.AddAttribute( propertyName, () => new ObsoleteAttribute( message ) );
+         classBuilder.Build();
+
+         // Assert
+
+         var propertyInfo = classBuilder.Type.GetProperty( propertyName, BindingFlags.Public | BindingFlags.Instance );
+         var attributes = propertyInfo.GetCustomAttributes( typeof( ObsoleteAttribute ), false );
+
+         var obsoleteAttribute = (ObsoleteAttribute) attributes[0];
+         obsoleteAttribute.Message.Should().Be( message );
       }
    }
 }
