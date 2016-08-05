@@ -10,5 +10,18 @@ namespace ArguMint.UnitTests.Dynamic
 
          classBuilder.Type.Should().BeNull();
       }
+
+      public void Create_DoesNoSetupButGetsBuilt_TypeExists()
+      {
+         // Act
+
+         var classBuilder = ClassBuilder.Create();
+
+         classBuilder.Build();
+
+         // Assert
+
+         classBuilder.Type.Should().NotBeNull();
+      }
    }
 }
