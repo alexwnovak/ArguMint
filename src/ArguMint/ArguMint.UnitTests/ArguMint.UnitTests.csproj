@@ -76,6 +76,7 @@
     <Compile Include="ArgumentAnalyzerTests.cs" />
     <Compile Include="Dummies\PrefixStringArgumentWithSpace.cs" />
     <Compile Include="Dummies\SecondPositionArgumentOnly.cs" />
+    <Compile Include="Dynamic\ClassBuilder.cs" />
     <Compile Include="Helpers\ArrayHelper.cs" />
     <Compile Include="Dummies\DontCareAttribute.cs" />
     <Compile Include="Dummies\ClassWithArgumentText.cs" />
