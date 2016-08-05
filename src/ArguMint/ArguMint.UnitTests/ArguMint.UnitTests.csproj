@@ -69,6 +69,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Dynamic\AttributeWithNoConstructorButProperty.cs" />
     <Compile Include="Dynamic\ClassBuilderTests.cs" />
     <Compile Include="Dynamic\AttributeWithConstructorParameterAndProperty.cs" />
     <Compile Include="Helpers\ArgumentAnalyzerHelper.cs" />

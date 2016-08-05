@@ -115,7 +115,31 @@ namespace ArguMint.UnitTests.Dynamic
          obsoleteAttribute.Message.Should().Be( message );
       }
 
-      public void AddAttribute_AttachesObsoleteAttributeWithConstructorParametersAndProperties_AttributeIsAttached()
+      public void AddAttribute_AttachesCustomttributeWithNoConstructorAndOneProperty_AttributeIsAttached()
+      {
+         const string propertyName = "Character";
+         const char charValue = 'X';
+
+         // Act
+
+         var classBuilder = ClassBuilder.Create();
+         classBuilder.AddProperty<string>( propertyName );
+         classBuilder.AddAttribute( propertyName, () => new AttributeWithNoConstructorButProperty
+         {
+            CharValue = charValue
+         } );
+         classBuilder.Build();
+
+         // Assert
+
+         var propertyInfo = classBuilder.Type.GetProperty( propertyName, BindingFlags.Public | BindingFlags.Instance );
+         var attributes = propertyInfo.GetCustomAttributes( typeof( AttributeWithNoConstructorButProperty ), false );
+
+         var forTestAttribute = (AttributeWithNoConstructorButProperty) attributes[0];
+         forTestAttribute.CharValue.Should().Be( charValue );
+      }
+
+      public void AddAttribute_AttachesCustomAttributeWithConstructorParametersAndProperties_AttributeIsAttached()
       {
          const string propertyName = "FileName";
          const int integerValue = 5;
