@@ -86,12 +86,19 @@ namespace ArguMint.UnitTests.Dynamic
 
       public void AddAttribute( string propertyName, Expression<Func<Attribute>> expr )
       {
+         if ( expr == null )
+         {
+            throw new ArgumentException( "Expression must not be null", nameof( expr ) );
+         }
+
          var newExpression = expr.Body as NewExpression;
 
          if ( newExpression == null )
          {
             throw new ArgumentException( "Expression must allocate an attribute via new operator", nameof( expr ) );
          }
+
+         var propertyBuilder = GetPropertyBuilderOrThrow( propertyName );
 
          var argumentList = new List<object>();
 
@@ -105,7 +112,6 @@ namespace ArguMint.UnitTests.Dynamic
 
          var attributeBuilder = new CustomAttributeBuilder( newExpression.Constructor, arguments );
 
-         var propertyBuilder = GetPropertyBuilderOrThrow( propertyName );
          propertyBuilder.SetCustomAttribute( attributeBuilder );
       }
 

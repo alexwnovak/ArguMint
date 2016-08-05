@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 
 namespace ArguMint.UnitTests.Dynamic
 {
@@ -22,6 +23,33 @@ namespace ArguMint.UnitTests.Dynamic
          // Assert
 
          classBuilder.Type.Should().NotBeNull();
+      }
+
+      public void Create_PassesNullExpression_ThrowsArgumentException()
+      {
+         var classBuilder = ClassBuilder.Create();
+
+         Action addAttribute = () => classBuilder.AddAttribute( "DoesNotMatter", null );
+
+         addAttribute.ShouldThrow<ArgumentException>();
+      }
+
+      public void Create_ExpressionDoesNotCreateAnObject_ThrowsInvalidOperationException()
+      {
+         var classBuilder = ClassBuilder.Create();
+
+         Action addAttribute = () => classBuilder.AddAttribute( "DoesNotExist", () => null );
+
+         addAttribute.ShouldThrow<ArgumentException>();
+      }
+
+      public void Create_AddsAttributeToNonExistentProperty_ThrowsInvalidOperationException()
+      {
+         var classBuilder = ClassBuilder.Create();
+
+         Action addAttribute = () => classBuilder.AddAttribute( "DoesNotExist", () => new ObsoleteAttribute() );
+
+         addAttribute.ShouldThrow<InvalidOperationException>();
       }
    }
 }
