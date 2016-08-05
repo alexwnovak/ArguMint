@@ -1,8 +1,8 @@
-namespace ArguMint.UnitTests.Dummies
+﻿namespace ArguMint.UnitTests.Dummies
 {
    public class PrefixStringArgumentWithSpace
    {
-      [Argument( "/f:" ) ]
+      [Argument( "-filename", Spacing.Postfix )]
       public string FileName
       {
          get;

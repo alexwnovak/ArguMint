@@ -142,6 +142,25 @@ namespace ArguMint.UnitTests
 
          var argumentAnalyzer = new ArgumentAnalyzer();
 
+         var arguments = argumentAnalyzer.Analyze<PrefixStringArgumentWithoutSpace>( stringArgs );
+
+         // Assert
+
+         arguments.FileName.Should().Be( fileName );
+      }
+
+      public void Analyze_HasPrefixPropertyWithSpaceAndOneMatch_SetsValue()
+      {
+         const string fileName = "Video.mp4";
+
+         // Arrange
+
+         var stringArgs = ArrayHelper.Create( "-filename", fileName );
+
+         // Act
+
+         var argumentAnalyzer = new ArgumentAnalyzer();
+
          var arguments = argumentAnalyzer.Analyze<PrefixStringArgumentWithSpace>( stringArgs );
 
          // Assert

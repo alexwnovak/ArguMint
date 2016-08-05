@@ -74,6 +74,7 @@
     <Compile Include="Dummies\ClassWithTwoPositionalArguments.cs" />
     <Compile Include="Dummies\DontCare.cs" />
     <Compile Include="ArgumentAnalyzerTests.cs" />
+    <Compile Include="Dummies\PrefixStringArgumentWithSpace.cs" />
     <Compile Include="Dummies\SecondPositionArgumentOnly.cs" />
     <Compile Include="Helpers\ArrayHelper.cs" />
     <Compile Include="Dummies\DontCareAttribute.cs" />
@@ -89,7 +90,7 @@
     <Compile Include="Dummies\DummyAttributePropertyPrivateSetter.cs" />
     <Compile Include="Helpers\MarkedPropertyHelper.cs" />
     <Compile Include="MarkedPropertyTests.cs" />
-    <Compile Include="Dummies\PrefixStringArgumentWithSpace.cs" />
+    <Compile Include="Dummies\PrefixStringArgumentWithoutSpace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeInspectorTests.cs" />
   </ItemGroup>

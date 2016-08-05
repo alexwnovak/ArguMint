@@ -10,6 +10,11 @@ namespace ArguMint
          get;
       }
 
+      public Spacing Spacing
+      {
+         get;
+      }
+
       public ArgumentPosition Position
       {
          get;
@@ -20,9 +25,10 @@ namespace ArguMint
       {
       }
 
-      public ArgumentAttribute( string argument )
+      public ArgumentAttribute( string argument, Spacing spacing = Spacing.Postfix )
       {
          Argument = argument;
+         Spacing = spacing;
       }
    }
 }
