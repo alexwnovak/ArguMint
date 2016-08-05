@@ -41,7 +41,7 @@ namespace ArguMint.UnitTests.Dynamic
 
          Action addAttribute = () => classBuilder.AddAttribute( "DoesNotExist", () => null );
 
-         addAttribute.ShouldThrow<ArgumentException>();
+         addAttribute.ShouldThrow<InvalidOperationException>();
       }
 
       public void Create_AddsAttributeToNonExistentProperty_ThrowsInvalidOperationException()
