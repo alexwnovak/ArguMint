@@ -69,6 +69,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Helpers\ArgumentAnalyzerHelper.cs" />
     <Compile Include="ArgumentPositionExtensionsTests.cs" />
     <Compile Include="Dummies\ClassWithStringArgumentFirst.cs" />
     <Compile Include="Dummies\ClassWithTwoPositionalArguments.cs" />
