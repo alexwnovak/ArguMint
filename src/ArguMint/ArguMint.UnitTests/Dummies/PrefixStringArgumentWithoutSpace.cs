@@ -2,7 +2,7 @@ namespace ArguMint.UnitTests.Dummies
 {
    public class PrefixStringArgumentWithoutSpace
    {
-      [Argument( "/f:" ) ]
+      [Argument( "/f:", Spacing.None )]
       public string FileName
       {
          get;
