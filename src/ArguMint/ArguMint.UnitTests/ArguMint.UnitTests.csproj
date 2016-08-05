@@ -90,6 +90,7 @@
     <Compile Include="Dummies\DummyAttributePropertyNoSetter.cs" />
     <Compile Include="Dummies\DummyAttributePropertyPrivateSetter.cs" />
     <Compile Include="Helpers\MarkedPropertyHelper.cs" />
+    <Compile Include="Helpers\ObjectExtensions.cs" />
     <Compile Include="MarkedPropertyTests.cs" />
     <Compile Include="Dummies\PrefixStringArgumentWithoutSpace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
