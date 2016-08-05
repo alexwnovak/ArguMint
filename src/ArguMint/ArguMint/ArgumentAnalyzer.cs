@@ -46,12 +46,26 @@ namespace ArguMint
             {
                if ( !string.IsNullOrEmpty( markedProperty.Attribute.Argument ) )
                {
-                  foreach ( string argument in arguments )
+                  if ( markedProperty.Attribute.Spacing == Spacing.None )
                   {
-                     if ( argument.StartsWith( markedProperty.Attribute.Argument ) )
+                     foreach ( string argument in arguments )
                      {
-                        string value = argument.Replace( markedProperty.Attribute.Argument, string.Empty );
-                        markedProperty.SetPropertyValue( argumentClass, value );
+                        if ( argument.StartsWith( markedProperty.Attribute.Argument ) )
+                        {
+                           string value = argument.Replace( markedProperty.Attribute.Argument, string.Empty );
+                           markedProperty.SetPropertyValue( argumentClass, value );
+                        }
+                     }
+                  }
+                  else if ( markedProperty.Attribute.Spacing == Spacing.Postfix )
+                  {
+                     for ( int index = 0; index < arguments.Length; index++ )
+                     {
+                        if ( arguments[index] == markedProperty.Attribute.Argument )
+                        {
+                           string value = arguments[index + 1];
+                           markedProperty.SetPropertyValue( argumentClass, value );
+                        }
                      }
                   }
                }
