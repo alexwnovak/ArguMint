@@ -12,6 +12,12 @@ namespace ArguMint.UnitTests.Dynamic
       private readonly TypeBuilder _typeBuilder;
       private readonly Dictionary<string, PropertyBuilder> _propertyBuilders = new Dictionary<string, PropertyBuilder>();
 
+      public Type Type
+      {
+         get;
+         private set;
+      }
+
       private ClassBuilder( TypeBuilder typeBuilder )
       {
          _typeBuilder = typeBuilder;
@@ -96,6 +102,11 @@ namespace ArguMint.UnitTests.Dynamic
 
          var propertyBuilder = _propertyBuilders[propertyName];
          propertyBuilder.SetCustomAttribute( attributeBuilder );
+      }
+
+      public void Build()
+      {
+         Type = _typeBuilder.CreateType();
       }
    }
 }
