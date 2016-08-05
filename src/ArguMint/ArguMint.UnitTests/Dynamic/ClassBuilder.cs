@@ -46,6 +46,11 @@ namespace ArguMint.UnitTests.Dynamic
 
       public void AddProperty<T>( string name )
       {
+         if ( string.IsNullOrEmpty( name ) )
+         {
+            throw new ArgumentException( "Property name must not be null or empty", nameof( name ) );
+         }
+
          var fieldBuilder = _typeBuilder.DefineField( $"_{name}", typeof( T ), FieldAttributes.Private );
          var propertyBuilder = _typeBuilder.DefineProperty( name, PropertyAttributes.HasDefault, typeof( T ), null );
 
