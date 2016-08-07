@@ -60,6 +60,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ArguMint.TestCommon\ArguMint.TestCommon.csproj">
+      <Project>{b8f28747-0a5b-4eca-b210-5658fcb05725}</Project>
+      <Name>ArguMint.TestCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ArguMint\ArguMint.csproj">
       <Project>{82c4bd66-3088-4c6b-9cca-ea5f332ef46c}</Project>
       <Name>ArguMint</Name>
