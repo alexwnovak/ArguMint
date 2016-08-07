@@ -53,6 +53,8 @@
     <Compile Include="Dynamic\AttributeWithNoConstructorButProperty.cs" />
     <Compile Include="Dynamic\ClassBuilder.cs" />
     <Compile Include="Dynamic\ClassBuilderTests.cs" />
+    <Compile Include="Helpers\ArrayHelper.cs" />
+    <Compile Include="Helpers\ObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
