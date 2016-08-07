@@ -49,6 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dynamic\AttributeWithConstructorParameterAndProperty.cs" />
+    <Compile Include="Dynamic\AttributeWithNoConstructorButProperty.cs" />
+    <Compile Include="Dynamic\ClassBuilder.cs" />
+    <Compile Include="Dynamic\ClassBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
