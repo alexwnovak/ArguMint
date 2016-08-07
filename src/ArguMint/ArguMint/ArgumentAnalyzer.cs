@@ -6,7 +6,7 @@ namespace ArguMint
    {
       private readonly ITypeInspector _typeInspector;
 
-      internal ArgumentAnalyzer() : this( new TypeInspector() )
+      public ArgumentAnalyzer() : this( new TypeInspector() )
       {
       }
 
