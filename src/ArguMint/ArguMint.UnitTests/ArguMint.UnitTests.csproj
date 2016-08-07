@@ -74,14 +74,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Dynamic\AttributeWithNoConstructorButProperty.cs" />
-    <Compile Include="Dynamic\ClassBuilderTests.cs" />
-    <Compile Include="Dynamic\AttributeWithConstructorParameterAndProperty.cs" />
     <Compile Include="Helpers\ArgumentAnalyzerHelper.cs" />
     <Compile Include="ArgumentPositionExtensionsTests.cs" />
     <Compile Include="Dummies\DontCare.cs" />
     <Compile Include="ArgumentAnalyzerTests.cs" />
-    <Compile Include="Dynamic\ClassBuilder.cs" />
     <Compile Include="Helpers\ArrayHelper.cs" />
     <Compile Include="Dummies\DontCareAttribute.cs" />
     <Compile Include="Dummies\ClassWithArgumentText.cs" />
