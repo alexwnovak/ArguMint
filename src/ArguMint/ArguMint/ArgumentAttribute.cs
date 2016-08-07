@@ -25,9 +25,14 @@ namespace ArguMint
       {
       }
 
-      public ArgumentAttribute( string argument, Spacing spacing = Spacing.Postfix )
+      public ArgumentAttribute( string argument )
       {
          Argument = argument;
+      }
+
+      public ArgumentAttribute( string argument, Spacing spacing )
+         : this( argument )
+      {
          Spacing = spacing;
       }
    }
