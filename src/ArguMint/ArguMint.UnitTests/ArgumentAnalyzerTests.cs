@@ -1,8 +1,8 @@
 ﻿using System;
 using Moq;
 using FluentAssertions;
+using ArguMint.TestCommon.Dynamic;
 using ArguMint.UnitTests.Dummies;
-using ArguMint.UnitTests.Dynamic;
 using ArguMint.UnitTests.Helpers;
 
 namespace ArguMint.UnitTests
@@ -79,147 +79,6 @@ namespace ArguMint.UnitTests
          argumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
 
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( It.IsAny<object>(), true ), Times.Never() );
-      }
-
-      public void Analyze_ClassHasFirstArgumentAttribute_MapsArgument()
-      {
-         const string propertyName = "FileName";
-         const string fileName = "SomeFileName.txt";
-
-         // Arrange
-
-         var argumentClass = ClassBuilder.Create();
-         argumentClass.AddProperty<string>( propertyName );
-         argumentClass.AddAttribute( propertyName, () => new ArgumentAttribute
-         {
-            Position = ArgumentPosition.First
-         } );
-         argumentClass.Build();
-
-         // Act
-
-         var stringArgs = ArrayHelper.Create( fileName );
-
-         var argumentAnalyzer = new ArgumentAnalyzer();
-
-         var arguments = ArgumentAnalyzerHelper.Analyze( argumentAnalyzer, argumentClass.Type, stringArgs );
-
-         // Assert
-
-         arguments.Property( propertyName ).Should().Be( fileName );
-      }
-
-      public void Analyze_ClassHasFirstArgumentAttributeButNotTheArgument_DoesNotSet()
-      {
-         const string propertyNameOne = "SourceFileName";
-         const string propertyNameTwo = "DestinationFileName";
-         const string firstArgument = "Source.txt";
-         const string secondArgument = "Destination.txt";
-
-         // Arrange
-
-         var argumentClass = ClassBuilder.Create();
-         argumentClass.AddProperty<string>( propertyNameOne );
-         argumentClass.AddAttribute( propertyNameOne, () => new ArgumentAttribute
-         {
-            Position = ArgumentPosition.First
-         } );
-         argumentClass.AddProperty<string>( propertyNameTwo );
-         argumentClass.AddAttribute( propertyNameTwo, () => new ArgumentAttribute
-         {
-            Position = ArgumentPosition.Second
-         } );
-         argumentClass.Build();
-
-         // Act
-
-         var stringArgs = ArrayHelper.Create( firstArgument, secondArgument );
-
-         var argumentAnalyzer = new ArgumentAnalyzer();
-
-         var arguments = ArgumentAnalyzerHelper.Analyze( argumentAnalyzer, argumentClass.Type, stringArgs );
-
-         // Assert
-
-         arguments.Property( propertyNameOne ).Should().Be( firstArgument );
-         arguments.Property( propertyNameTwo ).Should().Be( secondArgument );
-      }
-
-      public void Analyze_HasSecondPositionAttributeAndOneArgument_DoesNotSet()
-      {
-         const string propertyName = "SomeArgument";
-
-         // Arrange
-
-         var argumentClass = ClassBuilder.Create();
-         argumentClass.AddProperty<string>( propertyName );
-         argumentClass.AddAttribute( propertyName, () => new ArgumentAttribute
-         {
-            Position = ArgumentPosition.Second
-         } );
-         argumentClass.Build();
-
-         // Act
-
-         var stringArgs = ArrayHelper.Create( "oneargumentbutnottwo" );
-
-         var argumentAnalyzer = new ArgumentAnalyzer();
-
-         var arguments = ArgumentAnalyzerHelper.Analyze( argumentAnalyzer, argumentClass.Type, stringArgs );
-
-         // Assert
-
-         arguments.Property( propertyName ).Should().BeNull();
-      }
-
-      public void Analyze_HasPrefixPropertyAndOneMatch_SetsValue()
-      {
-         const string propertyName = "FileName";
-         const string fileName = "FileName.txt";
-
-         // Arrange
-
-         var argumentClass = ClassBuilder.Create();
-         argumentClass.AddProperty<string>( propertyName );
-         argumentClass.AddAttribute( propertyName, () => new ArgumentAttribute( "/f:", Spacing.None ) );
-         argumentClass.Build();
-
-         // Act
-
-         var stringArgs = ArrayHelper.Create( $"/f:{fileName}" );
-
-         var argumentAnalyzer = new ArgumentAnalyzer();
-
-         var arguments = ArgumentAnalyzerHelper.Analyze( argumentAnalyzer, argumentClass.Type, stringArgs );
-
-         // Assert
-
-         arguments.Property( propertyName ).Should().Be( fileName );
-      }
-
-      public void Analyze_HasPrefixPropertyWithSpaceAndOneMatch_SetsValue()
-      {
-         const string propertyName = "FileName";
-         const string fileName = "Video.mp4";
-
-         // Arrange
-
-         var argumentClass = ClassBuilder.Create();
-         argumentClass.AddProperty<string>( propertyName );
-         argumentClass.AddAttribute( propertyName, () => new ArgumentAttribute( "-filename", Spacing.Postfix ) );
-         argumentClass.Build();
-
-         // Act
-
-         var stringArgs = ArrayHelper.Create( "-filename", fileName );
-
-         var argumentAnalyzer = new ArgumentAnalyzer();
-
-         var arguments = ArgumentAnalyzerHelper.Analyze( argumentAnalyzer, argumentClass.Type, stringArgs );
-
-         // Assert
-
-         arguments.Property( propertyName ).Should().Be( fileName );
       }
    }
 }

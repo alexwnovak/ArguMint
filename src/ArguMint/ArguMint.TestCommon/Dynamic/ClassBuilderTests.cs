@@ -2,7 +2,7 @@
 using System.Reflection;
 using FluentAssertions;
 
-namespace ArguMint.UnitTests.Dynamic
+namespace ArguMint.TestCommon.Dynamic
 {
    public class ClassBuilderTests
    {

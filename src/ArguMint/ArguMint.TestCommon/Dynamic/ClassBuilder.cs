@@ -4,10 +4,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
-using ArguMint.UnitTests.Helpers;
 using FluentAssertions;
+using ArguMint.TestCommon.Helpers;
 
-namespace ArguMint.UnitTests.Dynamic
+namespace ArguMint.TestCommon.Dynamic
 {
    public class ClassBuilder
    {

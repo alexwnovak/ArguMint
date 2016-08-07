@@ -1,6 +1,6 @@
 using System;
 
-namespace ArguMint.UnitTests.Dynamic
+namespace ArguMint.TestCommon.Dynamic
 {
    public class AttributeWithNoConstructorButProperty : Attribute
    {
