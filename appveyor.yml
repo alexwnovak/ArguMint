@@ -1,0 +1,7 @@
+configuration: Release
+
+before_build:
+  - nuget restore src\ArguMint\ArguMint.sln
+  
+test_script:
+  - ps: .\runTests.ps1
