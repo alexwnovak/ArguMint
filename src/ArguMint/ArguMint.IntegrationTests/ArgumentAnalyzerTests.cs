@@ -146,5 +146,61 @@ namespace ArguMint.IntegrationTests
 
          arguments.Property( propertyName ).Should().Be( fileName );
       }
+
+      public void Analyze_MatchesIntegerArgument_ArgumentTypeAndValueAreConverted()
+      {
+         const string propertyName = "MaxSize";
+         const int maxSize = 123456;
+
+         // Arrange
+
+         var argumentClass = ClassBuilder.Create();
+         argumentClass.AddProperty<int>( propertyName );
+         argumentClass.AddAttribute( propertyName, () => new ArgumentAttribute
+         {
+            Position = ArgumentPosition.First
+         } );
+         argumentClass.Build();
+
+         // Act
+
+         var stringArgs = ArrayHelper.Create( maxSize.ToString() );
+
+         var argumentAnalyzer = new ArgumentAnalyzer();
+
+         var arguments = ArgumentAnalyzerHelper.Analyze( argumentAnalyzer, argumentClass.Type, stringArgs );
+
+         // Assert
+
+         arguments.Property( propertyName ).Should().Be( maxSize );
+      }
+
+      public void Analyze_MatchesCharArgument_ArgumentTypeAndValueAreConverted()
+      {
+         const string propertyName = "CharValue";
+         const char charValue = 'C';
+
+         // Arrange
+
+         var argumentClass = ClassBuilder.Create();
+         argumentClass.AddProperty<char>( propertyName );
+         argumentClass.AddAttribute( propertyName, () => new ArgumentAttribute
+         {
+            Position = ArgumentPosition.First
+         } );
+         argumentClass.Build();
+
+         // Act
+
+         var stringArgs = ArrayHelper.Create( charValue.ToString() );
+
+         var argumentAnalyzer = new ArgumentAnalyzer();
+
+         var arguments = ArgumentAnalyzerHelper.Analyze( argumentAnalyzer, argumentClass.Type, stringArgs );
+
+         // Assert
+
+         arguments.Property( propertyName ).Should().Be( charValue );
+      }
    }
 }

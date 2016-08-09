@@ -14,6 +14,11 @@ namespace ArguMint
          get;
       }
 
+      Type PropertyType
+      {
+         get;
+      }
+
       void SetPropertyValue( object instance, object value );
    }
 }
