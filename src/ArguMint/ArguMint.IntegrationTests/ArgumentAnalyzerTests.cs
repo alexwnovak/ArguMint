@@ -15,7 +15,7 @@ namespace ArguMint.IntegrationTests
 
          var argumentClass = ClassBuilder.Create();
          argumentClass.AddProperty<string>( propertyName );
-         argumentClass.AddAttribute( propertyName, () => new ArgumentAttribute
+         argumentClass.MarkProperty( propertyName, () => new ArgumentAttribute
          {
             Position = ArgumentPosition.First
          } );
@@ -45,12 +45,12 @@ namespace ArguMint.IntegrationTests
 
          var argumentClass = ClassBuilder.Create();
          argumentClass.AddProperty<string>( propertyNameOne );
-         argumentClass.AddAttribute( propertyNameOne, () => new ArgumentAttribute
+         argumentClass.MarkProperty( propertyNameOne, () => new ArgumentAttribute
          {
             Position = ArgumentPosition.First
          } );
          argumentClass.AddProperty<string>( propertyNameTwo );
-         argumentClass.AddAttribute( propertyNameTwo, () => new ArgumentAttribute
+         argumentClass.MarkProperty( propertyNameTwo, () => new ArgumentAttribute
          {
             Position = ArgumentPosition.Second
          } );
@@ -78,7 +78,7 @@ namespace ArguMint.IntegrationTests
 
          var argumentClass = ClassBuilder.Create();
          argumentClass.AddProperty<string>( propertyName );
-         argumentClass.AddAttribute( propertyName, () => new ArgumentAttribute
+         argumentClass.MarkProperty( propertyName, () => new ArgumentAttribute
          {
             Position = ArgumentPosition.Second
          } );
@@ -106,7 +106,7 @@ namespace ArguMint.IntegrationTests
 
          var argumentClass = ClassBuilder.Create();
          argumentClass.AddProperty<string>( propertyName );
-         argumentClass.AddAttribute( propertyName, () => new ArgumentAttribute( "/f:", Spacing.None ) );
+         argumentClass.MarkProperty( propertyName, () => new ArgumentAttribute( "/f:", Spacing.None ) );
          argumentClass.Build();
 
          // Act
@@ -131,7 +131,7 @@ namespace ArguMint.IntegrationTests
 
          var argumentClass = ClassBuilder.Create();
          argumentClass.AddProperty<string>( propertyName );
-         argumentClass.AddAttribute( propertyName, () => new ArgumentAttribute( "-filename", Spacing.Postfix ) );
+         argumentClass.MarkProperty( propertyName, () => new ArgumentAttribute( "-filename", Spacing.Postfix ) );
          argumentClass.Build();
 
          // Act
@@ -156,7 +156,7 @@ namespace ArguMint.IntegrationTests
 
          var argumentClass = ClassBuilder.Create();
          argumentClass.AddProperty<int>( propertyName );
-         argumentClass.AddAttribute( propertyName, () => new ArgumentAttribute
+         argumentClass.MarkProperty( propertyName, () => new ArgumentAttribute
          {
             Position = ArgumentPosition.First
          } );
@@ -184,7 +184,7 @@ namespace ArguMint.IntegrationTests
 
          var argumentClass = ClassBuilder.Create();
          argumentClass.AddProperty<char>( propertyName );
-         argumentClass.AddAttribute( propertyName, () => new ArgumentAttribute
+         argumentClass.MarkProperty( propertyName, () => new ArgumentAttribute
          {
             Position = ArgumentPosition.First
          } );

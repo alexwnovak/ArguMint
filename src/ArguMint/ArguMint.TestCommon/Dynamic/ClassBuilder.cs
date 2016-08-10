@@ -102,7 +102,7 @@ namespace ArguMint.TestCommon.Dynamic
          propertyBuilder.SetSetMethod( setterBuilder );
       }
 
-      public void AddAttribute( string propertyName, Expression<Func<Attribute>> expr )
+      public void MarkProperty( string propertyName, Expression<Func<Attribute>> expr )
       {
          if ( expr == null )
          {

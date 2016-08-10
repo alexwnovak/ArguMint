@@ -30,7 +30,7 @@ namespace ArguMint.TestCommon.Dynamic
       {
          var classBuilder = ClassBuilder.Create();
 
-         Action addAttribute = () => classBuilder.AddAttribute( "DoesNotMatter", null );
+         Action addAttribute = () => classBuilder.MarkProperty( "DoesNotMatter", null );
 
          addAttribute.ShouldThrow<ArgumentException>();
       }
@@ -39,7 +39,7 @@ namespace ArguMint.TestCommon.Dynamic
       {
          var classBuilder = ClassBuilder.Create();
 
-         Action addAttribute = () => classBuilder.AddAttribute( "DoesNotExist", () => null );
+         Action addAttribute = () => classBuilder.MarkProperty( "DoesNotExist", () => null );
 
          addAttribute.ShouldThrow<InvalidOperationException>();
       }
@@ -48,7 +48,7 @@ namespace ArguMint.TestCommon.Dynamic
       {
          var classBuilder = ClassBuilder.Create();
 
-         Action addAttribute = () => classBuilder.AddAttribute( "DoesNotExist", () => new ObsoleteAttribute() );
+         Action addAttribute = () => classBuilder.MarkProperty( "DoesNotExist", () => new ObsoleteAttribute() );
 
          addAttribute.ShouldThrow<InvalidOperationException>();
       }
@@ -82,7 +82,7 @@ namespace ArguMint.TestCommon.Dynamic
 
          var classBuilder = ClassBuilder.Create();
          classBuilder.AddProperty<string>( propertyName );
-         classBuilder.AddAttribute( propertyName, () => new ObsoleteAttribute() );
+         classBuilder.MarkProperty( propertyName, () => new ObsoleteAttribute() );
          classBuilder.Build();
 
          // Assert
@@ -103,7 +103,7 @@ namespace ArguMint.TestCommon.Dynamic
 
          var classBuilder = ClassBuilder.Create();
          classBuilder.AddProperty<string>( propertyName );
-         classBuilder.AddAttribute( propertyName, () => new ObsoleteAttribute( message ) );
+         classBuilder.MarkProperty( propertyName, () => new ObsoleteAttribute( message ) );
          classBuilder.Build();
 
          // Assert
@@ -124,7 +124,7 @@ namespace ArguMint.TestCommon.Dynamic
 
          var classBuilder = ClassBuilder.Create();
          classBuilder.AddProperty<string>( propertyName );
-         classBuilder.AddAttribute( propertyName, () => new AttributeWithNoConstructorButProperty
+         classBuilder.MarkProperty( propertyName, () => new AttributeWithNoConstructorButProperty
          {
             CharValue = charValue
          } );
@@ -149,7 +149,7 @@ namespace ArguMint.TestCommon.Dynamic
 
          var classBuilder = ClassBuilder.Create();
          classBuilder.AddProperty<string>( propertyName );
-         classBuilder.AddAttribute( propertyName, () => new AttributeWithConstructorParameterAndProperty( integerValue )
+         classBuilder.MarkProperty( propertyName, () => new AttributeWithConstructorParameterAndProperty( integerValue )
          {
             BooleanValue = true
          } );
