@@ -164,5 +164,31 @@ namespace ArguMint.TestCommon.Dynamic
          forTestAttribute.IntegerValue.Should().Be( integerValue );
          forTestAttribute.BooleanValue.Should().Be( booleanValue );
       }
+
+      public void AddMethod_AddsVoidMethodNoArguments_CallsHandler()
+      {
+         const string methodName = "ArgHander";
+         bool wasCalled = false;
+
+         // Act
+
+         var classBuilder = ClassBuilder.Create();
+         classBuilder.AddMethod( methodName,
+            MethodAttributes.Public,
+            typeof( void ),
+            Type.EmptyTypes,
+            () => wasCalled = true );
+         classBuilder.Build();
+
+         // Assert
+
+         var methodInfo = classBuilder.Type.GetMethod( methodName, BindingFlags.Public | BindingFlags.Instance );
+         methodInfo.Should().NotBeNull();
+
+         var instance = Activator.CreateInstance( classBuilder.Type );
+         methodInfo.Invoke( instance, null );
+
+         wasCalled.Should().BeTrue();
+      }
    }
 }

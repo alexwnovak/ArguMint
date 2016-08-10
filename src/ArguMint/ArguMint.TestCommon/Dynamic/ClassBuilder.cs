@@ -46,6 +46,22 @@ namespace ArguMint.TestCommon.Dynamic
          return new ClassBuilder( typeBuilder );
       }
 
+      public void AddMethod( string name, MethodAttributes methodAttributes, Type returnType, Type[] parameterTypes, Action callback )
+      {
+         string callbackKey = $"{_typeBuilder.FullName}.{name}";
+         GlobalCallbackTable.Add( callbackKey, callback );
+
+         var callbackTableMethod = typeof( GlobalCallbackTable ).GetMethod( "Call", BindingFlags.Public | BindingFlags.Static );
+
+         var methodBuilder = _typeBuilder.DefineMethod( name, methodAttributes, returnType, parameterTypes );
+
+         var il = methodBuilder.GetILGenerator();
+         il.Emit( OpCodes.Ldstr, callbackKey );
+         il.EmitCall( OpCodes.Call, callbackTableMethod, Type.EmptyTypes );
+
+         il.Emit( OpCodes.Ret );
+      }
+
       public void AddProperty<T>( string name )
       {
          if ( string.IsNullOrEmpty( name ) )
