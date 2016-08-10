@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace ArguMint
 {
@@ -39,7 +40,11 @@ namespace ArguMint
 
                if ( arguments.Length >= index + 1 )
                {
-                  markedProperty.SetPropertyValue( argumentClass, arguments[index] );
+                  var typeConverter = TypeDescriptor.GetConverter( markedProperty.PropertyType );
+
+                  object convertedValue = typeConverter.ConvertFromString( arguments[index] );
+
+                  markedProperty.SetPropertyValue( argumentClass, convertedValue );
                }
             }
             else

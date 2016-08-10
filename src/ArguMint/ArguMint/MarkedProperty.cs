@@ -12,6 +12,7 @@ namespace ArguMint
 
       private readonly PropertyInfo _propertyInfo;
       public string PropertyName => _propertyInfo.Name;
+      public Type PropertyType => _propertyInfo.PropertyType;
 
       public MarkedProperty( PropertyInfo propertyInfo, T attribute )
       {
