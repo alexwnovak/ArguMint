@@ -190,5 +190,22 @@ namespace ArguMint.TestCommon.Dynamic
 
          wasCalled.Should().BeTrue();
       }
+
+      public void AddMethod_MapsMethodWithSameNameTwice_ThrowsInvalidOperationException()
+      {
+         // Act
+
+         var classBuilder = ClassBuilder.Create();
+
+         Action addMethod = () => classBuilder.AddMethod( "ThisIsAddedTwice",
+            MethodAttributes.Public,
+            typeof( void ),
+            Type.EmptyTypes,
+            () => { } );
+
+         addMethod();
+
+         addMethod.ShouldThrow<InvalidOperationException>();
+      }
    }
 }
