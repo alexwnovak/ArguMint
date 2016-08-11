@@ -30,27 +30,27 @@ namespace ArguMint.TestCommon.Dynamic
       {
          var classBuilder = ClassBuilder.Create();
 
-         Action addAttribute = () => classBuilder.MarkProperty( "DoesNotMatter", null );
+         Action markProperty = () => classBuilder.MarkProperty( "DoesNotMatter", null );
 
-         addAttribute.ShouldThrow<ArgumentException>();
+         markProperty.ShouldThrow<ArgumentException>();
       }
 
       public void Create_ExpressionDoesNotCreateAnObject_ThrowsInvalidOperationException()
       {
          var classBuilder = ClassBuilder.Create();
 
-         Action addAttribute = () => classBuilder.MarkProperty( "DoesNotExist", () => null );
+         Action markProperty = () => classBuilder.MarkProperty( "DoesNotExist", () => null );
 
-         addAttribute.ShouldThrow<InvalidOperationException>();
+         markProperty.ShouldThrow<InvalidOperationException>();
       }
 
       public void Create_AddsAttributeToNonExistentProperty_ThrowsInvalidOperationException()
       {
          var classBuilder = ClassBuilder.Create();
 
-         Action addAttribute = () => classBuilder.MarkProperty( "DoesNotExist", () => new ObsoleteAttribute() );
+         Action markProperty = () => classBuilder.MarkProperty( "DoesNotExist", () => new ObsoleteAttribute() );
 
-         addAttribute.ShouldThrow<InvalidOperationException>();
+         markProperty.ShouldThrow<InvalidOperationException>();
       }
 
       public void AddProperty_CreatesIntProperty_CreatesGetterAndSetterWithCorrectName()
@@ -74,7 +74,7 @@ namespace ArguMint.TestCommon.Dynamic
          propertyInfo.CanWrite.Should().BeTrue();
       }
 
-      public void AddAttribute_AttachesObsoleteAttributeWithNoSettings_AttributeIsAttached()
+      public void MarkProperty_AttachesObsoleteAttributeWithNoSettings_AttributeIsAttached()
       {
          const string propertyName = "FileName";
 
@@ -94,7 +94,7 @@ namespace ArguMint.TestCommon.Dynamic
          attributes[0].Should().BeOfType<ObsoleteAttribute>();
       }
 
-      public void AddAttribute_AttachesObsoleteAttributeWithConstructorParameters_AttributeIsAttached()
+      public void MarkProperty_AttachesObsoleteAttributeWithConstructorParameters_AttributeIsAttached()
       {
          const string propertyName = "FileName";
          const string message = "Constructor parameter for ObsoleteAttribute";
@@ -115,7 +115,7 @@ namespace ArguMint.TestCommon.Dynamic
          obsoleteAttribute.Message.Should().Be( message );
       }
 
-      public void AddAttribute_AttachesCustomttributeWithNoConstructorAndOneProperty_AttributeIsAttached()
+      public void MarkProperty_AttachesCustomttributeWithNoConstructorAndOneProperty_AttributeIsAttached()
       {
          const string propertyName = "Character";
          const char charValue = 'X';
@@ -139,7 +139,7 @@ namespace ArguMint.TestCommon.Dynamic
          forTestAttribute.CharValue.Should().Be( charValue );
       }
 
-      public void AddAttribute_AttachesCustomAttributeWithConstructorParametersAndProperties_AttributeIsAttached()
+      public void MarkProperty_AttachesCustomAttributeWithConstructorParametersAndProperties_AttributeIsAttached()
       {
          const string propertyName = "FileName";
          const int integerValue = 5;
