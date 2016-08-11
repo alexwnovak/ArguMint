@@ -46,7 +46,10 @@
     <Compile Include="ArgumentAttribute.cs" />
     <Compile Include="ArgumentPosition.cs" />
     <Compile Include="ArgumentPositionExtensions.cs" />
+    <Compile Include="ArgumentsOmittedHandlerAttribute.cs" />
+    <Compile Include="IMarkedMethod.cs" />
     <Compile Include="IMarkedProperty.cs" />
+    <Compile Include="MarkedMethod.cs" />
     <Compile Include="MarkedProperty.cs" />
     <Compile Include="Spacing.cs" />
     <Compile Include="TypeInspector.cs" />

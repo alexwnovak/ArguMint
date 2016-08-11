@@ -30,27 +30,27 @@ namespace ArguMint.TestCommon.Dynamic
       {
          var classBuilder = ClassBuilder.Create();
 
-         Action addAttribute = () => classBuilder.AddAttribute( "DoesNotMatter", null );
+         Action markProperty = () => classBuilder.MarkProperty( "DoesNotMatter", null );
 
-         addAttribute.ShouldThrow<ArgumentException>();
+         markProperty.ShouldThrow<ArgumentException>();
       }
 
       public void Create_ExpressionDoesNotCreateAnObject_ThrowsInvalidOperationException()
       {
          var classBuilder = ClassBuilder.Create();
 
-         Action addAttribute = () => classBuilder.AddAttribute( "DoesNotExist", () => null );
+         Action markProperty = () => classBuilder.MarkProperty( "DoesNotExist", () => null );
 
-         addAttribute.ShouldThrow<InvalidOperationException>();
+         markProperty.ShouldThrow<InvalidOperationException>();
       }
 
       public void Create_AddsAttributeToNonExistentProperty_ThrowsInvalidOperationException()
       {
          var classBuilder = ClassBuilder.Create();
 
-         Action addAttribute = () => classBuilder.AddAttribute( "DoesNotExist", () => new ObsoleteAttribute() );
+         Action markProperty = () => classBuilder.MarkProperty( "DoesNotExist", () => new ObsoleteAttribute() );
 
-         addAttribute.ShouldThrow<InvalidOperationException>();
+         markProperty.ShouldThrow<InvalidOperationException>();
       }
 
       public void AddProperty_CreatesIntProperty_CreatesGetterAndSetterWithCorrectName()
@@ -74,7 +74,7 @@ namespace ArguMint.TestCommon.Dynamic
          propertyInfo.CanWrite.Should().BeTrue();
       }
 
-      public void AddAttribute_AttachesObsoleteAttributeWithNoSettings_AttributeIsAttached()
+      public void MarkProperty_AttachesObsoleteAttributeWithNoSettings_AttributeIsAttached()
       {
          const string propertyName = "FileName";
 
@@ -82,7 +82,7 @@ namespace ArguMint.TestCommon.Dynamic
 
          var classBuilder = ClassBuilder.Create();
          classBuilder.AddProperty<string>( propertyName );
-         classBuilder.AddAttribute( propertyName, () => new ObsoleteAttribute() );
+         classBuilder.MarkProperty( propertyName, () => new ObsoleteAttribute() );
          classBuilder.Build();
 
          // Assert
@@ -94,7 +94,7 @@ namespace ArguMint.TestCommon.Dynamic
          attributes[0].Should().BeOfType<ObsoleteAttribute>();
       }
 
-      public void AddAttribute_AttachesObsoleteAttributeWithConstructorParameters_AttributeIsAttached()
+      public void MarkProperty_AttachesObsoleteAttributeWithConstructorParameters_AttributeIsAttached()
       {
          const string propertyName = "FileName";
          const string message = "Constructor parameter for ObsoleteAttribute";
@@ -103,7 +103,7 @@ namespace ArguMint.TestCommon.Dynamic
 
          var classBuilder = ClassBuilder.Create();
          classBuilder.AddProperty<string>( propertyName );
-         classBuilder.AddAttribute( propertyName, () => new ObsoleteAttribute( message ) );
+         classBuilder.MarkProperty( propertyName, () => new ObsoleteAttribute( message ) );
          classBuilder.Build();
 
          // Assert
@@ -115,7 +115,7 @@ namespace ArguMint.TestCommon.Dynamic
          obsoleteAttribute.Message.Should().Be( message );
       }
 
-      public void AddAttribute_AttachesCustomttributeWithNoConstructorAndOneProperty_AttributeIsAttached()
+      public void MarkProperty_AttachesCustomttributeWithNoConstructorAndOneProperty_AttributeIsAttached()
       {
          const string propertyName = "Character";
          const char charValue = 'X';
@@ -124,7 +124,7 @@ namespace ArguMint.TestCommon.Dynamic
 
          var classBuilder = ClassBuilder.Create();
          classBuilder.AddProperty<string>( propertyName );
-         classBuilder.AddAttribute( propertyName, () => new AttributeWithNoConstructorButProperty
+         classBuilder.MarkProperty( propertyName, () => new AttributeWithNoConstructorButProperty
          {
             CharValue = charValue
          } );
@@ -139,7 +139,7 @@ namespace ArguMint.TestCommon.Dynamic
          forTestAttribute.CharValue.Should().Be( charValue );
       }
 
-      public void AddAttribute_AttachesCustomAttributeWithConstructorParametersAndProperties_AttributeIsAttached()
+      public void MarkProperty_AttachesCustomAttributeWithConstructorParametersAndProperties_AttributeIsAttached()
       {
          const string propertyName = "FileName";
          const int integerValue = 5;
@@ -149,7 +149,7 @@ namespace ArguMint.TestCommon.Dynamic
 
          var classBuilder = ClassBuilder.Create();
          classBuilder.AddProperty<string>( propertyName );
-         classBuilder.AddAttribute( propertyName, () => new AttributeWithConstructorParameterAndProperty( integerValue )
+         classBuilder.MarkProperty( propertyName, () => new AttributeWithConstructorParameterAndProperty( integerValue )
          {
             BooleanValue = true
          } );
@@ -163,6 +163,73 @@ namespace ArguMint.TestCommon.Dynamic
          var forTestAttribute = (AttributeWithConstructorParameterAndProperty) attributes[0];
          forTestAttribute.IntegerValue.Should().Be( integerValue );
          forTestAttribute.BooleanValue.Should().Be( booleanValue );
+      }
+
+      public void AddMethod_AddsVoidMethodNoArguments_CallsHandler()
+      {
+         const string methodName = "ArgHander";
+         bool wasCalled = false;
+
+         // Act
+
+         var classBuilder = ClassBuilder.Create();
+         classBuilder.AddMethod( methodName,
+            MethodAttributes.Public,
+            typeof( void ),
+            Type.EmptyTypes,
+            () => wasCalled = true );
+         classBuilder.Build();
+
+         // Assert
+
+         var methodInfo = classBuilder.Type.GetMethod( methodName, BindingFlags.Public | BindingFlags.Instance );
+         methodInfo.Should().NotBeNull();
+
+         var instance = Activator.CreateInstance( classBuilder.Type );
+         methodInfo.Invoke( instance, null );
+
+         wasCalled.Should().BeTrue();
+      }
+
+      public void AddMethod_MapsMethodWithSameNameTwice_ThrowsInvalidOperationException()
+      {
+         // Act
+
+         var classBuilder = ClassBuilder.Create();
+
+         Action addMethod = () => classBuilder.AddMethod( "ThisIsAddedTwice",
+            MethodAttributes.Public,
+            typeof( void ),
+            Type.EmptyTypes,
+            () => { } );
+
+         addMethod();
+
+         addMethod.ShouldThrow<InvalidOperationException>();
+      }
+
+      public void MarkMethod_AddsObsoleteAttributeToMethod_AttributeIsAdded()
+      {
+         const string methodName = "ArgHander";
+         bool wasCalled = false;
+
+         // Act
+
+         var classBuilder = ClassBuilder.Create();
+         classBuilder.AddMethod( methodName,
+            MethodAttributes.Public,
+            typeof( void ),
+            Type.EmptyTypes,
+            () => wasCalled = true );
+         classBuilder.MarkMethod( methodName, () => new ObsoleteAttribute() );
+         classBuilder.Build();
+
+         // Assert
+
+         var methodInfo = classBuilder.Type.GetMethod( methodName, BindingFlags.Public | BindingFlags.Instance );
+         var actualAttribute = methodInfo.GetCustomAttribute<ObsoleteAttribute>();
+
+         actualAttribute.Should().NotBeNull();
       }
    }
 }

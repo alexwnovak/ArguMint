@@ -51,5 +51,52 @@ namespace ArguMint.UnitTests
          markedProperties.Should().Contain( p => p.PropertyName == "X" && p.Attribute.Message == "Property X" );
          markedProperties.Should().Contain( p => p.PropertyName == "Y" && p.Attribute.Message == "Property Y" );
       }
+
+      public void GetMarkedMethods_TypeHasOneMatchingMethod_GetsTheMethod()
+      {
+         var typeInspector = new TypeInspector();
+
+         var markedMethods = typeInspector.GetMarkedMethods<ClassWithOneMarkedPublicInstanceMethod, ObsoleteAttribute>();
+
+         markedMethods.Should().ContainSingle( m => m.Name == "InstanceMethod" );
+      }
+
+      public void GetMarkedMethods_TypeHasTwoMatchingMethods_GetsBothMethods()
+      {
+         var typeInspector = new TypeInspector();
+
+         var markedMethods = typeInspector.GetMarkedMethods<ClassWithTwoMarkedPublicInstanceMethods, ObsoleteAttribute>();
+
+         markedMethods.Should().HaveCount( 2 );
+         markedMethods.Should().Contain( m => m.Name == "MethodOne" );
+         markedMethods.Should().Contain( m => m.Name == "MethodTwo" );
+      }
+
+      public void GetMarkedMethods_TypeHasOneMatchingStaticMethod_GetsMethod()
+      {
+         var typeInspector = new TypeInspector();
+
+         var markedMethods = typeInspector.GetMarkedMethods<ClassWithOneMarkedPublicStaticMethod, ObsoleteAttribute>();
+
+         markedMethods.Should().ContainSingle( m => m.Name == nameof( ClassWithOneMarkedPublicStaticMethod.StaticMethod ) );
+      }
+
+      public void GetMarkedMethods_TypeHasOneMatchingPrivateInstanceMethod_GetsMethod()
+      {
+         var typeInspector = new TypeInspector();
+
+         var markedMethods = typeInspector.GetMarkedMethods<ClassWithOneMarkedPrivateInstanceMethod, ObsoleteAttribute>();
+
+         markedMethods.Should().ContainSingle( m => m.Name == "PrivateInstanceMethod" );
+      }
+
+      public void GetMarkedMethods_TypeHasOneMatchingPrivateStaticMethod_GetsMethod()
+      {
+         var typeInspector = new TypeInspector();
+
+         var markedMethods = typeInspector.GetMarkedMethods<ClassWithOneMarkedPrivateStaticMethod, ObsoleteAttribute>();
+
+         markedMethods.Should().ContainSingle( m => m.Name == "PrivateStaticMethod" );
+      }
    }
 }
