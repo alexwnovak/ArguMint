@@ -13,6 +13,7 @@ namespace ArguMint.TestCommon.Dynamic
    {
       private readonly TypeBuilder _typeBuilder;
       private readonly Dictionary<string, PropertyBuilder> _propertyBuilders = new Dictionary<string, PropertyBuilder>();
+      private readonly Dictionary<string, MethodBuilder> _methodBuilders = new Dictionary<string, MethodBuilder>();
 
       public Type Type
       {
@@ -54,6 +55,8 @@ namespace ArguMint.TestCommon.Dynamic
          var callbackTableMethod = typeof( GlobalCallbackTable ).GetMethod( "Call", BindingFlags.Public | BindingFlags.Static );
 
          var methodBuilder = _typeBuilder.DefineMethod( name, methodAttributes, returnType, parameterTypes );
+
+         _methodBuilders[name] = methodBuilder;
 
          var il = methodBuilder.GetILGenerator();
          il.Emit( OpCodes.Ldstr, callbackKey );
@@ -153,6 +156,52 @@ namespace ArguMint.TestCommon.Dynamic
 
             propertyBuilder.SetCustomAttribute( attributeBuilder );
 
+         }
+      }
+
+      public void MarkMethod( string methodName, Expression<Func<Attribute>> expr )
+      {
+         var methodBuilder = _methodBuilders[methodName];
+
+         if ( expr.Body is NewExpression )
+         {
+            var newExpression = (NewExpression) expr.Body;
+
+            var argumentList = new List<object>();
+
+            foreach ( var argument in newExpression.Arguments )
+            {
+               var constantExpression = argument as ConstantExpression;
+               argumentList.Add( constantExpression.Value );
+            }
+
+            var arguments = argumentList.ToArray();
+
+            var attributeBuilder = new CustomAttributeBuilder( newExpression.Constructor, arguments );
+
+            methodBuilder.SetCustomAttribute( attributeBuilder );
+         }
+         else if ( expr.Body is MemberInitExpression )
+         {
+            var memberInitExpression = (MemberInitExpression) expr.Body;
+            var attributeInstance = expr.Compile()();
+
+            var argumentList = new List<object>();
+
+            foreach ( var argument in memberInitExpression.NewExpression.Arguments )
+            {
+               var constantExpression = argument as ConstantExpression;
+               argumentList.Add( constantExpression.Value );
+            }
+
+            var arguments = argumentList.ToArray();
+
+            var propertyNames = memberInitExpression.Bindings.Select( b => b.Member.As<PropertyInfo>() ).ToArray();
+            var propertyValues = memberInitExpression.Bindings.Select( b => b.Member.As<PropertyInfo>().GetValue( attributeInstance ) ).ToArray();
+
+            var attributeBuilder = new CustomAttributeBuilder( memberInitExpression.NewExpression.Constructor, arguments, propertyNames, propertyValues );
+
+            methodBuilder.SetCustomAttribute( attributeBuilder );
          }
       }
 

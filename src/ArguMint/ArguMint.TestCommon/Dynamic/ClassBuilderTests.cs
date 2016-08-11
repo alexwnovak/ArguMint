@@ -207,5 +207,29 @@ namespace ArguMint.TestCommon.Dynamic
 
          addMethod.ShouldThrow<InvalidOperationException>();
       }
+
+      public void MarkMethod_AddsObsoleteAttributeToMethod_AttributeIsAdded()
+      {
+         const string methodName = "ArgHander";
+         bool wasCalled = false;
+
+         // Act
+
+         var classBuilder = ClassBuilder.Create();
+         classBuilder.AddMethod( methodName,
+            MethodAttributes.Public,
+            typeof( void ),
+            Type.EmptyTypes,
+            () => wasCalled = true );
+         classBuilder.MarkMethod( methodName, () => new ObsoleteAttribute() );
+         classBuilder.Build();
+
+         // Assert
+
+         var methodInfo = classBuilder.Type.GetMethod( methodName, BindingFlags.Public | BindingFlags.Instance );
+         var actualAttribute = methodInfo.GetCustomAttribute<ObsoleteAttribute>();
+
+         actualAttribute.Should().NotBeNull();
+      }
    }
 }
