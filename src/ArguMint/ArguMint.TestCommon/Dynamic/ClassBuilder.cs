@@ -137,8 +137,6 @@ namespace ArguMint.TestCommon.Dynamic
             var memberInitExpression = (MemberInitExpression) expr.Body;
             var attributeInstance = expr.Compile()();
 
-            //memberInitExpression.NewExpression.Constructor
-
             var argumentList = new List<object>();
 
             foreach ( var argument in memberInitExpression.NewExpression.Arguments )
@@ -155,7 +153,6 @@ namespace ArguMint.TestCommon.Dynamic
             var attributeBuilder = new CustomAttributeBuilder( memberInitExpression.NewExpression.Constructor, arguments, propertyNames, propertyValues );
 
             propertyBuilder.SetCustomAttribute( attributeBuilder );
-
          }
       }
 
