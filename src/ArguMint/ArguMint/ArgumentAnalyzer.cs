@@ -27,6 +27,13 @@ namespace ArguMint
 
          if ( arguments.Length == 0 )
          {
+            var markedMethods = _typeInspector.GetMarkedMethods<T, ArgumentsOmittedHandlerAttribute>();
+
+            if ( markedMethods?.Length == 1 )
+            {
+               markedMethods[0].Invoke( argumentClass );
+            }
+
             return argumentClass;
          }
 

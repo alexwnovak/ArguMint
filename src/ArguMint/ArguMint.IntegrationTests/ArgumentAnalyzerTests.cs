@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using System;
+using System.Reflection;
+using FluentAssertions;
 using ArguMint.TestCommon.Dynamic;
 using ArguMint.TestCommon.Helpers;
 
@@ -201,6 +203,33 @@ namespace ArguMint.IntegrationTests
          // Assert
 
          arguments.Property( propertyName ).Should().Be( charValue );
+      }
+
+      public void Analyze_MethodHasOmittedHandlerAndNoArguments_HandlerIsCalled()
+      {
+         const string methodName = "ArgumentsOmittedHandler";
+         bool wasCalled = false;
+
+         // Arrange
+
+         var argumentsClass = ClassBuilder.Create();
+         argumentsClass.AddMethod( methodName,
+            MethodAttributes.Public,
+            typeof( void ),
+            Type.EmptyTypes,
+            () => { wasCalled = true; } );
+         argumentsClass.MarkMethod( methodName, () => new ArgumentsOmittedHandlerAttribute() );
+         argumentsClass.Build();
+
+         // Act
+
+         var argumentAnalyzer = new ArgumentAnalyzer();
+
+         ArgumentAnalyzerHelper.Analyze( argumentAnalyzer, argumentsClass.Type, new string[0] );
+
+         // Assert
+
+         wasCalled.Should().BeTrue();
       }
    }
 }
