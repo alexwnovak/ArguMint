@@ -89,7 +89,7 @@ namespace ArguMint
 
       private IMarkedProperty<ArgumentAttribute>[] GetMarkedProperties<T>()
       {
-         var markedProperties = _typeInspector.GetMarkedProperties<T, ArgumentAttribute>();
+         var markedProperties = _typeInspector.GetMarkedProperties<ArgumentAttribute>( typeof( T ) );
 
          if ( markedProperties.Length == 0 )
          {

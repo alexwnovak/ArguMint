@@ -39,7 +39,7 @@ namespace ArguMint.UnitTests
 
          // Assert
 
-         typeInspectorMock.Verify( ti => ti.GetMarkedProperties<DontCare, ArgumentAttribute>(), Times.Never() );
+         typeInspectorMock.Verify( ti => ti.GetMarkedProperties<ArgumentAttribute>( typeof( DontCare ) ), Times.Never() );
       }
 
       public void Analyze_TypeNotDecoratedWithAnyAttributes_ThrowsMissingAttributesException()
@@ -50,7 +50,7 @@ namespace ArguMint.UnitTests
          // Setup
 
          var typeInspectorMock = new Mock<ITypeInspector>();
-         typeInspectorMock.Setup( ti => ti.GetMarkedProperties<ClassWithNoAttributes, ArgumentAttribute>() ).Returns( markedProperties );
+         typeInspectorMock.Setup( ti => ti.GetMarkedProperties<ArgumentAttribute>( typeof( ClassWithNoAttributes ) ) ).Returns( markedProperties );
 
          // Test
 
@@ -70,7 +70,7 @@ namespace ArguMint.UnitTests
          // Setup
 
          var typeInspectorMock = new Mock<ITypeInspector>();
-         typeInspectorMock.Setup( ti => ti.GetMarkedProperties<ClassWithArgumentText, ArgumentAttribute>() ).Returns( markedProperties );
+         typeInspectorMock.Setup( ti => ti.GetMarkedProperties<ArgumentAttribute>( typeof( ClassWithArgumentText ) ) ).Returns( markedProperties );
 
          // Test
 
@@ -88,7 +88,7 @@ namespace ArguMint.UnitTests
          // Arrange
 
          var typeInspectorMock = new Mock<ITypeInspector>();
-         typeInspectorMock.Setup( ti => ti.GetMarkedMethods<ClassWithOneUnmarkedPublicInstanceMethod, ArgumentsOmittedHandlerAttribute>() ).Returns( handlers );
+         typeInspectorMock.Setup( ti => ti.GetMarkedMethods<ArgumentsOmittedHandlerAttribute>( typeof( ClassWithOneUnmarkedPublicInstanceMethod ) ) ).Returns( handlers );
 
          // Act
 
@@ -106,7 +106,7 @@ namespace ArguMint.UnitTests
          // Arrange
 
          var typeInspectorMock = new Mock<ITypeInspector>();
-         typeInspectorMock.Setup( ti => ti.GetMarkedMethods<ClassWithOneUnmarkedPublicInstanceMethod, ArgumentsOmittedHandlerAttribute>() ).Returns( handlers );
+         typeInspectorMock.Setup( ti => ti.GetMarkedMethods<ArgumentsOmittedHandlerAttribute>( typeof( ClassWithOneUnmarkedPublicInstanceMethod ) ) ).Returns( handlers );
 
          // Act
 
