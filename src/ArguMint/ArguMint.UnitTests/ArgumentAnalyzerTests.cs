@@ -81,45 +81,5 @@ namespace ArguMint.UnitTests
 
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( It.IsAny<object>(), true ), Times.Never() );
       }
-
-      public void Analyze_NoArgumentsAndTypeInspectorReturnsNullForHandler_NothingGetsCalled()
-      {
-         IMarkedMethod<ArgumentsOmittedHandlerAttribute>[] handlers = null;
-
-         // Arrange
-
-         var typeInspectorMock = new Mock<ITypeInspector>();
-         typeInspectorMock.Setup( ti => ti.GetMarkedMethods<ArgumentsOmittedHandlerAttribute>( typeof( ClassWithOneUnmarkedPublicInstanceMethod ) ) ).Returns( handlers );
-
-         var handlerDispatcherMock = new Mock<IHandlerDispatcher>();
-
-         // Act
-
-         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object, handlerDispatcherMock.Object );
-
-         Action analyze = () => argumentAnalyzer.Analyze<ClassWithOneUnmarkedPublicInstanceMethod>( new string[0] );
-
-         analyze.ShouldNotThrow();
-      }
-
-      public void Analyze_NoArgumentsAndTypeInspectorReturnsEmptyArrayForHandler_NothingGetsCalled()
-      {
-         var handlers = new IMarkedMethod<ArgumentsOmittedHandlerAttribute>[0];
-
-         // Arrange
-
-         var typeInspectorMock = new Mock<ITypeInspector>();
-         typeInspectorMock.Setup( ti => ti.GetMarkedMethods<ArgumentsOmittedHandlerAttribute>( typeof( ClassWithOneUnmarkedPublicInstanceMethod ) ) ).Returns( handlers );
-
-         var handlerDispatcherMock = new Mock<IHandlerDispatcher>();
-
-         // Act
-
-         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object, handlerDispatcherMock.Object );
-
-         Action analyze = () => argumentAnalyzer.Analyze<ClassWithOneUnmarkedPublicInstanceMethod>( new string[0] );
-
-         analyze.ShouldNotThrow();
-      }
    }
 }
