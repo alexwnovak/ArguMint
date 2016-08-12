@@ -6,14 +6,18 @@ namespace ArguMint
    public class ArgumentAnalyzer
    {
       private readonly ITypeInspector _typeInspector;
+      private readonly IHandlerDispatcher _handlerDispatcher;
 
-      public ArgumentAnalyzer() : this( new TypeInspector() )
+      public ArgumentAnalyzer()
       {
+         _typeInspector = new TypeInspector();
+         _handlerDispatcher = new HandlerDispatcher( _typeInspector );
       }
 
-      internal ArgumentAnalyzer( ITypeInspector typeInspector )
+      internal ArgumentAnalyzer( ITypeInspector typeInspector, IHandlerDispatcher handlerDispatcher )
       {
          _typeInspector = typeInspector;
+         _handlerDispatcher = handlerDispatcher;
       }
 
       public T Analyze<T>( string[] arguments ) where T : class, new()

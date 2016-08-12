@@ -30,10 +30,11 @@ namespace ArguMint.UnitTests
          // Setup
 
          var typeInspectorMock = new Mock<ITypeInspector>();
+         var handlerDispatcherMock = new Mock<IHandlerDispatcher>();
 
          // Test
 
-         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object );
+         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object, handlerDispatcherMock.Object );
 
          argumentAnalyzer.Analyze<DontCare>( new string[0] );
 
@@ -54,7 +55,7 @@ namespace ArguMint.UnitTests
 
          // Test
 
-         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object );
+         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object, null );
 
          Action analyze = () => argumentAnalyzer.Analyze<ClassWithNoAttributes>( arguments );
 
@@ -74,7 +75,7 @@ namespace ArguMint.UnitTests
 
          // Test
 
-         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object );
+         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object, null );
 
          argumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
 
@@ -90,9 +91,11 @@ namespace ArguMint.UnitTests
          var typeInspectorMock = new Mock<ITypeInspector>();
          typeInspectorMock.Setup( ti => ti.GetMarkedMethods<ArgumentsOmittedHandlerAttribute>( typeof( ClassWithOneUnmarkedPublicInstanceMethod ) ) ).Returns( handlers );
 
+         var handlerDispatcherMock = new Mock<IHandlerDispatcher>();
+
          // Act
 
-         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object );
+         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object, handlerDispatcherMock.Object );
 
          Action analyze = () => argumentAnalyzer.Analyze<ClassWithOneUnmarkedPublicInstanceMethod>( new string[0] );
 
@@ -108,9 +111,11 @@ namespace ArguMint.UnitTests
          var typeInspectorMock = new Mock<ITypeInspector>();
          typeInspectorMock.Setup( ti => ti.GetMarkedMethods<ArgumentsOmittedHandlerAttribute>( typeof( ClassWithOneUnmarkedPublicInstanceMethod ) ) ).Returns( handlers );
 
+         var handlerDispatcherMock = new Mock<IHandlerDispatcher>();
+
          // Act
 
-         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object );
+         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object, handlerDispatcherMock.Object );
 
          Action analyze = () => argumentAnalyzer.Analyze<ClassWithOneUnmarkedPublicInstanceMethod>( new string[0] );
 
