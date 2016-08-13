@@ -20,9 +20,18 @@ namespace ArguMint
 
          var markedMethods = _typeInspector.GetMarkedMethods<ArgumentsOmittedHandlerAttribute>( argumentClass.GetType() );
 
-         if ( markedMethods?.Length == 1 )
+         if ( markedMethods != null )
          {
-            markedMethods[0].Invoke( argumentClass );
+            int count = markedMethods.Length;
+
+            if ( count == 1 )
+            {
+               markedMethods[0].Invoke( argumentClass );
+            }
+            else if ( count > 1 )
+            {
+               throw new ArgumentConfigurationException( $"Argument class can only have one ArgumentsOmittedHandler but found {count}" );
+            }
          }
       }
    }

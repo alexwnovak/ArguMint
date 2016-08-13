@@ -44,5 +44,28 @@ namespace ArguMint.UnitTests
 
          markedMethodMock.Verify( mm => mm.Invoke( argumentClassDoesNotMatter ), Times.Once() );
       }
+
+      public void DispatchArgumentsOmitted_FindsMultipleMarkedMethods_ThrowsArgumentConfigurationException()
+      {
+         // Arrange
+
+         var markedMethodMock = new Mock<IMarkedMethod<ArgumentsOmittedHandlerAttribute>>();
+         var markedMethods = ArrayHelper.Create( markedMethodMock.Object, markedMethodMock.Object );
+
+         var typeInspectorMock = new Mock<ITypeInspector>();
+         typeInspectorMock.Setup( ti => ti.GetMarkedMethods<ArgumentsOmittedHandlerAttribute>( It.IsAny<Type>() ) ).Returns( markedMethods );
+
+         // Act
+
+         object argumentClassDoesNotMatter = 12345;
+
+         var handlerDispatcher = new HandlerDispatcher( typeInspectorMock.Object );
+
+         Action dispatchArgumentsOmitted = () => handlerDispatcher.DispatchArgumentsOmitted( argumentClassDoesNotMatter );
+
+         // Assert
+
+         dispatchArgumentsOmitted.ShouldThrow<ArgumentConfigurationException>();
+      }
    }
 }
