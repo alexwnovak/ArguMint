@@ -80,6 +80,7 @@
     <Compile Include="Dummies\ClassWithOneMarkedPublicStaticMethod.cs" />
     <Compile Include="Dummies\ClassWithOneUnmarkedPublicInstanceMethod.cs" />
     <Compile Include="Dummies\ClassWithTwoMarkedPublicInstanceMethods.cs" />
+    <Compile Include="HandlerDispatcherTests.cs" />
     <Compile Include="Helpers\ArgumentAnalyzerHelper.cs" />
     <Compile Include="ArgumentPositionExtensionsTests.cs" />
     <Compile Include="Dummies\DontCare.cs" />

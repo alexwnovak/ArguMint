@@ -10,7 +10,7 @@ namespace ArguMint.UnitTests
       {
          var typeInspector = new TypeInspector();
 
-         var markedProperties = typeInspector.GetMarkedProperties<ClassWithNoAttributes, Attribute>();
+         var markedProperties = typeInspector.GetMarkedProperties<Attribute>( typeof( ClassWithNoAttributes ) );
 
          markedProperties.Should().BeEmpty();
       }
@@ -19,7 +19,7 @@ namespace ArguMint.UnitTests
       {
          var typeInspector = new TypeInspector();
 
-         var markedProperties = typeInspector.GetMarkedProperties<ClassWithOneUnmarkedProperty, Attribute>();
+         var markedProperties = typeInspector.GetMarkedProperties<Attribute>( typeof( ClassWithOneUnmarkedProperty ) );
 
          markedProperties.Should().BeEmpty();
       }
@@ -28,7 +28,7 @@ namespace ArguMint.UnitTests
       {
          var typeInspector = new TypeInspector();
 
-         var markedProperties = typeInspector.GetMarkedProperties<ClassWithOnePropertyMarkedAsObsolete, ObsoleteAttribute>();
+         var markedProperties = typeInspector.GetMarkedProperties<ObsoleteAttribute>( typeof( ClassWithOnePropertyMarkedAsObsolete ) );
 
          markedProperties.Should().HaveCount( 1 );
       }
@@ -37,7 +37,7 @@ namespace ArguMint.UnitTests
       {
          var typeInspector = new TypeInspector();
 
-         var markedProperties = typeInspector.GetMarkedProperties<ClassWithTwoAttributesOneMarkedAsObsolete, ObsoleteAttribute>();
+         var markedProperties = typeInspector.GetMarkedProperties<ObsoleteAttribute>( typeof( ClassWithTwoAttributesOneMarkedAsObsolete ) );
 
          markedProperties.Should().ContainSingle( p => p.PropertyName == "TheInt" );
       }
@@ -46,7 +46,7 @@ namespace ArguMint.UnitTests
       {
          var typeInspector = new TypeInspector();
 
-         var markedProperties = typeInspector.GetMarkedProperties<ClassWithTwoPropertiesMarkedObsolete, ObsoleteAttribute>();
+         var markedProperties = typeInspector.GetMarkedProperties<ObsoleteAttribute>( typeof( ClassWithTwoPropertiesMarkedObsolete ) );
 
          markedProperties.Should().Contain( p => p.PropertyName == "X" && p.Attribute.Message == "Property X" );
          markedProperties.Should().Contain( p => p.PropertyName == "Y" && p.Attribute.Message == "Property Y" );
@@ -56,7 +56,7 @@ namespace ArguMint.UnitTests
       {
          var typeInspector = new TypeInspector();
 
-         var markedMethods = typeInspector.GetMarkedMethods<ClassWithOneMarkedPublicInstanceMethod, ObsoleteAttribute>();
+         var markedMethods = typeInspector.GetMarkedMethods<ObsoleteAttribute>( typeof( ClassWithOneMarkedPublicInstanceMethod ) );
 
          markedMethods.Should().ContainSingle( m => m.Name == "InstanceMethod" );
       }
@@ -65,7 +65,7 @@ namespace ArguMint.UnitTests
       {
          var typeInspector = new TypeInspector();
 
-         var markedMethods = typeInspector.GetMarkedMethods<ClassWithTwoMarkedPublicInstanceMethods, ObsoleteAttribute>();
+         var markedMethods = typeInspector.GetMarkedMethods<ObsoleteAttribute>( typeof( ClassWithTwoMarkedPublicInstanceMethods ) );
 
          markedMethods.Should().HaveCount( 2 );
          markedMethods.Should().Contain( m => m.Name == "MethodOne" );
@@ -76,7 +76,7 @@ namespace ArguMint.UnitTests
       {
          var typeInspector = new TypeInspector();
 
-         var markedMethods = typeInspector.GetMarkedMethods<ClassWithOneMarkedPublicStaticMethod, ObsoleteAttribute>();
+         var markedMethods = typeInspector.GetMarkedMethods<ObsoleteAttribute>( typeof( ClassWithOneMarkedPublicStaticMethod ) );
 
          markedMethods.Should().ContainSingle( m => m.Name == nameof( ClassWithOneMarkedPublicStaticMethod.StaticMethod ) );
       }
@@ -85,7 +85,7 @@ namespace ArguMint.UnitTests
       {
          var typeInspector = new TypeInspector();
 
-         var markedMethods = typeInspector.GetMarkedMethods<ClassWithOneMarkedPrivateInstanceMethod, ObsoleteAttribute>();
+         var markedMethods = typeInspector.GetMarkedMethods<ObsoleteAttribute>( typeof( ClassWithOneMarkedPrivateInstanceMethod ) );
 
          markedMethods.Should().ContainSingle( m => m.Name == "PrivateInstanceMethod" );
       }
@@ -94,7 +94,7 @@ namespace ArguMint.UnitTests
       {
          var typeInspector = new TypeInspector();
 
-         var markedMethods = typeInspector.GetMarkedMethods<ClassWithOneMarkedPrivateStaticMethod, ObsoleteAttribute>();
+         var markedMethods = typeInspector.GetMarkedMethods<ObsoleteAttribute>( typeof( ClassWithOneMarkedPrivateStaticMethod ) );
 
          markedMethods.Should().ContainSingle( m => m.Name == "PrivateStaticMethod" );
       }

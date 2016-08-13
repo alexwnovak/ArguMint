@@ -211,7 +211,6 @@ namespace ArguMint.TestCommon.Dynamic
       public void MarkMethod_AddsObsoleteAttributeToMethod_AttributeIsAdded()
       {
          const string methodName = "ArgHander";
-         bool wasCalled = false;
 
          // Act
 
@@ -220,7 +219,7 @@ namespace ArguMint.TestCommon.Dynamic
             MethodAttributes.Public,
             typeof( void ),
             Type.EmptyTypes,
-            () => wasCalled = true );
+            () => { } );
          classBuilder.MarkMethod( methodName, () => new ObsoleteAttribute() );
          classBuilder.Build();
 

@@ -7,19 +7,18 @@ namespace ArguMint
 {
    internal class TypeInspector : ITypeInspector
    {
-      public IMarkedProperty<TAttribute>[] GetMarkedProperties<TType, TAttribute>() where TAttribute : Attribute
+      public IMarkedProperty<TAttribute>[] GetMarkedProperties<TAttribute>( Type hostType ) where TAttribute : Attribute
       {
-         return (from p in typeof( TType ).GetProperties( BindingFlags.Public | BindingFlags.Instance )
+         return (from p in hostType.GetProperties( BindingFlags.Public | BindingFlags.Instance )
                  let attributes = p.GetCustomAttributes( typeof( TAttribute ), false ).Cast<TAttribute>()
                  where attributes.Any()
                  select new MarkedProperty<TAttribute>( p, attributes.First() )).ToArray();
       }
 
-      public IMarkedMethod<TAttribute>[] GetMarkedMethods<TType, TAttribute>() where TAttribute : Attribute
+      public IMarkedMethod<TAttribute>[] GetMarkedMethods<TAttribute>( Type hostType ) where TAttribute : Attribute
       {
          var markedMethods = new List<IMarkedMethod<TAttribute>>();
-         var type = typeof( TType );
-         var methods = type.GetMethods( BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance );
+         var methods = hostType.GetMethods( BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance );
 
          foreach ( var method in methods )
          {

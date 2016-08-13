@@ -4,7 +4,7 @@ namespace ArguMint
 {
    internal interface ITypeInspector
    {
-      IMarkedProperty<TAttribute>[] GetMarkedProperties<TType, TAttribute>() where TAttribute : Attribute;
-      IMarkedMethod<TAttribute>[] GetMarkedMethods<TType, TAttribute>() where TAttribute : Attribute;
+      IMarkedProperty<TAttribute>[] GetMarkedProperties<TAttribute>( Type hostType ) where TAttribute : Attribute;
+      IMarkedMethod<TAttribute>[] GetMarkedMethods<TAttribute>( Type hostType ) where TAttribute : Attribute;
    }
 }

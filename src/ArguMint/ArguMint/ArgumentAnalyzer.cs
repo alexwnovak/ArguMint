@@ -6,14 +6,18 @@ namespace ArguMint
    public class ArgumentAnalyzer
    {
       private readonly ITypeInspector _typeInspector;
+      private readonly IHandlerDispatcher _handlerDispatcher;
 
-      public ArgumentAnalyzer() : this( new TypeInspector() )
+      public ArgumentAnalyzer()
       {
+         _typeInspector = new TypeInspector();
+         _handlerDispatcher = new HandlerDispatcher( _typeInspector );
       }
 
-      internal ArgumentAnalyzer( ITypeInspector typeInspector )
+      internal ArgumentAnalyzer( ITypeInspector typeInspector, IHandlerDispatcher handlerDispatcher )
       {
          _typeInspector = typeInspector;
+         _handlerDispatcher = handlerDispatcher;
       }
 
       public T Analyze<T>( string[] arguments ) where T : class, new()
@@ -27,12 +31,7 @@ namespace ArguMint
 
          if ( arguments.Length == 0 )
          {
-            var markedMethods = _typeInspector.GetMarkedMethods<T, ArgumentsOmittedHandlerAttribute>();
-
-            if ( markedMethods?.Length == 1 )
-            {
-               markedMethods[0].Invoke( argumentClass );
-            }
+            _handlerDispatcher.DispatchArgumentsOmitted( argumentClass );
 
             return argumentClass;
          }
@@ -89,7 +88,7 @@ namespace ArguMint
 
       private IMarkedProperty<ArgumentAttribute>[] GetMarkedProperties<T>()
       {
-         var markedProperties = _typeInspector.GetMarkedProperties<T, ArgumentAttribute>();
+         var markedProperties = _typeInspector.GetMarkedProperties<ArgumentAttribute>( typeof( T ) );
 
          if ( markedProperties.Length == 0 )
          {
