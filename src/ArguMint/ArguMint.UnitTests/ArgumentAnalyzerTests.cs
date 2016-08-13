@@ -43,6 +43,23 @@ namespace ArguMint.UnitTests
          typeInspectorMock.Verify( ti => ti.GetMarkedProperties<ArgumentAttribute>( typeof( DontCare ) ), Times.Never() );
       }
 
+      public void Analyze_ArgumentArrayIsEmpty_CallsDispatchHandlerForArgumentsOmitted()
+      {
+         // Arrange
+
+         var handlerDispatcherMock = new Mock<IHandlerDispatcher>();
+
+         // Act
+
+         var argumentAnalyzer = new ArgumentAnalyzer( null, handlerDispatcherMock.Object );
+
+         argumentAnalyzer.Analyze<DontCare>( new string[0] );
+
+         // Assert
+
+         handlerDispatcherMock.Verify( hd => hd.DispatchArgumentsOmitted( It.IsAny<object>() ), Times.Once() );
+      }
+
       public void Analyze_TypeNotDecoratedWithAnyAttributes_ThrowsMissingAttributesException()
       {
          var arguments = ArrayHelper.Create( "/?" );
