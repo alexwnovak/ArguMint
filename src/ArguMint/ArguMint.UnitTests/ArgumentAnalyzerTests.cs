@@ -2,6 +2,7 @@
 using Moq;
 using FluentAssertions;
 using ArguMint.TestCommon.Dynamic;
+using ArguMint.TestCommon.Helpers;
 using ArguMint.UnitTests.Dummies;
 using ArguMint.UnitTests.Helpers;
 
@@ -25,24 +26,6 @@ namespace ArguMint.UnitTests
          analyze.ShouldThrow<ArgumentException>();
       }
 
-      public void Analyze_ArgumentArrayIsEmpty_DoesNotQueryForProperties()
-      {
-         // Setup
-
-         var typeInspectorMock = new Mock<ITypeInspector>();
-         var handlerDispatcherMock = new Mock<IHandlerDispatcher>();
-
-         // Test
-
-         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object, handlerDispatcherMock.Object );
-
-         argumentAnalyzer.Analyze<DontCare>( new string[0] );
-
-         // Assert
-
-         typeInspectorMock.Verify( ti => ti.GetMarkedProperties<ArgumentAttribute>( typeof( DontCare ) ), Times.Never() );
-      }
-
       public void Analyze_ArgumentArrayIsEmpty_CallsDispatchHandlerForArgumentsOmitted()
       {
          // Arrange
@@ -51,7 +34,7 @@ namespace ArguMint.UnitTests
 
          // Act
 
-         var argumentAnalyzer = new ArgumentAnalyzer( null, handlerDispatcherMock.Object );
+         var argumentAnalyzer = new ArgumentAnalyzer( handlerDispatcherMock.Object, null );
 
          argumentAnalyzer.Analyze<DontCare>( new string[0] );
 
@@ -60,43 +43,23 @@ namespace ArguMint.UnitTests
          handlerDispatcherMock.Verify( hd => hd.DispatchArgumentsOmitted( It.IsAny<object>() ), Times.Once() );
       }
 
-      public void Analyze_TypeNotDecoratedWithAnyAttributes_ThrowsMissingAttributesException()
+      public void Analyze_HasArguments_CallsRuleMatcher()
       {
-         var arguments = ArrayHelper.Create( "/?" );
-         var markedProperties = new MarkedProperty<ArgumentAttribute>[0];
+         var stringArgs = ArrayHelper.Create( "OneArg" );
 
-         // Setup
+         // Arrange
 
-         var typeInspectorMock = new Mock<ITypeInspector>();
-         typeInspectorMock.Setup( ti => ti.GetMarkedProperties<ArgumentAttribute>( typeof( ClassWithNoAttributes ) ) ).Returns( markedProperties );
+         var ruleMatcherMock = new Mock<IRuleMatcher>();
 
-         // Test
+         // Act
 
-         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object, null );
+         var argumentAnalyzer = new ArgumentAnalyzer( null, ruleMatcherMock.Object );
 
-         Action analyze = () => argumentAnalyzer.Analyze<ClassWithNoAttributes>( arguments );
+         argumentAnalyzer.Analyze<DontCare>( stringArgs );
 
-         analyze.ShouldThrow<MissingAttributesException>();
-      }
+         // Assert
 
-      public void Analyze_PassedArgumentThatDoesNotMatchAttribute_DoesNotSetTheDecoratedProperty()
-      {
-         var markedPropertyMock = MarkedPropertyHelper.Create( "/?" );
-         var markedProperties = ArrayHelper.Create( markedPropertyMock.Object );
-         var arguments = ArrayHelper.Create( "someArgument" );
-
-         // Setup
-
-         var typeInspectorMock = new Mock<ITypeInspector>();
-         typeInspectorMock.Setup( ti => ti.GetMarkedProperties<ArgumentAttribute>( typeof( ClassWithArgumentText ) ) ).Returns( markedProperties );
-
-         // Test
-
-         var argumentAnalyzer = new ArgumentAnalyzer( typeInspectorMock.Object, null );
-
-         argumentAnalyzer.Analyze<ClassWithArgumentText>( arguments );
-
-         markedPropertyMock.Verify( mp => mp.SetPropertyValue( It.IsAny<object>(), true ), Times.Never() );
+         ruleMatcherMock.Verify( rm => rm.Match( It.IsAny<object>(), stringArgs ), Times.Once() );
       }
    }
 }

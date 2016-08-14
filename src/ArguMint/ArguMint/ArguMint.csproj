@@ -48,17 +48,25 @@
     <Compile Include="ArgumentPosition.cs" />
     <Compile Include="ArgumentPositionExtensions.cs" />
     <Compile Include="ArgumentsOmittedHandlerAttribute.cs" />
+    <Compile Include="IArgumentRule.cs" />
     <Compile Include="HandlerDispatcher.cs" />
     <Compile Include="IHandlerDispatcher.cs" />
     <Compile Include="IMarkedMethod.cs" />
     <Compile Include="IMarkedProperty.cs" />
+    <Compile Include="IRuleMatcher.cs" />
+    <Compile Include="IRuleProvider.cs" />
     <Compile Include="MarkedMethod.cs" />
     <Compile Include="MarkedProperty.cs" />
+    <Compile Include="PositionalRule.cs" />
+    <Compile Include="PrefixRule.cs" />
+    <Compile Include="RuleMatcher.cs" />
+    <Compile Include="RuleProvider.cs" />
     <Compile Include="Spacing.cs" />
     <Compile Include="TypeInspector.cs" />
     <Compile Include="ITypeInspector.cs" />
     <Compile Include="MissingAttributesException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValueConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
