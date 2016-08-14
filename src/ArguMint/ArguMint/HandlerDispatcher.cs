@@ -34,5 +34,10 @@ namespace ArguMint
             }
          }
       }
+
+      public void DispatchArgumentError()
+      {
+         throw new NotImplementedException();
+      }
    }
 }
