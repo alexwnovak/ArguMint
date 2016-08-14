@@ -54,9 +54,11 @@
     <Compile Include="IMarkedMethod.cs" />
     <Compile Include="IMarkedProperty.cs" />
     <Compile Include="IRuleMatcher.cs" />
+    <Compile Include="IRuleProvider.cs" />
     <Compile Include="MarkedMethod.cs" />
     <Compile Include="MarkedProperty.cs" />
     <Compile Include="RuleMatcher.cs" />
+    <Compile Include="RuleProvider.cs" />
     <Compile Include="Spacing.cs" />
     <Compile Include="TypeInspector.cs" />
     <Compile Include="ITypeInspector.cs" />
