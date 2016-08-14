@@ -48,6 +48,7 @@
     <Compile Include="ArgumentPosition.cs" />
     <Compile Include="ArgumentPositionExtensions.cs" />
     <Compile Include="ArgumentsOmittedHandlerAttribute.cs" />
+    <Compile Include="IArgumentRule.cs" />
     <Compile Include="HandlerDispatcher.cs" />
     <Compile Include="IHandlerDispatcher.cs" />
     <Compile Include="IMarkedMethod.cs" />
