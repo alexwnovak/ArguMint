@@ -19,7 +19,7 @@ namespace ArguMint.UnitTests
 
          object argumentClass = "DoesNotMatterWhatThisIs";
 
-         var ruleMatcher = new RuleMatcher( typeInspectorMock.Object );
+         var ruleMatcher = new RuleMatcher( null, typeInspectorMock.Object );
          Action match = () => ruleMatcher.Match( argumentClass, null );
 
          // Assert

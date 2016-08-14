@@ -10,7 +10,7 @@ namespace ArguMint
       public ArgumentAnalyzer()
       {
          _handlerDispatcher = new HandlerDispatcher( new TypeInspector() );
-         _ruleMatcher = new RuleMatcher( new TypeInspector() );
+         _ruleMatcher = new RuleMatcher( new RuleProvider(), new TypeInspector() );
       }
 
       internal ArgumentAnalyzer( IHandlerDispatcher handlerDispatcher, IRuleMatcher ruleMatcher )

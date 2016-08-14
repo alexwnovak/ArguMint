@@ -1,13 +1,13 @@
-using System;
-
 namespace ArguMint
 {
    internal class RuleMatcher : IRuleMatcher
    {
+      private readonly IRuleProvider _ruleProvider;
       private readonly ITypeInspector _typeInspector;
 
-      public RuleMatcher( ITypeInspector typeInspector )
+      public RuleMatcher( IRuleProvider ruleProvider, ITypeInspector typeInspector )
       {
+         _ruleProvider = ruleProvider;
          _typeInspector = typeInspector;
       }
 
