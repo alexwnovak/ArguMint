@@ -57,6 +57,8 @@
     <Compile Include="IRuleProvider.cs" />
     <Compile Include="MarkedMethod.cs" />
     <Compile Include="MarkedProperty.cs" />
+    <Compile Include="PositionalRule.cs" />
+    <Compile Include="PrefixRule.cs" />
     <Compile Include="RuleMatcher.cs" />
     <Compile Include="RuleProvider.cs" />
     <Compile Include="Spacing.cs" />
