@@ -2,9 +2,17 @@ namespace ArguMint
 {
    internal class RuleProvider : IRuleProvider
    {
-      public IArgumentRule[] GetRules()
+      private static readonly IArgumentRule[] _allRules = DefineRules();
+
+      private static IArgumentRule[] DefineRules()
       {
-         throw new System.NotImplementedException();
+         return new IArgumentRule[]
+         {
+            new PositionalRule(),
+            new PrefixRule()
+         };
       }
+
+      public IArgumentRule[] GetRules() => _allRules;
    }
 }
