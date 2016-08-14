@@ -19,6 +19,14 @@ namespace ArguMint
          {
             throw new ArgumentConfigurationException( "Argument class must have argument properties denoted by ArgumentAttributes" );
          }
+
+         foreach ( var markedProperty in markedProperties )
+         {
+            foreach ( var rule in _ruleProvider.GetRules() )
+            {
+               rule.Match( argumentClass, markedProperty, arguments );
+            }
+         }
       }
    }
 }
