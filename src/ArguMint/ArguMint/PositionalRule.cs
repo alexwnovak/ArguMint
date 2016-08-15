@@ -12,6 +12,11 @@
             {
                object convertedValue = ValueConverter.Convert( arguments[index], property.PropertyType );
 
+               if ( convertedValue == null )
+               {
+                  throw new ArgumentErrorException();
+               }
+
                property.SetPropertyValue( argumentClass, convertedValue );
             }
          }
