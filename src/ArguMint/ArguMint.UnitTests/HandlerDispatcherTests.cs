@@ -67,5 +67,14 @@ namespace ArguMint.UnitTests
 
          dispatchArgumentsOmitted.ShouldThrow<ArgumentConfigurationException>();
       }
+
+      public void DispatchArgumentError_ArgumentClassIsNull_ThrowsArgumentException()
+      {
+         var handlerDispatcher = new HandlerDispatcher( null );
+
+         Action dispatchArgumentError = () => handlerDispatcher.DispatchArgumentError( null );
+
+         dispatchArgumentError.ShouldThrow<ArgumentException>();
+      }
    }
 }

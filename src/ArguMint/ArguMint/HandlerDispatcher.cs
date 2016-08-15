@@ -37,7 +37,10 @@ namespace ArguMint
 
       public void DispatchArgumentError( object argumentClass )
       {
-         throw new NotImplementedException();
+         if ( argumentClass == null )
+         {
+            throw new ArgumentException( "Argument class must not be null" );
+         }
       }
    }
 }
