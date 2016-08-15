@@ -3,6 +3,6 @@
    internal interface IHandlerDispatcher
    {
       void DispatchArgumentsOmitted( object argumentClass );
-      void DispatchArgumentError();
+      void DispatchArgumentError( object argumentClass );
    }
 }

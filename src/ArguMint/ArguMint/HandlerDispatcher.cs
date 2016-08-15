@@ -35,7 +35,7 @@ namespace ArguMint
          }
       }
 
-      public void DispatchArgumentError()
+      public void DispatchArgumentError( object argumentClass )
       {
          throw new NotImplementedException();
       }
