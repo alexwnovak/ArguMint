@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace ArguMint
+﻿namespace ArguMint
 {
    internal class PositionalRule : IArgumentRule
    {
@@ -12,9 +10,12 @@ namespace ArguMint
 
             if ( arguments.Length >= index + 1 )
             {
-               var typeConverter = TypeDescriptor.GetConverter( property.PropertyType );
+               object convertedValue = ValueConverter.Convert( arguments[index], property.PropertyType );
 
-               object convertedValue = typeConverter.ConvertFromString( arguments[index] );
+               if ( convertedValue == null )
+               {
+                  throw new ArgumentErrorException();
+               }
 
                property.SetPropertyValue( argumentClass, convertedValue );
             }

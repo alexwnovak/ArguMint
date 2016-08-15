@@ -9,7 +9,12 @@ namespace ArguMint
       {
          var typeConverter = TypeDescriptor.GetConverter( destinationType );
 
-         return typeConverter.ConvertFromString( stringValue );
+         if ( typeConverter.IsValid( stringValue ) )
+         {
+            return typeConverter.ConvertFromString( stringValue );
+         }
+
+         return null;
       }
    }
 }

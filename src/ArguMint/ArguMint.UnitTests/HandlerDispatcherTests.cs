@@ -67,5 +67,60 @@ namespace ArguMint.UnitTests
 
          dispatchArgumentsOmitted.ShouldThrow<ArgumentConfigurationException>();
       }
+
+      public void DispatchArgumentError_ArgumentClassIsNull_ThrowsArgumentException()
+      {
+         var handlerDispatcher = new HandlerDispatcher( null );
+
+         Action dispatchArgumentError = () => handlerDispatcher.DispatchArgumentError( null );
+
+         dispatchArgumentError.ShouldThrow<ArgumentException>();
+      }
+
+      public void DispatchArgumentError_FindsOneHandler_CallsHandler()
+      {
+         // Arrange
+
+         var markedMethodMock = new Mock<IMarkedMethod<ArgumentErrorHandlerAttribute>>();
+         var markedMethods = ArrayHelper.Create( markedMethodMock.Object );
+
+         var typeInspectorMock = new Mock<ITypeInspector>();
+         typeInspectorMock.Setup( ti => ti.GetMarkedMethods<ArgumentErrorHandlerAttribute>( It.IsAny<Type>() ) ).Returns( markedMethods );
+
+         // Act
+
+         object argumentClassDoesNotMatter = 12345;
+
+         var handlerDispatcher = new HandlerDispatcher( typeInspectorMock.Object );
+
+         handlerDispatcher.DispatchArgumentError( argumentClassDoesNotMatter );
+
+         // Assert
+
+         markedMethodMock.Verify( mm => mm.Invoke( argumentClassDoesNotMatter ), Times.Once() );
+      }
+
+      public void DispatchArgumentError_FindsMultipleErrorHandlers_ThrowsArgumentConfigurationException()
+      {
+         // Arrange
+
+         var markedMethodMock = new Mock<IMarkedMethod<ArgumentErrorHandlerAttribute>>();
+         var markedMethods = ArrayHelper.Create( markedMethodMock.Object, markedMethodMock.Object );
+
+         var typeInspectorMock = new Mock<ITypeInspector>();
+         typeInspectorMock.Setup( ti => ti.GetMarkedMethods<ArgumentErrorHandlerAttribute>( It.IsAny<Type>() ) ).Returns( markedMethods );
+
+         // Act
+
+         object argumentClassDoesNotMatter = 12345;
+
+         var handlerDispatcher = new HandlerDispatcher( typeInspectorMock.Object );
+
+         Action dispatchArgumentError = () => handlerDispatcher.DispatchArgumentError( argumentClassDoesNotMatter );
+
+         // Assert
+
+         dispatchArgumentError.ShouldThrow<ArgumentConfigurationException>();
+      }
    }
 }

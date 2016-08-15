@@ -1,4 +1,6 @@
-﻿using Moq;
+﻿using System;
+using Moq;
+using FluentAssertions;
 using ArguMint.TestCommon.Helpers;
 
 namespace ArguMint.UnitTests
@@ -50,6 +52,33 @@ namespace ArguMint.UnitTests
          // Assert
 
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( argumentClass, argument ), Times.Once() );
+      }
+
+      public void Match_ArgumentDoesNotMatchPropertyType_ThrowsArgumentErrorException()
+      {
+         object argumentClass = "ThisDoesNotMatter";
+         var argumentAttribute = new ArgumentAttribute
+         {
+            Position = ArgumentPosition.First
+         };
+
+         // Arrange
+
+         var markedPropertyMock = new Mock<IMarkedProperty<ArgumentAttribute>>();
+         markedPropertyMock.SetupGet( mp => mp.Attribute ).Returns( argumentAttribute );
+         markedPropertyMock.SetupGet( mp => mp.PropertyType ).Returns( typeof( int ) );
+
+         // Act
+
+         string argument = "DoesNotConvertToAnInteger";
+
+         var positionalRule = new PositionalRule();
+
+         Action match = () => positionalRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( argument ) );
+
+         // Assert
+
+         match.ShouldThrow<ArgumentErrorException>();
       }
    }
 }

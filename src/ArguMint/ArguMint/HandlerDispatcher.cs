@@ -11,14 +11,14 @@ namespace ArguMint
          _typeInspector = typeInspector;
       }
 
-      public void DispatchArgumentsOmitted( object argumentClass )
+      public void DispatchForAttribute<T>( object argumentClass ) where T : Attribute
       {
          if ( argumentClass == null )
          {
             throw new ArgumentException( "Argument class must not be null" );
          }
 
-         var markedMethods = _typeInspector.GetMarkedMethods<ArgumentsOmittedHandlerAttribute>( argumentClass.GetType() );
+         var markedMethods = _typeInspector.GetMarkedMethods<T>( argumentClass.GetType() );
 
          if ( markedMethods != null )
          {
@@ -30,9 +30,15 @@ namespace ArguMint
             }
             else if ( count > 1 )
             {
-               throw new ArgumentConfigurationException( $"Argument class can only have one ArgumentsOmittedHandler but found {count}" );
+               throw new ArgumentConfigurationException( $"Argument class can only have one {typeof( T ).Name} but found {count}" );
             }
          }
       }
+
+      public void DispatchArgumentsOmitted( object argumentClass )
+         => DispatchForAttribute<ArgumentsOmittedHandlerAttribute>( argumentClass );
+
+      public void DispatchArgumentError( object argumentClass )
+         => DispatchForAttribute<ArgumentErrorHandlerAttribute>( argumentClass );
    }
 }

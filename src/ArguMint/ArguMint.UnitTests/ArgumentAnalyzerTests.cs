@@ -61,5 +61,27 @@ namespace ArguMint.UnitTests
 
          ruleMatcherMock.Verify( rm => rm.Match( It.IsAny<object>(), stringArgs ), Times.Once() );
       }
+
+      public void Analyze_RuleMatcherThrowsArgumentErrorException_CallsArgumentHandler()
+      {
+         var stringArgs = ArrayHelper.Create( "OneArg" );
+
+         // Arrange
+
+         var handlerDispatcherMock = new Mock<IHandlerDispatcher>();
+
+         var ruleMatcherMock = new Mock<IRuleMatcher>();
+         ruleMatcherMock.Setup( rm => rm.Match( It.IsAny<object>(), stringArgs ) ).Throws<ArgumentErrorException>();
+
+         // Act
+
+         var argumentAnalyzer = new ArgumentAnalyzer( handlerDispatcherMock.Object, ruleMatcherMock.Object );
+
+         argumentAnalyzer.Analyze<DontCare>( stringArgs );
+
+         // Assert
+
+         handlerDispatcherMock.Verify( hd => hd.DispatchArgumentError( It.IsAny<object>() ), Times.Once() );
+      }
    }
 }
