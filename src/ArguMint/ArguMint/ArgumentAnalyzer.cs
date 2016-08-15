@@ -35,7 +35,14 @@ namespace ArguMint
             return argumentClass;
          }
 
-         _ruleMatcher.Match( argumentClass, arguments );
+         try
+         {
+            _ruleMatcher.Match( argumentClass, arguments );
+         }
+         catch ( ArgumentErrorException )
+         {
+            _handlerDispatcher.DispatchArgumentError();
+         }
 
          return argumentClass;
       }
