@@ -45,6 +45,7 @@
     <Compile Include="ArgumentAnalyzer.cs" />
     <Compile Include="ArgumentAttribute.cs" />
     <Compile Include="ArgumentConfigurationException.cs" />
+    <Compile Include="ArgumentErrorException.cs" />
     <Compile Include="ArgumentPosition.cs" />
     <Compile Include="ArgumentPositionExtensions.cs" />
     <Compile Include="ArgumentsOmittedHandlerAttribute.cs" />
