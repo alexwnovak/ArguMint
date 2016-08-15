@@ -11,12 +11,17 @@ namespace ArguMint
          _typeInspector = typeInspector;
       }
 
-      public void DispatchArgumentsOmitted( object argumentClass )
+      private static void ValidateArgumentClass( object argumentClass )
       {
          if ( argumentClass == null )
          {
             throw new ArgumentException( "Argument class must not be null" );
          }
+      }
+
+      public void DispatchArgumentsOmitted( object argumentClass )
+      {
+         ValidateArgumentClass( argumentClass );
 
          var markedMethods = _typeInspector.GetMarkedMethods<ArgumentsOmittedHandlerAttribute>( argumentClass.GetType() );
 
@@ -37,10 +42,7 @@ namespace ArguMint
 
       public void DispatchArgumentError( object argumentClass )
       {
-         if ( argumentClass == null )
-         {
-            throw new ArgumentException( "Argument class must not be null" );
-         }
+         ValidateArgumentClass( argumentClass );
       }
    }
 }
