@@ -43,6 +43,18 @@ namespace ArguMint
       public void DispatchArgumentError( object argumentClass )
       {
          ValidateArgumentClass( argumentClass );
+
+         var markedMethods = _typeInspector.GetMarkedMethods<ArgumentErrorHandlerAttribute>( argumentClass.GetType() );
+
+         if ( markedMethods != null )
+         {
+            int count = markedMethods.Length;
+
+            if ( count == 1 )
+            {
+               markedMethods[0].Invoke( argumentClass );
+            }
+         }
       }
    }
 }
