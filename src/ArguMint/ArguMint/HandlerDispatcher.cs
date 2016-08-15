@@ -54,6 +54,11 @@ namespace ArguMint
             {
                markedMethods[0].Invoke( argumentClass );
             }
+            else if ( count > 1 )
+            {
+               throw new ArgumentConfigurationException( $"Argument class can only have one ArgumentErrorHandler but found {count}" );
+            }
+
          }
       }
    }
