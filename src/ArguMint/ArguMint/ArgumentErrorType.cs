@@ -2,5 +2,7 @@
 {
    public enum ArgumentErrorType
    {
+      Unspecified,
+      TypeMismatch
    }
 }

@@ -78,7 +78,7 @@ namespace ArguMint.UnitTests
 
          // Assert
 
-         match.ShouldThrow<ArgumentErrorException>();
+         match.ShouldThrow<ArgumentErrorException>().Where( e => e.ErrorType == ArgumentErrorType.TypeMismatch );
       }
 
       public void Match_HasOneArgumentAndTriesToMatchInSecondPosition_ThrowsArgumentErrorException()

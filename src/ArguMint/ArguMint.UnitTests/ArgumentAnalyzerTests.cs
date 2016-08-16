@@ -71,7 +71,7 @@ namespace ArguMint.UnitTests
          var handlerDispatcherMock = new Mock<IHandlerDispatcher>();
 
          var ruleMatcherMock = new Mock<IRuleMatcher>();
-         ruleMatcherMock.Setup( rm => rm.Match( It.IsAny<object>(), stringArgs ) ).Throws<ArgumentErrorException>();
+         ruleMatcherMock.Setup( rm => rm.Match( It.IsAny<object>(), stringArgs ) ).Throws( new ArgumentErrorException( ArgumentErrorType.Unspecified ) );
 
          // Act
 
