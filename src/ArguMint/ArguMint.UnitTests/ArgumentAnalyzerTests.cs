@@ -65,13 +65,14 @@ namespace ArguMint.UnitTests
       public void Analyze_RuleMatcherThrowsArgumentErrorException_CallsArgumentHandler()
       {
          var stringArgs = ArrayHelper.Create( "OneArg" );
+         const ArgumentErrorType errorType = ArgumentErrorType.TypeMismatch;
 
          // Arrange
 
          var handlerDispatcherMock = new Mock<IHandlerDispatcher>();
 
          var ruleMatcherMock = new Mock<IRuleMatcher>();
-         ruleMatcherMock.Setup( rm => rm.Match( It.IsAny<object>(), stringArgs ) ).Throws( new ArgumentErrorException( ArgumentErrorType.Unspecified ) );
+         ruleMatcherMock.Setup( rm => rm.Match( It.IsAny<object>(), stringArgs ) ).Throws( new ArgumentErrorException( errorType ) );
 
          // Act
 
@@ -81,7 +82,7 @@ namespace ArguMint.UnitTests
 
          // Assert
 
-         handlerDispatcherMock.Verify( hd => hd.DispatchArgumentError( It.IsAny<object>(), ArgumentErrorType.Unspecified ), Times.Once() );
+         handlerDispatcherMock.Verify( hd => hd.DispatchArgumentError( It.IsAny<object>(), errorType ), Times.Once() );
       }
    }
 }

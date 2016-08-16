@@ -39,9 +39,9 @@ namespace ArguMint
          {
             _ruleMatcher.Match( argumentClass, arguments );
          }
-         catch ( ArgumentErrorException )
+         catch ( ArgumentErrorException ex )
          {
-            _handlerDispatcher.DispatchArgumentError( argumentClass, ArgumentErrorType.Unspecified );
+            _handlerDispatcher.DispatchArgumentError( argumentClass, ex.ErrorType );
          }
 
          return argumentClass;
