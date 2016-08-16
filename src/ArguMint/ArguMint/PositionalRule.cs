@@ -19,6 +19,10 @@
 
                property.SetPropertyValue( argumentClass, convertedValue );
             }
+            else
+            {
+               throw new ArgumentErrorException();
+            }
          }
       }
    }
