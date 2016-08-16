@@ -38,7 +38,7 @@ namespace ArguMint
       public void DispatchArgumentsOmitted( object argumentClass )
          => DispatchForAttribute<ArgumentsOmittedHandlerAttribute>( argumentClass );
 
-      public void DispatchArgumentError( object argumentClass )
+      public void DispatchArgumentError( object argumentClass, ArgumentErrorType errorType )
          => DispatchForAttribute<ArgumentErrorHandlerAttribute>( argumentClass );
    }
 }

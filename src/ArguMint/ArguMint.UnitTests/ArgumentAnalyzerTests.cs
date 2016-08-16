@@ -81,7 +81,7 @@ namespace ArguMint.UnitTests
 
          // Assert
 
-         handlerDispatcherMock.Verify( hd => hd.DispatchArgumentError( It.IsAny<object>() ), Times.Once() );
+         handlerDispatcherMock.Verify( hd => hd.DispatchArgumentError( It.IsAny<object>(), ArgumentErrorType.Unspecified ), Times.Once() );
       }
    }
 }

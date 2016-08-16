@@ -72,7 +72,7 @@ namespace ArguMint.UnitTests
       {
          var handlerDispatcher = new HandlerDispatcher( null );
 
-         Action dispatchArgumentError = () => handlerDispatcher.DispatchArgumentError( null );
+         Action dispatchArgumentError = () => handlerDispatcher.DispatchArgumentError( null, ArgumentErrorType.Unspecified );
 
          dispatchArgumentError.ShouldThrow<ArgumentException>();
       }
@@ -93,7 +93,7 @@ namespace ArguMint.UnitTests
 
          var handlerDispatcher = new HandlerDispatcher( typeInspectorMock.Object );
 
-         handlerDispatcher.DispatchArgumentError( argumentClassDoesNotMatter );
+         handlerDispatcher.DispatchArgumentError( argumentClassDoesNotMatter, ArgumentErrorType.Unspecified );
 
          // Assert
 
@@ -116,7 +116,7 @@ namespace ArguMint.UnitTests
 
          var handlerDispatcher = new HandlerDispatcher( typeInspectorMock.Object );
 
-         Action dispatchArgumentError = () => handlerDispatcher.DispatchArgumentError( argumentClassDoesNotMatter );
+         Action dispatchArgumentError = () => handlerDispatcher.DispatchArgumentError( argumentClassDoesNotMatter, ArgumentErrorType.Unspecified );
 
          // Assert
 
