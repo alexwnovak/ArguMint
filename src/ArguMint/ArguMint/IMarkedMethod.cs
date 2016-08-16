@@ -14,6 +14,11 @@ namespace ArguMint
          get;
       }
 
+      Type[] ParameterTypes
+      {
+         get;
+      }
+
       void Invoke( object instance );
    }
 }
