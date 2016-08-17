@@ -77,7 +77,7 @@ namespace ArguMint.UnitTests
          dispatchArgumentError.ShouldThrow<ArgumentException>();
       }
 
-      public void DispatchArgumentError_FindsOneHandler_CallsHandler()
+      public void DispatchArgumentError_FindsOneHandlerWithNoParameters_CallsHandler()
       {
          // Arrange
 
@@ -99,6 +99,32 @@ namespace ArguMint.UnitTests
          // Assert
 
          markedMethodMock.Verify( mm => mm.Invoke( argumentClassDoesNotMatter ), Times.Once() );
+      }
+
+      public void DispatchArgumentError_FindsHandlerWithErrorParameter_CallsHandler()
+      {
+         const ArgumentErrorType errorType = ArgumentErrorType.TypeMismatch;
+         
+         // Arrange
+
+         var markedMethodMock = new Mock<IMarkedMethod<ArgumentErrorHandlerAttribute>>();
+         markedMethodMock.SetupGet( mm => mm.ParameterTypes ).Returns( ArrayHelper.Create( typeof( ArgumentErrorType ) ) );
+         var markedMethods = ArrayHelper.Create( markedMethodMock.Object );
+
+         var typeInspectorMock = new Mock<ITypeInspector>();
+         typeInspectorMock.Setup( ti => ti.GetMarkedMethods<ArgumentErrorHandlerAttribute>( It.IsAny<Type>() ) ).Returns( markedMethods );
+
+         // Act
+
+         object argumentClassDoesNotMatter = 12345;
+
+         var handlerDispatcher = new HandlerDispatcher( typeInspectorMock.Object );
+
+         handlerDispatcher.DispatchArgumentError( argumentClassDoesNotMatter, errorType );
+
+         // Assert
+
+         markedMethodMock.Verify( mm => mm.Invoke( argumentClassDoesNotMatter, It.Is<object[]>( a => ((ArgumentErrorType) a[0]) == errorType ) ), Times.Once() );
       }
 
       public void DispatchArgumentError_FindsMultipleErrorHandlers_ThrowsArgumentConfigurationException()
