@@ -82,6 +82,7 @@ namespace ArguMint.UnitTests
          // Arrange
 
          var markedMethodMock = new Mock<IMarkedMethod<ArgumentErrorHandlerAttribute>>();
+         markedMethodMock.SetupGet( mm => mm.ParameterTypes ).Returns( new Type[0] );
          var markedMethods = ArrayHelper.Create( markedMethodMock.Object );
 
          var typeInspectorMock = new Mock<ITypeInspector>();
