@@ -20,5 +20,6 @@ namespace ArguMint
       }
 
       void Invoke( object instance );
+      void Invoke( object instance, object[] parameters );
    }
 }

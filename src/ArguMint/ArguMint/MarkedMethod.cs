@@ -27,9 +27,8 @@ namespace ArguMint
          ParameterTypes = methodInfo.GetParameters().Select( p => p.ParameterType ).ToArray();
       }
 
-      public void Invoke( object instance )
-      {
-         _methodInfo.Invoke( instance, new object[0] );
-      }
+      public void Invoke( object instance ) => Invoke( instance, new object[0] );
+
+      public void Invoke( object instance, object[] parameters ) => _methodInfo.Invoke( instance, parameters );
    }
 }
