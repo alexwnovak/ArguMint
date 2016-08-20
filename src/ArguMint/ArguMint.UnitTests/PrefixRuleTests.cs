@@ -108,5 +108,61 @@ namespace ArguMint.UnitTests
 
          match.ShouldThrow<ArgumentErrorException>().Where( e => e.ErrorType == ArgumentErrorType.PrefixArgumentHasNoValue );
       }
+
+      public void Match_PrefixNoSpaceHasInteger_ArgumentIsConvertedAndSet()
+      {
+         object argumentClass = "DoesNotMatter";
+
+         const string prefix = "/prefixWithNoSpace:";
+         const int value = 1234;
+
+         var argumentAttribute = new ArgumentAttribute( prefix );
+
+         // Arrange
+
+         var markedPropertyMock = new Mock<IMarkedProperty<ArgumentAttribute>>();
+         markedPropertyMock.SetupGet( mp => mp.Attribute ).Returns( argumentAttribute );
+         markedPropertyMock.SetupGet( mp => mp.PropertyType ).Returns( typeof( int ) );
+
+         // Act
+
+         string argument = $"{prefix}{value}";
+
+         var prefixRule = new PrefixRule();
+
+         prefixRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( argument ) );
+
+         // Assert
+
+         markedPropertyMock.Verify( mp => mp.SetPropertyValue( argumentClass, value ), Times.Once() );
+      }
+
+      public void Match_PrefixNoSpaceMatchesAgainstNonInteger_ThrowsArgumentErrorException()
+      {
+         object argumentClass = "DoesNotMatter";
+
+         const string prefix = "/prefixWithNoSpace:";
+         const string value = "NotAnInteger";
+
+         var argumentAttribute = new ArgumentAttribute( prefix );
+
+         // Arrange
+
+         var markedPropertyMock = new Mock<IMarkedProperty<ArgumentAttribute>>();
+         markedPropertyMock.SetupGet( mp => mp.Attribute ).Returns( argumentAttribute );
+         markedPropertyMock.SetupGet( mp => mp.PropertyType ).Returns( typeof( int ) );
+
+         // Act
+
+         string argument = $"{prefix}{value}";
+
+         var prefixRule = new PrefixRule();
+
+         Action match = () => prefixRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( argument ) );
+
+         // Assert
+
+         match.ShouldThrow<ArgumentErrorException>().Where( e => e.ErrorType == ArgumentErrorType.TypeMismatch );
+      }
    }
 }

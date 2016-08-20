@@ -19,7 +19,14 @@
                         throw new ArgumentErrorException( ArgumentErrorType.PrefixArgumentHasNoValue );
                      }
 
-                     property.SetPropertyValue( argumentClass, value );
+                     object convertedValue = ValueConverter.Convert( value, property.PropertyType );
+
+                     if ( convertedValue == null )
+                     {
+                        throw new ArgumentErrorException( ArgumentErrorType.TypeMismatch );
+                     }
+
+                     property.SetPropertyValue( argumentClass, convertedValue );
                   }
                }
             }
