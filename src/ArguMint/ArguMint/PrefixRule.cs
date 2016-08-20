@@ -13,16 +13,38 @@
                   if ( argument.StartsWith( property.Attribute.Argument ) )
                   {
                      string value = argument.Replace( property.Attribute.Argument, string.Empty );
-                     property.SetPropertyValue( argumentClass, value );
+
+                     if ( string.IsNullOrEmpty( value ) )
+                     {
+                        throw new ArgumentErrorException( ArgumentErrorType.PrefixArgumentHasNoValue );
+                     }
+
+                     object convertedValue = ValueConverter.Convert( value, property.PropertyType );
+
+                     if ( convertedValue == null )
+                     {
+                        throw new ArgumentErrorException( ArgumentErrorType.TypeMismatch );
+                     }
+
+                     property.SetPropertyValue( argumentClass, convertedValue );
                   }
                }
             }
             else if ( property.Attribute.Spacing == Spacing.Postfix )
             {
+               string argumentString = property.Attribute.Argument.Trim();
+
                for ( int index = 0; index < arguments.Length; index++ )
                {
-                  if ( arguments[index] == property.Attribute.Argument )
+                  string thisArgument = arguments[index].Trim();
+
+                  if ( thisArgument == argumentString )
                   {
+                     if ( index + 1 >= arguments.Length )
+                     {
+                        throw new ArgumentErrorException( ArgumentErrorType.PrefixArgumentHasNoValue );
+                     }
+
                      string value = arguments[index + 1];
                      property.SetPropertyValue( argumentClass, value );
                   }

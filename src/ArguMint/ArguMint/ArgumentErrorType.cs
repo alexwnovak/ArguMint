@@ -3,6 +3,7 @@
    public enum ArgumentErrorType
    {
       Unspecified,
-      TypeMismatch
+      TypeMismatch,
+      PrefixArgumentHasNoValue
    }
 }
