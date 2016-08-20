@@ -33,6 +33,11 @@
 
                   if ( thisArgument == argumentString )
                   {
+                     if ( index + 1 >= arguments.Length )
+                     {
+                        throw new ArgumentErrorException( ArgumentErrorType.PrefixArgumentHasNoValue );
+                     }
+
                      string value = arguments[index + 1];
                      property.SetPropertyValue( argumentClass, value );
                   }
