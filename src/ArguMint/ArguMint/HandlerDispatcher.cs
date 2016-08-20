@@ -11,7 +11,7 @@ namespace ArguMint
          _typeInspector = typeInspector;
       }
 
-      public void DispatchForAttribute<T>( object argumentClass ) where T : Attribute
+      private IMarkedMethod<T>[] GetMarkedMethods<T>( object argumentClass ) where T : Attribute
       {
          if ( argumentClass == null )
          {
@@ -20,53 +20,39 @@ namespace ArguMint
 
          var markedMethods = _typeInspector.GetMarkedMethods<T>( argumentClass.GetType() );
 
-         if ( markedMethods != null )
+         if ( markedMethods?.Length > 1 )
          {
-            int count = markedMethods.Length;
-
-            if ( count == 1 )
-            {
-               markedMethods[0].Invoke( argumentClass );
-            }
-            else if ( count > 1 )
-            {
-               throw new ArgumentConfigurationException( $"Argument class can only have one {typeof( T ).Name} but found {count}" );
-            }
+            throw new ArgumentConfigurationException( $"Argument class can only have one {typeof( T ).Name} but found {markedMethods.Length}" );
          }
+
+         return markedMethods;
       }
 
       public void DispatchArgumentsOmitted( object argumentClass )
-         => DispatchForAttribute<ArgumentsOmittedHandlerAttribute>( argumentClass );
+      {
+         var markedMethods = GetMarkedMethods<ArgumentsOmittedHandlerAttribute>( argumentClass );
+
+         if ( markedMethods?.Length == 1 )
+         {
+            markedMethods[0].Invoke( argumentClass );
+         }
+      }
 
       public void DispatchArgumentError( object argumentClass, ArgumentErrorType errorType )
       {
-         if ( argumentClass == null )
+         var markedMethods = GetMarkedMethods<ArgumentErrorHandlerAttribute>( argumentClass );
+
+         if ( markedMethods?.Length == 1 )
          {
-            throw new ArgumentException( "Argument class must not be null" );
-         }
+            var parameterTypes = markedMethods[0].ParameterTypes;
 
-         var markedMethods = _typeInspector.GetMarkedMethods<ArgumentErrorHandlerAttribute>( argumentClass.GetType() );
-
-         if ( markedMethods != null )
-         {
-            int count = markedMethods.Length;
-
-            if ( count == 1 )
+            if ( parameterTypes.Length == 0 )
             {
-               var parameterTypes = markedMethods[0].ParameterTypes;
-
-               if ( parameterTypes.Length == 0 )
-               {
-                  markedMethods[0].Invoke( argumentClass );
-               }
-               else if ( parameterTypes.Length == 1 && parameterTypes[0] == typeof( ArgumentErrorType ) )
-               {
-                  markedMethods[0].Invoke( argumentClass, new object[] { errorType } );
-               }
+               markedMethods[0].Invoke( argumentClass );
             }
-            else if ( count > 1 )
+            else if ( parameterTypes.Length == 1 && parameterTypes[0] == typeof( ArgumentErrorType ) )
             {
-               throw new ArgumentConfigurationException( $"Argument class can only have one {typeof( ArgumentErrorHandlerAttribute ).Name} but found {count}" );
+               markedMethods[0].Invoke( argumentClass, new object[] { errorType } );
             }
          }
       }
