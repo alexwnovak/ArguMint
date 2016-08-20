@@ -6,8 +6,14 @@ namespace ArguMint
    [Serializable]
    internal class ArgumentErrorException : Exception
    {
-      public ArgumentErrorException()
+      public ArgumentErrorType ErrorType
       {
+         get;
+      }
+
+      public ArgumentErrorException( ArgumentErrorType errorType )
+      {
+         ErrorType = errorType;
       }
 
       public ArgumentErrorException( string message )

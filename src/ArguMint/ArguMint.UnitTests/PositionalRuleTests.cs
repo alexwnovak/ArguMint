@@ -78,6 +78,33 @@ namespace ArguMint.UnitTests
 
          // Assert
 
+         match.ShouldThrow<ArgumentErrorException>().Where( e => e.ErrorType == ArgumentErrorType.TypeMismatch );
+      }
+
+      public void Match_HasOneArgumentAndTriesToMatchInSecondPosition_ThrowsArgumentErrorException()
+      {
+         object argumentClass = "ThisDoesNotMatter";
+         var argumentAttribute = new ArgumentAttribute
+         {
+            Position = ArgumentPosition.Second
+         };
+
+         // Arrange
+
+         var markedPropertyMock = new Mock<IMarkedProperty<ArgumentAttribute>>();
+         markedPropertyMock.SetupGet( mp => mp.Attribute ).Returns( argumentAttribute );
+         markedPropertyMock.SetupGet( mp => mp.PropertyType ).Returns( typeof( int ) );
+
+         // Act
+
+         string argument = "OneArgument";
+
+         var positionalRule = new PositionalRule();
+
+         Action match = () => positionalRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( argument ) );
+
+         // Assert
+
          match.ShouldThrow<ArgumentErrorException>();
       }
    }

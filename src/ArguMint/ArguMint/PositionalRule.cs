@@ -14,10 +14,14 @@
 
                if ( convertedValue == null )
                {
-                  throw new ArgumentErrorException();
+                  throw new ArgumentErrorException( ArgumentErrorType.TypeMismatch );
                }
 
                property.SetPropertyValue( argumentClass, convertedValue );
+            }
+            else
+            {
+               throw new ArgumentErrorException( ArgumentErrorType.Unspecified );
             }
          }
       }
