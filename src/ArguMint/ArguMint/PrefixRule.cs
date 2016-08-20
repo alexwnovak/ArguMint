@@ -13,6 +13,12 @@
                   if ( argument.StartsWith( property.Attribute.Argument ) )
                   {
                      string value = argument.Replace( property.Attribute.Argument, string.Empty );
+
+                     if ( string.IsNullOrEmpty( value ) )
+                     {
+                        throw new ArgumentErrorException( ArgumentErrorType.PrefixArgumentHasNoValue );
+                     }
+
                      property.SetPropertyValue( argumentClass, value );
                   }
                }

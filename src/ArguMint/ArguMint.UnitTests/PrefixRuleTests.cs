@@ -1,5 +1,7 @@
-﻿using ArguMint.TestCommon.Helpers;
+﻿using System;
+using FluentAssertions;
 using Moq;
+using ArguMint.TestCommon.Helpers;
 
 namespace ArguMint.UnitTests
 {
@@ -30,6 +32,30 @@ namespace ArguMint.UnitTests
          // Assert
 
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( argumentClass, value ), Times.Once() );
+      }
+
+      public void Match_HasOnlyPrefixWithoutArgumentValue_ThrowsArgumentErrorException()
+      {
+         object argumentClass = "DoesNotMatter";
+
+         const string prefix = "/prefixNoSpace:";
+         var argumentAttribute = new ArgumentAttribute( prefix );
+
+         // Arrange
+
+         var markedPropertyMock = new Mock<IMarkedProperty<ArgumentAttribute>>();
+         markedPropertyMock.SetupGet( mp => mp.Attribute ).Returns( argumentAttribute );
+         markedPropertyMock.SetupGet( mp => mp.PropertyType ).Returns( typeof( string ) );
+
+         // Act
+
+         var prefixRule = new PrefixRule();
+
+         Action match = () => prefixRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( prefix ) );
+
+         // Assert
+
+         match.ShouldThrow<ArgumentErrorException>().Where( e => e.ErrorType == ArgumentErrorType.PrefixArgumentHasNoValue );
       }
    }
 }
