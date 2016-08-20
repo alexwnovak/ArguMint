@@ -25,9 +25,13 @@
             }
             else if ( property.Attribute.Spacing == Spacing.Postfix )
             {
+               string argumentString = property.Attribute.Argument.Trim();
+
                for ( int index = 0; index < arguments.Length; index++ )
                {
-                  if ( arguments[index] == property.Attribute.Argument )
+                  string thisArgument = arguments[index].Trim();
+
+                  if ( thisArgument == argumentString )
                   {
                      string value = arguments[index + 1];
                      property.SetPropertyValue( argumentClass, value );

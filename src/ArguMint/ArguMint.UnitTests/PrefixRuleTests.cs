@@ -57,5 +57,31 @@ namespace ArguMint.UnitTests
 
          match.ShouldThrow<ArgumentErrorException>().Where( e => e.ErrorType == ArgumentErrorType.PrefixArgumentHasNoValue );
       }
+
+      public void Match_PrefixHasSpace_SpaceIsIgnoredAndArgumentIsMatchedAnyway()
+      {
+         object argumentClass = "DoesNotMatter";
+
+         const string prefix = "/prefixWithSpace: ";
+         const string value = "ArgumentValue";
+
+         var argumentAttribute = new ArgumentAttribute( prefix, Spacing.Postfix );
+
+         // Arrange
+
+         var markedPropertyMock = new Mock<IMarkedProperty<ArgumentAttribute>>();
+         markedPropertyMock.SetupGet( mp => mp.Attribute ).Returns( argumentAttribute );
+         markedPropertyMock.SetupGet( mp => mp.PropertyType ).Returns( typeof( string ) );
+
+         // Act
+
+         var prefixRule = new PrefixRule();
+
+         prefixRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( prefix, value ) );
+
+         // Assert
+
+         markedPropertyMock.Verify( mp => mp.SetPropertyValue( argumentClass, value ), Times.Once() );
+      }
    }
 }
