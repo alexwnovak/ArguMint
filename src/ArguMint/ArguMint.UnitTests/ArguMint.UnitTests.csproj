@@ -103,6 +103,7 @@
     <Compile Include="PrefixRuleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuleMatcherTests.cs" />
+    <Compile Include="TreeTests.cs" />
     <Compile Include="TypeInspectorTests.cs" />
     <Compile Include="ValueConverterTests.cs" />
   </ItemGroup>
