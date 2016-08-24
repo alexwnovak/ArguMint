@@ -56,6 +56,7 @@
     <Compile Include="ArgumentAnalyzerTests.cs" />
     <Compile Include="Helpers\ArgumentAnalyzerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scenarios\FileCopy\FileCopyArguments.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
