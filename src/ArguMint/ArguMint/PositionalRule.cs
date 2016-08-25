@@ -35,7 +35,7 @@
             }
             else
             {
-               throw new ArgumentErrorException( ArgumentErrorType.Unspecified );
+               throw new ArgumentErrorException( ArgumentErrorType.ArgumentMissing );
             }
          }
       }

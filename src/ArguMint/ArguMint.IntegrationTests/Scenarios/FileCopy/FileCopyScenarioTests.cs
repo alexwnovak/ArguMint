@@ -23,6 +23,22 @@ namespace ArguMint.IntegrationTests.Scenarios.FileCopy
          argumentClass.DestinationFile.Should().Be( destinationFile );
       }
 
+      public void FileCopyScenario_DestinationFileIsOmitted_NotifiesWithArgumentMissing()
+      {
+         const string sourceFile = "Source.bmp";
+         var stringArgs = ArrayHelper.Create( sourceFile );
+
+         // Act
+
+         var argumentAnalyzer = new ArgumentAnalyzer();
+
+         var argumentClass = argumentAnalyzer.Analyze<FileCopyArguments>( stringArgs );
+
+         // Assert
+
+         argumentClass.ArgumentErrorType.Should().Be( ArgumentErrorType.ArgumentMissing );
+      }
+
       public void FileCopyScenario_ContainsOptionalForceParameter_MatchesArguments()
       {
          const string sourceFile = @"C:\Temp\Source.txt";

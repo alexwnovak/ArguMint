@@ -22,5 +22,14 @@
          get;
          set;
       }
+
+      public ArgumentErrorType? ArgumentErrorType
+      {
+         get;
+         private set;
+      }
+
+      [ArgumentErrorHandler]
+      public void ArgumentHandler( ArgumentErrorType errorType ) => ArgumentErrorType = errorType;
    }
 }
