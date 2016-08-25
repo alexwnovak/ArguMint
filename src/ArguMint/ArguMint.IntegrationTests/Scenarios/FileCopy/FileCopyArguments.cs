@@ -15,5 +15,12 @@
          get;
          set;
       }
+
+      [Argument( "/force" )]
+      public bool ForceCopy
+      {
+         get;
+         set;
+      }
    }
 }

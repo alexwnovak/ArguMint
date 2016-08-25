@@ -22,5 +22,24 @@ namespace ArguMint.IntegrationTests.Scenarios.FileCopy
          argumentClass.SourceFile.Should().Be( sourceFile );
          argumentClass.DestinationFile.Should().Be( destinationFile );
       }
+
+      public void FileCopyScenario_ContainsOptionalForceParameter_MatchesArguments()
+      {
+         const string sourceFile = @"C:\Temp\Source.txt";
+         const string destinationFile = @"C:\Temp\Destination.txt";
+         var stringArgs = ArrayHelper.Create( sourceFile, destinationFile, "/force" );
+
+         // Act
+
+         var argumentAnalyzer = new ArgumentAnalyzer();
+
+         var argumentClass = argumentAnalyzer.Analyze<FileCopyArguments>( stringArgs );
+
+         // Asserts
+
+         argumentClass.SourceFile.Should().Be( sourceFile );
+         argumentClass.DestinationFile.Should().Be( destinationFile );
+         argumentClass.ForceCopy.Should().BeTrue();
+      }
    }
 }
