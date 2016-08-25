@@ -4,6 +4,7 @@
    {
       Unspecified,
       TypeMismatch,
-      PrefixArgumentHasNoValue
+      PrefixArgumentHasNoValue,
+      ArgumentMissing
    }
 }

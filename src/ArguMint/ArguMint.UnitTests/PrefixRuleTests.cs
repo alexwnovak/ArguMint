@@ -84,7 +84,7 @@ namespace ArguMint.UnitTests
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( argumentClass, value ), Times.Once() );
       }
 
-      public void Match_HasPrefixWithSpaceButNoValue_ThrowsArgumentErrorException()
+      public void Match_HasStringArgumentPrefixWithSpaceButNoValue_ThrowsArgumentErrorException()
       {
          object argumentClass = "DoesNotMatter";
 
@@ -107,6 +107,31 @@ namespace ArguMint.UnitTests
          // Assert
 
          match.ShouldThrow<ArgumentErrorException>().Where( e => e.ErrorType == ArgumentErrorType.PrefixArgumentHasNoValue );
+      }
+
+      public void Match_HasBoolArgumentPrefixWithNoValue_SetsBooleanValue()
+      {
+         object argumentClass = "DoesNotMatter";
+
+         const string prefix = "--force";
+
+         var argumentAttribute = new ArgumentAttribute( prefix );
+
+         // Arrange
+
+         var markedPropertyMock = new Mock<IMarkedProperty<ArgumentAttribute>>();
+         markedPropertyMock.SetupGet( mp => mp.Attribute ).Returns( argumentAttribute );
+         markedPropertyMock.SetupGet( mp => mp.PropertyType ).Returns( typeof( bool ) );
+
+         // Act
+
+         var prefixRule = new PrefixRule();
+
+         prefixRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( prefix ) );
+
+         // Assert
+
+         markedPropertyMock.Verify( mp => mp.SetPropertyValue( argumentClass, true ), Times.Once() );
       }
 
       public void Match_PrefixNoSpaceHasInteger_ArgumentIsConvertedAndSet()

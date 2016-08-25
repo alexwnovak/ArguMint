@@ -10,6 +10,7 @@ namespace ArguMint.UnitTests
       public void Match_DoesNotSpecifyPosition_DoesNotSetProperty()
       {
          object argumentClass = "ThisDoesNotMatter";
+         var stringArgs = new string[0];
 
          // Arrange
 
@@ -20,7 +21,7 @@ namespace ArguMint.UnitTests
 
          var positionalRule = new PositionalRule();
 
-         positionalRule.Match( argumentClass, markedPropertyMock.Object, null );
+         positionalRule.Match( argumentClass, markedPropertyMock.Object, stringArgs );
 
          // Assert
 
