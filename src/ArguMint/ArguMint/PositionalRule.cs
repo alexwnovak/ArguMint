@@ -4,7 +4,21 @@
    {
       public void Match( object argumentClass, IMarkedProperty<ArgumentAttribute> property, string[] arguments )
       {
-         if ( property.Attribute.Position != ArgumentPosition.Any )
+         if ( property.Attribute.Position == ArgumentPosition.Any )
+         {
+            foreach ( string argument in arguments )
+            {
+               if ( argument == property.Attribute.Argument )
+               {
+                  if ( property.PropertyType == typeof( bool ) )
+                  {
+                     property.SetPropertyValue( argumentClass, true );
+                     break;
+                  }
+               }
+            }
+         }
+         else
          {
             int index = property.Attribute.Position.ToIndex();
 

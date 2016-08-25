@@ -10,7 +10,11 @@
             {
                foreach ( string argument in arguments )
                {
-                  if ( argument.StartsWith( property.Attribute.Argument ) )
+                  if ( argument == property.Attribute.Argument && property.PropertyType == typeof( bool ) )
+                  {
+                     property.SetPropertyValue( argumentClass, true );
+                  }
+                  else if ( argument.StartsWith( property.Attribute.Argument ) )
                   {
                      string value = argument.Replace( property.Attribute.Argument, string.Empty );
 
