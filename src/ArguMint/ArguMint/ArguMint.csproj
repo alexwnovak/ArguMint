@@ -45,6 +45,7 @@
     <Compile Include="ArgumentAnalyzer.cs" />
     <Compile Include="ArgumentAttribute.cs" />
     <Compile Include="ArgumentConfigurationException.cs" />
+    <Compile Include="ArgumentError.cs" />
     <Compile Include="ArgumentErrorException.cs" />
     <Compile Include="ArgumentErrorHandlerAttribute.cs" />
     <Compile Include="ArgumentErrorType.cs" />
