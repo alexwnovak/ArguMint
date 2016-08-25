@@ -82,7 +82,7 @@ namespace ArguMint.UnitTests
 
          // Assert
 
-         handlerDispatcherMock.Verify( hd => hd.DispatchArgumentError( It.IsAny<object>(), errorType ), Times.Once() );
+         handlerDispatcherMock.Verify( hd => hd.DispatchArgumentError( It.IsAny<object>(), It.Is<ArgumentError>( ae => ae.ErrorType == errorType ) ), Times.Once() );
       }
    }
 }

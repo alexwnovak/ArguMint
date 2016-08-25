@@ -72,7 +72,7 @@ namespace ArguMint.UnitTests
       {
          var handlerDispatcher = new HandlerDispatcher( null );
 
-         Action dispatchArgumentError = () => handlerDispatcher.DispatchArgumentError( null, ArgumentErrorType.Unspecified );
+         Action dispatchArgumentError = () => handlerDispatcher.DispatchArgumentError( null, new ArgumentError( ArgumentErrorType.Unspecified ) );
 
          dispatchArgumentError.ShouldThrow<ArgumentException>();
       }
@@ -94,7 +94,7 @@ namespace ArguMint.UnitTests
 
          var handlerDispatcher = new HandlerDispatcher( typeInspectorMock.Object );
 
-         handlerDispatcher.DispatchArgumentError( argumentClassDoesNotMatter, ArgumentErrorType.Unspecified );
+         handlerDispatcher.DispatchArgumentError( argumentClassDoesNotMatter, new ArgumentError( ArgumentErrorType.Unspecified ) );
 
          // Assert
 
@@ -108,7 +108,7 @@ namespace ArguMint.UnitTests
          // Arrange
 
          var markedMethodMock = new Mock<IMarkedMethod<ArgumentErrorHandlerAttribute>>();
-         markedMethodMock.SetupGet( mm => mm.ParameterTypes ).Returns( ArrayHelper.Create( typeof( ArgumentErrorType ) ) );
+         markedMethodMock.SetupGet( mm => mm.ParameterTypes ).Returns( ArrayHelper.Create( typeof( ArgumentError ) ) );
          var markedMethods = ArrayHelper.Create( markedMethodMock.Object );
 
          var typeInspectorMock = new Mock<ITypeInspector>();
@@ -120,11 +120,13 @@ namespace ArguMint.UnitTests
 
          var handlerDispatcher = new HandlerDispatcher( typeInspectorMock.Object );
 
-         handlerDispatcher.DispatchArgumentError( argumentClassDoesNotMatter, errorType );
+         handlerDispatcher.DispatchArgumentError( argumentClassDoesNotMatter, new ArgumentError( errorType ) );
 
          // Assert
 
-         markedMethodMock.Verify( mm => mm.Invoke( argumentClassDoesNotMatter, It.Is<object[]>( a => ((ArgumentErrorType) a[0]) == errorType ) ), Times.Once() );
+         markedMethodMock.Verify( mm => mm.Invoke( argumentClassDoesNotMatter,
+            It.Is<object[]>( a => ((ArgumentError) a[0]).ErrorType == errorType ) ),
+            Times.Once() );
       }
 
       public void DispatchArgumentError_FindsMultipleErrorHandlers_ThrowsArgumentConfigurationException()
@@ -143,7 +145,7 @@ namespace ArguMint.UnitTests
 
          var handlerDispatcher = new HandlerDispatcher( typeInspectorMock.Object );
 
-         Action dispatchArgumentError = () => handlerDispatcher.DispatchArgumentError( argumentClassDoesNotMatter, ArgumentErrorType.Unspecified );
+         Action dispatchArgumentError = () => handlerDispatcher.DispatchArgumentError( argumentClassDoesNotMatter, new ArgumentError( ArgumentErrorType.Unspecified ) );
 
          // Assert
 
