@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace ArguMint
@@ -11,9 +12,15 @@ namespace ArguMint
          get;
       }
 
-      public ArgumentErrorException( ArgumentErrorType errorType )
+      public Dictionary<string, object> Properties
+      {
+         get;
+      }
+
+      public ArgumentErrorException( ArgumentErrorType errorType, Dictionary<string, object> properties )
       {
          ErrorType = errorType;
+         Properties = properties;
       }
 
       public ArgumentErrorException( string message )

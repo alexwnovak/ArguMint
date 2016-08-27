@@ -28,14 +28,14 @@
 
                if ( convertedValue == null )
                {
-                  throw new ArgumentErrorException( ArgumentErrorType.TypeMismatch );
+                  ArgumentError.ThrowForTypeMismatch( property.PropertyName, property.PropertyType.Name );
                }
 
                property.SetPropertyValue( argumentClass, convertedValue );
             }
             else
             {
-               throw new ArgumentErrorException( ArgumentErrorType.ArgumentMissing );
+               ArgumentError.ThrowForArgumentMissing();;
             }
          }
       }

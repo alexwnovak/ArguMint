@@ -20,14 +20,14 @@
 
                      if ( string.IsNullOrEmpty( value ) )
                      {
-                        throw new ArgumentErrorException( ArgumentErrorType.PrefixArgumentHasNoValue );
+                        ArgumentError.ThrowForPrefixArgumentHasNoValue();
                      }
 
                      object convertedValue = ValueConverter.Convert( value, property.PropertyType );
 
                      if ( convertedValue == null )
                      {
-                        throw new ArgumentErrorException( ArgumentErrorType.TypeMismatch );
+                        ArgumentError.ThrowForTypeMismatch( property.PropertyName, property.PropertyType.Name );
                      }
 
                      property.SetPropertyValue( argumentClass, convertedValue );
@@ -46,7 +46,7 @@
                   {
                      if ( index + 1 >= arguments.Length )
                      {
-                        throw new ArgumentErrorException( ArgumentErrorType.PrefixArgumentHasNoValue );
+                        ArgumentError.ThrowForPrefixArgumentHasNoValue();
                      }
 
                      string value = arguments[index + 1];
