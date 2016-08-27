@@ -49,7 +49,7 @@ namespace ArguMint
 
       public static void ThrowForPrefixArgumentHasNoValue()
       {
-         throw new  ArgumentErrorException( ArgumentErrorType.PrefixArgumentHasNoValue, null );
+         throw new ArgumentErrorException( ArgumentErrorType.PrefixArgumentHasNoValue, null );
       }
    }
 }
