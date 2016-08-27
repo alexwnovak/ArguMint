@@ -37,6 +37,7 @@ namespace ArguMint.IntegrationTests.Scenarios.FileCopy
          // Assert
 
          argumentClass.ArgumentError.ErrorType.Should().Be( ArgumentErrorType.ArgumentMissing );
+         argumentClass.ArgumentError.Properties["PropertyName"].Should().Be( nameof( FileCopyArguments.DestinationFile ) );
       }
 
       public void FileCopyScenario_ContainsOptionalForceParameter_MatchesArguments()

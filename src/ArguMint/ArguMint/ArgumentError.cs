@@ -37,9 +37,14 @@ namespace ArguMint
          throw new ArgumentErrorException( ArgumentErrorType.TypeMismatch, properties );
       }
 
-      internal static void ThrowForArgumentMissing()
+      internal static void ThrowForArgumentMissing( string propertyName )
       {
-         throw new ArgumentErrorException( ArgumentErrorType.ArgumentMissing, null );
+         var properties = new Dictionary<string, object>
+         {
+            ["PropertyName"] = propertyName,
+         };
+
+         throw new ArgumentErrorException( ArgumentErrorType.ArgumentMissing, properties );
       }
 
       public static void ThrowForPrefixArgumentHasNoValue()
