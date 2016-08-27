@@ -38,6 +38,7 @@ namespace ArguMint.UnitTests
       {
          object argumentClass = "DoesNotMatter";
 
+         const string propertyName = "TheProperty";
          const string prefix = "/prefixNoSpace:";
          var argumentAttribute = new ArgumentAttribute( prefix );
 
@@ -45,6 +46,7 @@ namespace ArguMint.UnitTests
 
          var markedPropertyMock = new Mock<IMarkedProperty<ArgumentAttribute>>();
          markedPropertyMock.SetupGet( mp => mp.Attribute ).Returns( argumentAttribute );
+         markedPropertyMock.SetupGet( mp => mp.PropertyName ).Returns( propertyName );
          markedPropertyMock.SetupGet( mp => mp.PropertyType ).Returns( typeof( string ) );
 
          // Act
@@ -55,7 +57,9 @@ namespace ArguMint.UnitTests
 
          // Assert
 
-         match.ShouldThrow<ArgumentErrorException>().Where( e => e.ErrorType == ArgumentErrorType.PrefixArgumentHasNoValue );
+         match.ShouldThrow<ArgumentErrorException>()
+            .Where( e => e.ErrorType == ArgumentErrorType.PrefixArgumentHasNoValue &&
+                    e.Properties["PropertyName"].ToString() == propertyName );
       }
 
       public void Match_PrefixHasSpace_SpaceIsIgnoredAndArgumentIsMatchedAnyway()
@@ -89,6 +93,7 @@ namespace ArguMint.UnitTests
          object argumentClass = "DoesNotMatter";
 
          const string prefix = "/prefixWithSpace:";
+         const string propertyName = "PrefixPropertyWithSpace";
 
          var argumentAttribute = new ArgumentAttribute( prefix, Spacing.Postfix );
 
@@ -96,6 +101,7 @@ namespace ArguMint.UnitTests
 
          var markedPropertyMock = new Mock<IMarkedProperty<ArgumentAttribute>>();
          markedPropertyMock.SetupGet( mp => mp.Attribute ).Returns( argumentAttribute );
+         markedPropertyMock.SetupGet( mp => mp.PropertyName ).Returns( propertyName );
          markedPropertyMock.SetupGet( mp => mp.PropertyType ).Returns( typeof( string ) );
 
          // Act
@@ -106,7 +112,9 @@ namespace ArguMint.UnitTests
 
          // Assert
 
-         match.ShouldThrow<ArgumentErrorException>().Where( e => e.ErrorType == ArgumentErrorType.PrefixArgumentHasNoValue );
+         match.ShouldThrow<ArgumentErrorException>()
+            .Where( e => e.ErrorType == ArgumentErrorType.PrefixArgumentHasNoValue &&
+                    e.Properties["PropertyName"].ToString() == propertyName );
       }
 
       public void Match_HasBoolArgumentPrefixWithNoValue_SetsBooleanValue()

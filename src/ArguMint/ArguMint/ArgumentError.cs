@@ -47,9 +47,14 @@ namespace ArguMint
          throw new ArgumentErrorException( ArgumentErrorType.ArgumentMissing, properties );
       }
 
-      public static void ThrowForPrefixArgumentHasNoValue()
+      public static void ThrowForPrefixArgumentHasNoValue( string propertyName )
       {
-         throw new ArgumentErrorException( ArgumentErrorType.PrefixArgumentHasNoValue, null );
+         var properties = new Dictionary<string, object>
+         {
+            ["PropertyName"] = propertyName,
+         };
+
+         throw new ArgumentErrorException( ArgumentErrorType.PrefixArgumentHasNoValue, properties );
       }
    }
 }

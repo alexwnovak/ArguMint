@@ -20,7 +20,7 @@
 
                      if ( string.IsNullOrEmpty( value ) )
                      {
-                        ArgumentError.ThrowForPrefixArgumentHasNoValue();
+                        ArgumentError.ThrowForPrefixArgumentHasNoValue( property.PropertyName );
                      }
 
                      object convertedValue = ValueConverter.Convert( value, property.PropertyType );
@@ -46,7 +46,7 @@
                   {
                      if ( index + 1 >= arguments.Length )
                      {
-                        ArgumentError.ThrowForPrefixArgumentHasNoValue();
+                        ArgumentError.ThrowForPrefixArgumentHasNoValue( property.PropertyName );
                      }
 
                      string value = arguments[index + 1];
