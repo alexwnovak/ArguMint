@@ -41,7 +41,7 @@ namespace ArguMint
          }
          catch ( ArgumentErrorException ex )
          {
-            _handlerDispatcher.DispatchArgumentError( argumentClass, ex.ErrorType );
+            _handlerDispatcher.DispatchArgumentError( argumentClass, new ArgumentError( ex.ErrorType, ex.Properties ) );
          }
 
          return argumentClass;

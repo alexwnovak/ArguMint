@@ -38,7 +38,7 @@ namespace ArguMint
          }
       }
 
-      public void DispatchArgumentError( object argumentClass, ArgumentErrorType errorType )
+      public void DispatchArgumentError( object argumentClass, ArgumentError argumentError )
       {
          var markedMethods = GetMarkedMethods<ArgumentErrorHandlerAttribute>( argumentClass );
 
@@ -50,9 +50,9 @@ namespace ArguMint
             {
                markedMethods[0].Invoke( argumentClass );
             }
-            else if ( parameterTypes.Length == 1 && parameterTypes[0] == typeof( ArgumentErrorType ) )
+            else if ( parameterTypes.Length == 1 && parameterTypes[0] == typeof( ArgumentError ) )
             {
-               markedMethods[0].Invoke( argumentClass, new object[] { errorType } );
+               markedMethods[0].Invoke( argumentClass, new object[] { argumentError } );
             }
          }
       }
