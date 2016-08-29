@@ -36,7 +36,7 @@
             }
             else
             {
-               ArgumentError.ThrowForArgumentMissing( property.PropertyName );;
+               ArgumentError.ThrowForArgumentMissing( property.PropertyName );
             }
          }
       }
