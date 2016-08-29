@@ -113,5 +113,62 @@ namespace ArguMint.UnitTests
 
          match.ShouldThrow<ArgumentErrorException>();
       }
+
+      [Fact]
+      public void Match_HasOneArgumentInLastPosition_MatchesLastArgument()
+      {
+         object argumentClass = "ThisDoesNotMatter";
+         var argumentAttribute = new ArgumentAttribute
+         {
+            Position = ArgumentPosition.Last
+         };
+
+         // Arrange
+
+         var markedPropertyMock = new Mock<IMarkedProperty<ArgumentAttribute>>();
+         markedPropertyMock.SetupGet( mp => mp.Attribute ).Returns( argumentAttribute );
+
+         // Act
+
+         string argument = "OneArgument";
+
+         var positionalRule = new PositionalRule();
+
+         positionalRule.Match( argumentClass, markedPropertyMock.Object, TokenHelper.CreateArray( argument ) );
+
+         // Assert
+
+         markedPropertyMock.Verify( mp => mp.SetPropertyValue( argumentClass, argument ), Times.Once() );
+      }
+
+      [Fact]
+      public void Match_LookingForLastArgumentButAcceptsThree_MatchesLastArgument()
+      {
+         object argumentClass = "ThisDoesNotMatter";
+         var argumentAttribute = new ArgumentAttribute
+         {
+            Position = ArgumentPosition.Last
+         };
+
+         // Arrange
+
+         var markedPropertyMock = new Mock<IMarkedProperty<ArgumentAttribute>>();
+         markedPropertyMock.SetupGet( mp => mp.Attribute ).Returns( argumentAttribute );
+
+         // Act
+
+         string argument1 = "First argument";
+         string argument2 = "Middle argument";
+         string argument3 = "Last argument";
+         var stringArgs = TokenHelper.CreateArray( argument1, argument2, argument3 );
+
+         var positionalRule = new PositionalRule();
+
+         positionalRule.Match( argumentClass, markedPropertyMock.Object, stringArgs );
+
+         // Assert
+
+         markedPropertyMock.Verify( mp => mp.SetPropertyValue( argumentClass, argument3 ), Times.Once() );
+      }
    }
 }
