@@ -8,5 +8,12 @@
          get;
          set;
       }
+
+      [Argument( "--bytes=", Spacing.None )]
+      public int Bytes
+      {
+         get;
+         set;
+      }
    }
 }
