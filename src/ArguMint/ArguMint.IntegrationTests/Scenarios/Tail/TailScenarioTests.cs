@@ -22,6 +22,21 @@ namespace ArguMint.IntegrationTests.Scenarios.Tail
       }
 
       [Fact]
+      public void TailScenario_SpecifiesFileNameButNotBytes_BytesAreNull()
+      {
+         const string fileName = @"C:\Temp\Document.txt";
+         var stringArgs = ArrayHelper.Create( fileName );
+
+         // Act
+
+         var argumentClass = ArgumentAnalyzer.Analyze<TailArguments>( stringArgs );
+
+         // Asserts
+
+         argumentClass.Bytes.Should().Be( null );
+      }
+
+      [Fact]
       public void TailScenario_SpecifiesBytesArgument_MatchesBytes()
       {
          const string fileName = @"C:\Temp\Document.txt";

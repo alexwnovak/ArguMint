@@ -10,7 +10,7 @@
       }
 
       [Argument( "--bytes=", Spacing.None )]
-      public int Bytes
+      public int? Bytes
       {
          get;
          set;
