@@ -1,7 +1,5 @@
+version: 0.9.{build}
 configuration: Release
-
-before_build:
-  - nuget restore src\ArguMint\ArguMint.sln
-  
-test_script:
-  - ps: .\runTests.ps1
+image: Visual Studio 2015
+build_script:
+- cmd: PowerShell -Version 2.0 .\build.ps1
