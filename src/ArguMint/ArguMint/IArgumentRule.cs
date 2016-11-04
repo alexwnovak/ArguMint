@@ -2,6 +2,6 @@
 {
    internal interface IArgumentRule
    {
-      void Match( object arguentClass, IMarkedProperty<ArgumentAttribute> property, string[] arguments );
+      void Match( object argumentClass, IMarkedProperty<ArgumentAttribute> property, string[] arguments );
    }
 }
