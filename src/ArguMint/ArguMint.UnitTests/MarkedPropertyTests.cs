@@ -2,6 +2,7 @@
 using System.Reflection;
 using ArguMint.UnitTests.Dummies;
 using FluentAssertions;
+using Xunit;
 
 namespace ArguMint.UnitTests
 {
@@ -13,6 +14,7 @@ namespace ArguMint.UnitTests
          set;
       }
 
+      [Fact]
       public void Constructor_PropertyInfoIsNull_ThrowsArgumentNullException()
       {
          Action ctor = () => new MarkedProperty<DontCareAttribute>( null, new DontCareAttribute() );
@@ -20,6 +22,7 @@ namespace ArguMint.UnitTests
          ctor.ShouldThrow<ArgumentException>();
       }
 
+      [Fact]
       public void Constructor_AttributeIsNull_ThrowsArgumentNullException()
       {
          var propertyInfo = typeof( MarkedPropertyTests ).GetProperty( "DummyProperty", BindingFlags.NonPublic | BindingFlags.Instance );
@@ -29,6 +32,7 @@ namespace ArguMint.UnitTests
          ctor.ShouldThrow<ArgumentException>();
       }
 
+      [Fact]
       public void Constructor_PropertyDoesNotHaveSetter_ThrowsArgumentException()
       {
          // Setup
@@ -44,6 +48,7 @@ namespace ArguMint.UnitTests
          ctor.ShouldThrow<ArgumentException>();
       }
 
+      [Fact]
       public void Constructor_PropertyDoesNotHaveGetter_ThrowsArgumentException()
       {
          // Setup
@@ -59,6 +64,7 @@ namespace ArguMint.UnitTests
          ctor.ShouldThrow<ArgumentException>();
       }
 
+      [Fact]
       public void PropertyName_HasValidProperty_ReturnsPropertyName()
       {
          const string propertyName = "DummyProperty";
@@ -74,6 +80,7 @@ namespace ArguMint.UnitTests
          propertyName.Should().Be( markedProperty.PropertyName );
       }
 
+      [Fact]
       public void Attribute_HasValidAttribute_ReturnsInstanceProperly()
       {
          var attribute = new DontCareAttribute();
@@ -89,6 +96,7 @@ namespace ArguMint.UnitTests
          attribute.Should().Be( markedProperty.Attribute );
       }
 
+      [Fact]
       public void SetProperty_HasValidAttribute_SetsPropertyCorrectly()
       {
          const string oldValue = "OldValue";
@@ -114,6 +122,7 @@ namespace ArguMint.UnitTests
          newValue.Should().Be( dummyAttribute.StringProperty );
       }
 
+      [Fact]
       public void SetProperty_PropertyHasPrivateSetter_AllowsPropertyToBeSet()
       {
          const string newValue = "NewValue";

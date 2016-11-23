@@ -2,11 +2,13 @@
 using Moq;
 using FluentAssertions;
 using ArguMint.TestCommon.Helpers;
+using Xunit;
 
 namespace ArguMint.UnitTests
 {
    public class PositionalRuleTests
    {
+      [Fact]
       public void Match_DoesNotSpecifyPosition_DoesNotSetProperty()
       {
          object argumentClass = "ThisDoesNotMatter";
@@ -28,6 +30,7 @@ namespace ArguMint.UnitTests
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( argumentClass, It.IsAny<object>() ), Times.Never() );
       }
 
+      [Fact]
       public void Match_StringArgumentInFirstPosition_ReceivesValue()
       {
          object argumentClass = "ThisDoesNotMatter";
@@ -55,6 +58,7 @@ namespace ArguMint.UnitTests
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( argumentClass, argument ), Times.Once() );
       }
 
+      [Fact]
       public void Match_ArgumentDoesNotMatchPropertyType_ThrowsArgumentErrorException()
       {
          object argumentClass = "ThisDoesNotMatter";
@@ -82,6 +86,7 @@ namespace ArguMint.UnitTests
          match.ShouldThrow<ArgumentErrorException>().Where( e => e.ErrorType == ArgumentErrorType.TypeMismatch );
       }
 
+      [Fact]
       public void Match_HasOneArgumentAndTriesToMatchInSecondPosition_ThrowsArgumentErrorException()
       {
          object argumentClass = "ThisDoesNotMatter";

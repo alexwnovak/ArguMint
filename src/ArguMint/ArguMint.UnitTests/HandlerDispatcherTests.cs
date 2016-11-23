@@ -1,16 +1,18 @@
 ﻿using System;
 using FluentAssertions;
 using Moq;
+using Xunit;
 using ArguMint.TestCommon.Helpers;
 
 namespace ArguMint.UnitTests
 {
    public class HandlerDispatcherTests
    {
+      [Fact]
       public void DispatchArgumentsOmitted_ArgumentClassIsNull_ThrowsArgumentException()
       {
          // Arrange
-         
+
          var typeInspectorMock = new Mock<ITypeInspector>();
 
          // Act
@@ -22,6 +24,7 @@ namespace ArguMint.UnitTests
          dispatchArgumentsOmitted.ShouldThrow<ArgumentException>();
       }
 
+      [Fact]
       public void DispatchArgumentsOmitted_FindsOneMarkedMethod_CallsTheMarkedMethod()
       {
          // Arrange
@@ -45,6 +48,7 @@ namespace ArguMint.UnitTests
          markedMethodMock.Verify( mm => mm.Invoke( argumentClassDoesNotMatter ), Times.Once() );
       }
 
+      [Fact]
       public void DispatchArgumentsOmitted_FindsMultipleMarkedMethods_ThrowsArgumentConfigurationException()
       {
          // Arrange
@@ -68,6 +72,7 @@ namespace ArguMint.UnitTests
          dispatchArgumentsOmitted.ShouldThrow<ArgumentConfigurationException>();
       }
 
+      [Fact]
       public void DispatchArgumentError_ArgumentClassIsNull_ThrowsArgumentException()
       {
          var handlerDispatcher = new HandlerDispatcher( null );
@@ -77,6 +82,7 @@ namespace ArguMint.UnitTests
          dispatchArgumentError.ShouldThrow<ArgumentException>();
       }
 
+      [Fact]
       public void DispatchArgumentError_FindsOneHandlerWithNoParameters_CallsHandler()
       {
          // Arrange
@@ -101,10 +107,11 @@ namespace ArguMint.UnitTests
          markedMethodMock.Verify( mm => mm.Invoke( argumentClassDoesNotMatter ), Times.Once() );
       }
 
+      [Fact]
       public void DispatchArgumentError_FindsHandlerWithErrorParameter_CallsHandler()
       {
          const ArgumentErrorType errorType = ArgumentErrorType.TypeMismatch;
-         
+
          // Arrange
 
          var markedMethodMock = new Mock<IMarkedMethod<ArgumentErrorHandlerAttribute>>();
@@ -129,6 +136,7 @@ namespace ArguMint.UnitTests
             Times.Once() );
       }
 
+      [Fact]
       public void DispatchArgumentError_FindsMultipleErrorHandlers_ThrowsArgumentConfigurationException()
       {
          // Arrange
