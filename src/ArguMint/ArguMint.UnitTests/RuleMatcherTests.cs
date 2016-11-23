@@ -2,11 +2,13 @@
 using FluentAssertions;
 using Moq;
 using ArguMint.TestCommon.Helpers;
+using Xunit;
 
 namespace ArguMint.UnitTests
 {
    public class RuleMatcherTests
    {
+      [Fact]
       public void Match_NoMarkedPropertiesFound_ThrowsArgumentConfigurationException()
       {
          IMarkedProperty<ArgumentAttribute>[] markedProperties = new IMarkedProperty<ArgumentAttribute>[0];
@@ -28,6 +30,7 @@ namespace ArguMint.UnitTests
          match.ShouldThrow<ArgumentConfigurationException>();
       }
 
+      [Fact]
       public void Match_HasArgumentsAndOneProperty_MatchesPropertyAgainstAllRules()
       {
          var propertyOneMock = new Mock<IMarkedProperty<ArgumentAttribute>>();

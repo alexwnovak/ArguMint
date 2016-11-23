@@ -1,6 +1,7 @@
 ﻿using System;
 using Moq;
 using FluentAssertions;
+using Xunit;
 using ArguMint.TestCommon.Dynamic;
 using ArguMint.TestCommon.Helpers;
 using ArguMint.UnitTests.Dummies;
@@ -10,6 +11,7 @@ namespace ArguMint.UnitTests
 {
    public class ArgumentAnalyzerTests
    {
+      [Fact]
       public void Analyze_ArgumentsAreNull_ThrowsArgumentException()
       {
          // Arrange
@@ -26,6 +28,7 @@ namespace ArguMint.UnitTests
          analyze.ShouldThrow<ArgumentException>();
       }
 
+      [Fact]
       public void Analyze_ArgumentArrayIsEmpty_CallsDispatchHandlerForArgumentsOmitted()
       {
          // Arrange
@@ -43,6 +46,7 @@ namespace ArguMint.UnitTests
          handlerDispatcherMock.Verify( hd => hd.DispatchArgumentsOmitted( It.IsAny<object>() ), Times.Once() );
       }
 
+      [Fact]
       public void Analyze_HasArguments_CallsRuleMatcher()
       {
          var stringArgs = ArrayHelper.Create( "OneArg" );
@@ -62,6 +66,7 @@ namespace ArguMint.UnitTests
          ruleMatcherMock.Verify( rm => rm.Match( It.IsAny<object>(), stringArgs ), Times.Once() );
       }
 
+      [Fact]
       public void Analyze_RuleMatcherThrowsArgumentErrorException_CallsArgumentHandler()
       {
          var stringArgs = ArrayHelper.Create( "OneArg" );

@@ -1,4 +1,4 @@
-#tool "nuget:?package=Fixie"
+#tool "nuget:?package=xunit.runner.console"
 
 var target = Argument( "target", "Default" );
 var configuration = Argument( "configuration", "Release" );
@@ -52,7 +52,7 @@ Task( "RunUnitTests" )
       "./src/ArguMint/ArguMint.TestCommon/bin/" + Directory( configuration ) + "/ArguMint.TestCommon.dll"
    };
 
-   Fixie( testAssemblies );
+   XUnit2( testAssemblies );
 } );
 
 //===========================================================================

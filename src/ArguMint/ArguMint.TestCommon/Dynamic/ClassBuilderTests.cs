@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Reflection;
 using FluentAssertions;
+using Xunit;
 
 namespace ArguMint.TestCommon.Dynamic
 {
    public class ClassBuilderTests
    {
+      [Fact]
       public void Create_DoesNoSetup_TypeIsNull()
       {
          var classBuilder = ClassBuilder.Create();
@@ -13,6 +15,7 @@ namespace ArguMint.TestCommon.Dynamic
          classBuilder.Type.Should().BeNull();
       }
 
+      [Fact]
       public void Create_DoesNoSetupButGetsBuilt_TypeExists()
       {
          // Act
@@ -26,6 +29,7 @@ namespace ArguMint.TestCommon.Dynamic
          classBuilder.Type.Should().NotBeNull();
       }
 
+      [Fact]
       public void Create_PassesNullExpression_ThrowsArgumentException()
       {
          var classBuilder = ClassBuilder.Create();
@@ -35,6 +39,7 @@ namespace ArguMint.TestCommon.Dynamic
          markProperty.ShouldThrow<ArgumentException>();
       }
 
+      [Fact]
       public void Create_ExpressionDoesNotCreateAnObject_ThrowsInvalidOperationException()
       {
          var classBuilder = ClassBuilder.Create();
@@ -44,6 +49,7 @@ namespace ArguMint.TestCommon.Dynamic
          markProperty.ShouldThrow<InvalidOperationException>();
       }
 
+      [Fact]
       public void Create_AddsAttributeToNonExistentProperty_ThrowsInvalidOperationException()
       {
          var classBuilder = ClassBuilder.Create();
@@ -53,6 +59,7 @@ namespace ArguMint.TestCommon.Dynamic
          markProperty.ShouldThrow<InvalidOperationException>();
       }
 
+      [Fact]
       public void AddProperty_CreatesIntProperty_CreatesGetterAndSetterWithCorrectName()
       {
          const string propertyName = "Value";
@@ -74,6 +81,7 @@ namespace ArguMint.TestCommon.Dynamic
          propertyInfo.CanWrite.Should().BeTrue();
       }
 
+      [Fact]
       public void MarkProperty_AttachesObsoleteAttributeWithNoSettings_AttributeIsAttached()
       {
          const string propertyName = "FileName";
@@ -94,6 +102,7 @@ namespace ArguMint.TestCommon.Dynamic
          attributes[0].Should().BeOfType<ObsoleteAttribute>();
       }
 
+      [Fact]
       public void MarkProperty_AttachesObsoleteAttributeWithConstructorParameters_AttributeIsAttached()
       {
          const string propertyName = "FileName";
@@ -115,6 +124,7 @@ namespace ArguMint.TestCommon.Dynamic
          obsoleteAttribute.Message.Should().Be( message );
       }
 
+      [Fact]
       public void MarkProperty_AttachesCustomttributeWithNoConstructorAndOneProperty_AttributeIsAttached()
       {
          const string propertyName = "Character";
@@ -139,6 +149,7 @@ namespace ArguMint.TestCommon.Dynamic
          forTestAttribute.CharValue.Should().Be( charValue );
       }
 
+      [Fact]
       public void MarkProperty_AttachesCustomAttributeWithConstructorParametersAndProperties_AttributeIsAttached()
       {
          const string propertyName = "FileName";
@@ -165,6 +176,7 @@ namespace ArguMint.TestCommon.Dynamic
          forTestAttribute.BooleanValue.Should().Be( booleanValue );
       }
 
+      [Fact]
       public void AddMethod_AddsVoidMethodNoArguments_CallsHandler()
       {
          const string methodName = "ArgHander";
@@ -191,6 +203,7 @@ namespace ArguMint.TestCommon.Dynamic
          wasCalled.Should().BeTrue();
       }
 
+      [Fact]
       public void AddMethod_MapsMethodWithSameNameTwice_ThrowsInvalidOperationException()
       {
          // Act
@@ -208,6 +221,7 @@ namespace ArguMint.TestCommon.Dynamic
          addMethod.ShouldThrow<InvalidOperationException>();
       }
 
+      [Fact]
       public void MarkMethod_AddsObsoleteAttributeToMethod_AttributeIsAdded()
       {
          const string methodName = "ArgHander";

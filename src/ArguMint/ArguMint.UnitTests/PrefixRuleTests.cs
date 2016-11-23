@@ -2,11 +2,13 @@
 using FluentAssertions;
 using Moq;
 using ArguMint.TestCommon.Helpers;
+using Xunit;
 
 namespace ArguMint.UnitTests
 {
    public class PrefixRuleTests
    {
+      [Fact]
       public void Match_HasPrefixWithNoSpaceArgument_MatchesArgument()
       {
          object argumentClass = "DoesNotMatter";
@@ -34,6 +36,7 @@ namespace ArguMint.UnitTests
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( argumentClass, value ), Times.Once() );
       }
 
+      [Fact]
       public void Match_HasOnlyPrefixWithoutArgumentValue_ThrowsArgumentErrorException()
       {
          object argumentClass = "DoesNotMatter";
@@ -62,6 +65,7 @@ namespace ArguMint.UnitTests
                     e.Properties["PropertyName"].ToString() == propertyName );
       }
 
+      [Fact]
       public void Match_PrefixHasSpace_SpaceIsIgnoredAndArgumentIsMatchedAnyway()
       {
          object argumentClass = "DoesNotMatter";
@@ -88,6 +92,7 @@ namespace ArguMint.UnitTests
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( argumentClass, value ), Times.Once() );
       }
 
+      [Fact]
       public void Match_HasStringArgumentPrefixWithSpaceButNoValue_ThrowsArgumentErrorException()
       {
          object argumentClass = "DoesNotMatter";
@@ -117,6 +122,7 @@ namespace ArguMint.UnitTests
                     e.Properties["PropertyName"].ToString() == propertyName );
       }
 
+      [Fact]
       public void Match_HasBoolArgumentPrefixWithNoValue_SetsBooleanValue()
       {
          object argumentClass = "DoesNotMatter";
@@ -142,6 +148,7 @@ namespace ArguMint.UnitTests
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( argumentClass, true ), Times.Once() );
       }
 
+      [Fact]
       public void Match_PrefixNoSpaceHasInteger_ArgumentIsConvertedAndSet()
       {
          object argumentClass = "DoesNotMatter";
@@ -170,6 +177,7 @@ namespace ArguMint.UnitTests
          markedPropertyMock.Verify( mp => mp.SetPropertyValue( argumentClass, value ), Times.Once() );
       }
 
+      [Fact]
       public void Match_PrefixNoSpaceMatchesAgainstNonInteger_ThrowsArgumentErrorException()
       {
          object argumentClass = "DoesNotMatter";

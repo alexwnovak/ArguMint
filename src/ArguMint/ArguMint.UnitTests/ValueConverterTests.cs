@@ -1,9 +1,11 @@
 ﻿using FluentAssertions;
+using Xunit;
 
 namespace ArguMint.UnitTests
 {
    public class ValueConverterTests
    {
+      [Fact]
       public void Convert_SourceObjectIsString_ReturnsStringWithSameValue()
       {
          string sourceObject = "";
@@ -14,6 +16,7 @@ namespace ArguMint.UnitTests
          convertedObject.Should().Be( "" );
       }
 
+      [Fact]
       public void Convert_SourceObjectIsInteger_ReturnsIntegerWithSameValue()
       {
          int sourceObject = 123;

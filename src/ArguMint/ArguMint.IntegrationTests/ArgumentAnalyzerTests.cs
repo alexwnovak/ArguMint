@@ -3,11 +3,13 @@ using System.Reflection;
 using FluentAssertions;
 using ArguMint.TestCommon.Dynamic;
 using ArguMint.TestCommon.Helpers;
+using Xunit;
 
 namespace ArguMint.IntegrationTests
 {
    public class ArgumentAnalyzerTests
    {
+      [Fact]
       public void Analyze_ClassHasFirstArgumentAttribute_MapsArgument()
       {
          const string propertyName = "FileName";
@@ -36,6 +38,7 @@ namespace ArguMint.IntegrationTests
          arguments.Property( propertyName ).Should().Be( fileName );
       }
 
+      [Fact]
       public void Analyze_ClassHasFirstArgumentAttributeButNotTheArgument_DoesNotSet()
       {
          const string propertyNameOne = "SourceFileName";
@@ -72,6 +75,7 @@ namespace ArguMint.IntegrationTests
          arguments.Property( propertyNameTwo ).Should().Be( secondArgument );
       }
 
+      [Fact]
       public void Analyze_HasSecondPositionAttributeAndOneArgument_DoesNotSet()
       {
          const string propertyName = "SomeArgument";
@@ -99,6 +103,7 @@ namespace ArguMint.IntegrationTests
          arguments.Property( propertyName ).Should().BeNull();
       }
 
+      [Fact]
       public void Analyze_HasPrefixPropertyAndOneMatch_SetsValue()
       {
          const string propertyName = "FileName";
@@ -124,6 +129,7 @@ namespace ArguMint.IntegrationTests
          arguments.Property( propertyName ).Should().Be( fileName );
       }
 
+      [Fact]
       public void Analyze_HasPrefixPropertyWithSpaceAndOneMatch_SetsValue()
       {
          const string propertyName = "FileName";
@@ -149,6 +155,7 @@ namespace ArguMint.IntegrationTests
          arguments.Property( propertyName ).Should().Be( fileName );
       }
 
+      [Fact]
       public void Analyze_MatchesIntegerArgument_ArgumentTypeAndValueAreConverted()
       {
          const string propertyName = "MaxSize";
@@ -177,6 +184,7 @@ namespace ArguMint.IntegrationTests
          arguments.Property( propertyName ).Should().Be( maxSize );
       }
 
+      [Fact]
       public void Analyze_MatchesCharArgument_ArgumentTypeAndValueAreConverted()
       {
          const string propertyName = "CharValue";
@@ -205,6 +213,7 @@ namespace ArguMint.IntegrationTests
          arguments.Property( propertyName ).Should().Be( charValue );
       }
 
+      [Fact]
       public void Analyze_MethodHasOmittedHandlerAndNoArguments_HandlerIsCalled()
       {
          const string methodName = "ArgumentsOmittedHandler";
