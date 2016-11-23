@@ -2,6 +2,6 @@
 {
    internal interface IRuleMatcher
    {
-      void Match( object argumentClass, string[] arguments );
+      void Match( object argumentClass, ArgumentToken[] arguments );
    }
 }

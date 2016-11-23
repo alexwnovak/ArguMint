@@ -2,21 +2,21 @@
 {
    internal class PrefixRule : IArgumentRule
    {
-      public void Match( object argumentClass, IMarkedProperty<ArgumentAttribute> property, string[] arguments )
+      public void Match( object argumentClass, IMarkedProperty<ArgumentAttribute> property, ArgumentToken[] arguments )
       {
          if ( !string.IsNullOrEmpty( property.Attribute.Argument ) )
          {
             if ( property.Attribute.Spacing == Spacing.None )
             {
-               foreach ( string argument in arguments )
+               foreach ( var argument in arguments )
                {
-                  if ( argument == property.Attribute.Argument && property.PropertyType == typeof( bool ) )
+                  if ( argument.Token == property.Attribute.Argument && property.PropertyType == typeof( bool ) )
                   {
                      property.SetPropertyValue( argumentClass, true );
                   }
-                  else if ( argument.StartsWith( property.Attribute.Argument ) )
+                  else if ( argument.Token.StartsWith( property.Attribute.Argument ) )
                   {
-                     string value = argument.Replace( property.Attribute.Argument, string.Empty );
+                     string value = argument.Token.Replace( property.Attribute.Argument, string.Empty );
 
                      if ( string.IsNullOrEmpty( value ) )
                      {
@@ -40,7 +40,7 @@
 
                for ( int index = 0; index < arguments.Length; index++ )
                {
-                  string thisArgument = arguments[index].Trim();
+                  string thisArgument = arguments[index].Token.Trim();
 
                   if ( thisArgument == argumentString )
                   {
@@ -49,7 +49,7 @@
                         ArgumentError.ThrowForPrefixArgumentHasNoValue( property.PropertyName );
                      }
 
-                     string value = arguments[index + 1];
+                     string value = arguments[index + 1].Token;
                      property.SetPropertyValue( argumentClass, value );
                   }
                }

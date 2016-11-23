@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Moq;
 using ArguMint.TestCommon.Helpers;
+using ArguMint.UnitTests.Helpers;
 using Xunit;
 
 namespace ArguMint.UnitTests
@@ -26,10 +27,11 @@ namespace ArguMint.UnitTests
          // Act
 
          string argument = $"{prefix}{value}";
+         var tokens = TokenHelper.CreateArray( argument );
 
          var prefixRule = new PrefixRule();
 
-         prefixRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( argument ) );
+         prefixRule.Match( argumentClass, markedPropertyMock.Object, tokens );
 
          // Assert
 
@@ -56,7 +58,7 @@ namespace ArguMint.UnitTests
 
          var prefixRule = new PrefixRule();
 
-         Action match = () => prefixRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( prefix ) );
+         Action match = () => prefixRule.Match( argumentClass, markedPropertyMock.Object, TokenHelper.CreateArray( prefix ) );
 
          // Assert
 
@@ -85,7 +87,7 @@ namespace ArguMint.UnitTests
 
          var prefixRule = new PrefixRule();
 
-         prefixRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( prefix, value ) );
+         prefixRule.Match( argumentClass, markedPropertyMock.Object, TokenHelper.CreateArray( prefix, value ) );
 
          // Assert
 
@@ -113,7 +115,7 @@ namespace ArguMint.UnitTests
 
          var prefixRule = new PrefixRule();
 
-         Action match = () => prefixRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( prefix ) );
+         Action match = () => prefixRule.Match( argumentClass, markedPropertyMock.Object, TokenHelper.CreateArray( prefix ) );
 
          // Assert
 
@@ -141,7 +143,7 @@ namespace ArguMint.UnitTests
 
          var prefixRule = new PrefixRule();
 
-         prefixRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( prefix ) );
+         prefixRule.Match( argumentClass, markedPropertyMock.Object, TokenHelper.CreateArray( prefix ) );
 
          // Assert
 
@@ -170,7 +172,7 @@ namespace ArguMint.UnitTests
 
          var prefixRule = new PrefixRule();
 
-         prefixRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( argument ) );
+         prefixRule.Match( argumentClass, markedPropertyMock.Object, TokenHelper.CreateArray( argument ) );
 
          // Assert
 
@@ -199,7 +201,7 @@ namespace ArguMint.UnitTests
 
          var prefixRule = new PrefixRule();
 
-         Action match = () => prefixRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( argument ) );
+         Action match = () => prefixRule.Match( argumentClass, markedPropertyMock.Object, TokenHelper.CreateArray( argument ) );
 
          // Assert
 

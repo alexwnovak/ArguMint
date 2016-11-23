@@ -2,13 +2,13 @@
 {
    internal class PositionalRule : IArgumentRule
    {
-      public void Match( object argumentClass, IMarkedProperty<ArgumentAttribute> property, string[] arguments )
+      public void Match( object argumentClass, IMarkedProperty<ArgumentAttribute> property, ArgumentToken[] arguments )
       {
          if ( property.Attribute.Position == ArgumentPosition.Any )
          {
-            foreach ( string argument in arguments )
+            foreach ( var argument in arguments )
             {
-               if ( argument == property.Attribute.Argument )
+               if ( argument.Token == property.Attribute.Argument )
                {
                   if ( property.PropertyType == typeof( bool ) )
                   {
@@ -24,7 +24,7 @@
 
             if ( arguments.Length >= index + 1 )
             {
-               object convertedValue = ValueConverter.Convert( arguments[index], property.PropertyType );
+               object convertedValue = ValueConverter.Convert( arguments[index].Token, property.PropertyType );
 
                if ( convertedValue == null )
                {

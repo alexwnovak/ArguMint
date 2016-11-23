@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Moq;
 using FluentAssertions;
 using Xunit;
@@ -50,6 +51,7 @@ namespace ArguMint.UnitTests
       public void Analyze_HasArguments_CallsRuleMatcher()
       {
          var stringArgs = ArrayHelper.Create( "OneArg" );
+         var tokens = TokenHelper.CreateArray( stringArgs );
 
          // Arrange
 
@@ -63,13 +65,16 @@ namespace ArguMint.UnitTests
 
          // Assert
 
-         ruleMatcherMock.Verify( rm => rm.Match( It.IsAny<object>(), stringArgs ), Times.Once() );
+         ruleMatcherMock.Verify( rm => rm.Match( It.IsAny<object>(),
+            It.Is<ArgumentToken[]>( at => at.All( token => stringArgs.Contains( token.Token ) ) ) ),
+            Times.Once() );
       }
 
       [Fact]
       public void Analyze_RuleMatcherThrowsArgumentErrorException_CallsArgumentHandler()
       {
          var stringArgs = ArrayHelper.Create( "OneArg" );
+         var tokens = TokenHelper.CreateArray( stringArgs );
          const ArgumentErrorType errorType = ArgumentErrorType.Unspecified;
 
          // Arrange
@@ -77,7 +82,7 @@ namespace ArguMint.UnitTests
          var handlerDispatcherMock = new Mock<IHandlerDispatcher>();
 
          var ruleMatcherMock = new Mock<IRuleMatcher>();
-         ruleMatcherMock.Setup( rm => rm.Match( It.IsAny<object>(), stringArgs ) ).Throws( new ArgumentErrorException( errorType, null ) );
+         ruleMatcherMock.Setup( rm => rm.Match( It.IsAny<object>(), It.IsAny<ArgumentToken[]>() ) ).Throws( new ArgumentErrorException( errorType, null ) );
 
          // Act
 

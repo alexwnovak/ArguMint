@@ -2,6 +2,7 @@
 using Moq;
 using FluentAssertions;
 using ArguMint.TestCommon.Helpers;
+using ArguMint.UnitTests.Helpers;
 using Xunit;
 
 namespace ArguMint.UnitTests
@@ -12,7 +13,7 @@ namespace ArguMint.UnitTests
       public void Match_DoesNotSpecifyPosition_DoesNotSetProperty()
       {
          object argumentClass = "ThisDoesNotMatter";
-         var stringArgs = new string[0];
+         var tokens = new ArgumentToken[0];
 
          // Arrange
 
@@ -23,7 +24,7 @@ namespace ArguMint.UnitTests
 
          var positionalRule = new PositionalRule();
 
-         positionalRule.Match( argumentClass, markedPropertyMock.Object, stringArgs );
+         positionalRule.Match( argumentClass, markedPropertyMock.Object, tokens );
 
          // Assert
 
@@ -51,7 +52,7 @@ namespace ArguMint.UnitTests
 
          var positionalRule = new PositionalRule();
 
-         positionalRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( argument ) );
+         positionalRule.Match( argumentClass, markedPropertyMock.Object, TokenHelper.CreateArray( argument ) );
 
          // Assert
 
@@ -79,7 +80,7 @@ namespace ArguMint.UnitTests
 
          var positionalRule = new PositionalRule();
 
-         Action match = () => positionalRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( argument ) );
+         Action match = () => positionalRule.Match( argumentClass, markedPropertyMock.Object, TokenHelper.CreateArray( argument ) );
 
          // Assert
 
@@ -107,7 +108,7 @@ namespace ArguMint.UnitTests
 
          var positionalRule = new PositionalRule();
 
-         Action match = () => positionalRule.Match( argumentClass, markedPropertyMock.Object, ArrayHelper.Create( argument ) );
+         Action match = () => positionalRule.Match( argumentClass, markedPropertyMock.Object, TokenHelper.CreateArray( argument ) );
 
          // Assert
 
