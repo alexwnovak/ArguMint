@@ -110,6 +110,7 @@
     <Compile Include="Dummies\DummyAttributePropertyPrivateSetter.cs" />
     <Compile Include="Helpers\MarkedPropertyHelper.cs" />
     <Compile Include="Helpers\ObjectExtensions.cs" />
+    <Compile Include="Helpers\TokenHelper.cs" />
     <Compile Include="MarkedPropertyTests.cs" />
     <Compile Include="PositionalRuleTests.cs" />
     <Compile Include="PrefixRuleTests.cs" />
