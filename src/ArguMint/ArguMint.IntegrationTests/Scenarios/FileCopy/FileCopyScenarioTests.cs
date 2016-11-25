@@ -1,6 +1,6 @@
-﻿using ArguMint.TestCommon.Helpers;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Xunit;
+using ArguMint.TestCommon.Helpers;
 
 namespace ArguMint.IntegrationTests.Scenarios.FileCopy
 {

@@ -1,9 +1,9 @@
 ﻿using System;
 using FluentAssertions;
 using Moq;
+using Xunit;
 using ArguMint.TestCommon.Helpers;
 using ArguMint.UnitTests.Helpers;
-using Xunit;
 
 namespace ArguMint.UnitTests
 {
