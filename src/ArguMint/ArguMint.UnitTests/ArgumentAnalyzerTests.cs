@@ -51,7 +51,6 @@ namespace ArguMint.UnitTests
       public void Analyze_HasArguments_CallsRuleMatcher()
       {
          var stringArgs = ArrayHelper.Create( "OneArg" );
-         var tokens = TokenHelper.CreateArray( stringArgs );
 
          // Arrange
 
@@ -74,7 +73,6 @@ namespace ArguMint.UnitTests
       public void Analyze_RuleMatcherThrowsArgumentErrorException_CallsArgumentHandler()
       {
          var stringArgs = ArrayHelper.Create( "OneArg" );
-         var tokens = TokenHelper.CreateArray( stringArgs );
          const ArgumentErrorType errorType = ArgumentErrorType.Unspecified;
 
          // Arrange
@@ -92,7 +90,9 @@ namespace ArguMint.UnitTests
 
          // Assert
 
-         handlerDispatcherMock.Verify( hd => hd.DispatchArgumentError( It.IsAny<object>(), It.Is<ArgumentError>( ae => ae.ErrorType == errorType ) ), Times.Once() );
+         handlerDispatcherMock.Verify( hd => hd.DispatchArgumentError( It.IsAny<object>(),
+            It.Is<ArgumentError>( ae => ae.ErrorType == errorType ) ),
+            Times.Once() );
       }
    }
 }
