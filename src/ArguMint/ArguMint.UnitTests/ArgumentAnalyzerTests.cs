@@ -22,9 +22,7 @@ namespace ArguMint.UnitTests
 
          // Act
 
-         var argumentAnalyzer = new ArgumentAnalyzer();
-
-         Action analyze = () => ArgumentAnalyzerHelper.Analyze( argumentAnalyzer, argumentClass.Type, null );
+         Action analyze = () => ArgumentAnalyzerHelper.Analyze( argumentClass.Type, null );
 
          analyze.ShouldThrow<ArgumentException>();
       }
@@ -40,7 +38,7 @@ namespace ArguMint.UnitTests
 
          var argumentAnalyzer = new ArgumentAnalyzer( handlerDispatcherMock.Object, null );
 
-         argumentAnalyzer.Analyze<DontCare>( new string[0] );
+         argumentAnalyzer.AnalyzeCore<DontCare>( new string[0] );
 
          // Assert
 
@@ -60,7 +58,7 @@ namespace ArguMint.UnitTests
 
          var argumentAnalyzer = new ArgumentAnalyzer( null, ruleMatcherMock.Object );
 
-         argumentAnalyzer.Analyze<DontCare>( stringArgs );
+         argumentAnalyzer.AnalyzeCore<DontCare>( stringArgs );
 
          // Assert
 
@@ -86,7 +84,7 @@ namespace ArguMint.UnitTests
 
          var argumentAnalyzer = new ArgumentAnalyzer( handlerDispatcherMock.Object, ruleMatcherMock.Object );
 
-         argumentAnalyzer.Analyze<DontCare>( stringArgs );
+         argumentAnalyzer.AnalyzeCore<DontCare>( stringArgs );
 
          // Assert
 

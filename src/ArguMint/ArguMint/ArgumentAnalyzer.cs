@@ -8,7 +8,7 @@ namespace ArguMint
       private readonly IHandlerDispatcher _handlerDispatcher;
       private readonly IRuleMatcher _ruleMatcher;
 
-      public ArgumentAnalyzer()
+      private ArgumentAnalyzer()
       {
          _handlerDispatcher = new HandlerDispatcher( new TypeInspector() );
          _ruleMatcher = new RuleMatcher( new RuleProvider(), new TypeInspector() );
@@ -20,7 +20,10 @@ namespace ArguMint
          _ruleMatcher = ruleMatcher;
       }
 
-      public T Analyze<T>( string[] arguments ) where T : class, new()
+      public static T Analyze<T>( string[] arguments ) where T : class, new()
+         => new ArgumentAnalyzer().AnalyzeCore<T>( arguments );
+
+      internal T AnalyzeCore<T>( string[] arguments ) where T : class, new()
       {
          if ( arguments == null )
          {
