@@ -5,9 +5,9 @@ namespace ArguMint.TestCommon.Helpers
 {
    public static class ArgumentAnalyzerHelper
    {
-      public static object Analyze( Type argumentClassType, string[] arguments )
+      public static object Analyze<T>( Type argumentClassType, string[] arguments )
       {
-         var analyzeMethod = typeof( ArgumentAnalyzer ).GetMethod( "Analyze", BindingFlags.Public | BindingFlags.Static );
+         var analyzeMethod = typeof( T ).GetMethod( "Analyze", BindingFlags.Public | BindingFlags.Static );
          var closedAnalyzeMethod = analyzeMethod.MakeGenericMethod( argumentClassType );
 
          var parameters = new object[]
