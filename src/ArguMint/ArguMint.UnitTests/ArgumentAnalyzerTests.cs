@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Moq;
 using FluentAssertions;
 using Xunit;
@@ -63,7 +64,9 @@ namespace ArguMint.UnitTests
 
          // Assert
 
-         ruleMatcherMock.Verify( rm => rm.Match( It.IsAny<object>(), stringArgs ), Times.Once() );
+         ruleMatcherMock.Verify( rm => rm.Match( It.IsAny<object>(),
+            It.Is<ArgumentToken[]>( at => at.All( token => stringArgs.Contains( token.Token ) ) ) ),
+            Times.Once() );
       }
 
       [Fact]
@@ -77,7 +80,7 @@ namespace ArguMint.UnitTests
          var handlerDispatcherMock = new Mock<IHandlerDispatcher>();
 
          var ruleMatcherMock = new Mock<IRuleMatcher>();
-         ruleMatcherMock.Setup( rm => rm.Match( It.IsAny<object>(), stringArgs ) ).Throws( new ArgumentErrorException( errorType, null ) );
+         ruleMatcherMock.Setup( rm => rm.Match( It.IsAny<object>(), It.IsAny<ArgumentToken[]>() ) ).Throws( new ArgumentErrorException( errorType, null ) );
 
          // Act
 
@@ -87,7 +90,9 @@ namespace ArguMint.UnitTests
 
          // Assert
 
-         handlerDispatcherMock.Verify( hd => hd.DispatchArgumentError( It.IsAny<object>(), It.Is<ArgumentError>( ae => ae.ErrorType == errorType ) ), Times.Once() );
+         handlerDispatcherMock.Verify( hd => hd.DispatchArgumentError( It.IsAny<object>(),
+            It.Is<ArgumentError>( ae => ae.ErrorType == errorType ) ),
+            Times.Once() );
       }
    }
 }

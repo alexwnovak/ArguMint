@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace ArguMint
 {
@@ -37,7 +38,9 @@ namespace ArguMint
 
          try
          {
-            _ruleMatcher.Match( argumentClass, arguments );
+            var argumentTokens = arguments.Select( s => new ArgumentToken( s ) ).ToArray();
+
+            _ruleMatcher.Match( argumentClass, argumentTokens );
          }
          catch ( ArgumentErrorException ex )
          {

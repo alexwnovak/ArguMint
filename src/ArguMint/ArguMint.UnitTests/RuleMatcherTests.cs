@@ -1,8 +1,9 @@
 ﻿using System;
 using FluentAssertions;
 using Moq;
-using ArguMint.TestCommon.Helpers;
 using Xunit;
+using ArguMint.TestCommon.Helpers;
+using ArguMint.UnitTests.Helpers;
 
 namespace ArguMint.UnitTests
 {
@@ -52,18 +53,18 @@ namespace ArguMint.UnitTests
          // Act
 
          object argumentClass = "DoesNotMatterWhatThisIs";
-         var stringArgs = ArrayHelper.Create( "SomeArgument" );
+         var tokens = TokenHelper.CreateArray( "SomeArgument" );
 
          var ruleMatcher = new RuleMatcher( ruleProviderMock.Object, typeInspectorMock.Object );
-         ruleMatcher.Match( argumentClass, stringArgs );
+         ruleMatcher.Match( argumentClass, tokens );
 
          // Assert
 
-         ruleOneMock.Verify( r => r.Match( argumentClass, propertyOneMock.Object, stringArgs ), Times.Once() );
-         ruleTwoMock.Verify( r => r.Match( argumentClass, propertyOneMock.Object, stringArgs ), Times.Once() );
+         ruleOneMock.Verify( r => r.Match( argumentClass, propertyOneMock.Object, tokens ), Times.Once() );
+         ruleTwoMock.Verify( r => r.Match( argumentClass, propertyOneMock.Object, tokens ), Times.Once() );
 
-         ruleOneMock.Verify( r => r.Match( argumentClass, propertyTwoMock.Object, stringArgs ), Times.Once() );
-         ruleTwoMock.Verify( r => r.Match( argumentClass, propertyTwoMock.Object, stringArgs ), Times.Once() );
+         ruleOneMock.Verify( r => r.Match( argumentClass, propertyTwoMock.Object, tokens ), Times.Once() );
+         ruleTwoMock.Verify( r => r.Match( argumentClass, propertyTwoMock.Object, tokens ), Times.Once() );
       }
    }
 }

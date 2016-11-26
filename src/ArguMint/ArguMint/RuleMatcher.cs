@@ -11,7 +11,7 @@ namespace ArguMint
          _typeInspector = typeInspector;
       }
 
-      public void Match( object argumentClass, string[] arguments )
+      public void Match( object argumentClass, ArgumentToken[] arguments )
       {
          var markedProperties = _typeInspector.GetMarkedProperties<ArgumentAttribute>( argumentClass.GetType() );
 
