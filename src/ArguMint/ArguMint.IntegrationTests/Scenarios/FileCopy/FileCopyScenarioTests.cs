@@ -23,6 +23,7 @@ namespace ArguMint.IntegrationTests.Scenarios.FileCopy
 
          argumentClass.SourceFile.Should().Be( sourceFile );
          argumentClass.DestinationFile.Should().Be( destinationFile );
+         argumentClass.ForceCopy.Should().BeFalse();
       }
 
       [Fact]
