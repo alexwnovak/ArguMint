@@ -15,9 +15,7 @@ namespace ArguMint.IntegrationTests.Scenarios.FileCopy
 
          // Act
 
-         var argumentAnalyzer = new ArgumentAnalyzer();
-
-         var argumentClass = argumentAnalyzer.Analyze<FileCopyArguments>( stringArgs );
+         var argumentClass = ArgumentAnalyzer.Analyze<FileCopyArguments>( stringArgs );
 
          // Asserts
 
@@ -34,9 +32,7 @@ namespace ArguMint.IntegrationTests.Scenarios.FileCopy
 
          // Act
 
-         var argumentAnalyzer = new ArgumentAnalyzer();
-
-         var argumentClass = argumentAnalyzer.Analyze<FileCopyArguments>( stringArgs );
+         var argumentClass = ArgumentAnalyzer.Analyze<FileCopyArguments>( stringArgs );
 
          // Assert
 
@@ -53,9 +49,7 @@ namespace ArguMint.IntegrationTests.Scenarios.FileCopy
 
          // Act
 
-         var argumentAnalyzer = new ArgumentAnalyzer();
-
-         var argumentClass = argumentAnalyzer.Analyze<FileCopyArguments>( stringArgs );
+         var argumentClass = ArgumentAnalyzer.Analyze<FileCopyArguments>( stringArgs );
 
          // Asserts
 
@@ -74,9 +68,7 @@ namespace ArguMint.IntegrationTests.Scenarios.FileCopy
 
          // Act
 
-         var argumentAnalyzer = new ArgumentAnalyzer();
-
-         var argumentClass = argumentAnalyzer.Analyze<FileCopyArguments>( stringArgs );
+         var argumentClass = ArgumentAnalyzer.Analyze<FileCopyArguments>( stringArgs );
 
          // Assert
 
@@ -94,9 +86,7 @@ namespace ArguMint.IntegrationTests.Scenarios.FileCopy
 
          // Act
 
-         var argumentAnalyzer = new ArgumentAnalyzer();
-
-         var argumentClass = argumentAnalyzer.Analyze<FileCopyArguments>( stringArgs );
+         var argumentClass = ArgumentAnalyzer.Analyze<FileCopyArguments>( stringArgs );
 
          // Assert
 
