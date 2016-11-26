@@ -29,7 +29,7 @@ namespace ArguMint.IntegrationTests
 
          var stringArgs = ArrayHelper.Create( fileName );
 
-         var arguments = ArgumentAnalyzerHelper.Analyze( argumentClass.Type, stringArgs );
+         var arguments = ArgumentAnalyzerHelper.Analyze<ArgumentAnalyzer>( argumentClass.Type, stringArgs );
 
          // Assert
 
@@ -63,7 +63,7 @@ namespace ArguMint.IntegrationTests
 
          var stringArgs = ArrayHelper.Create( firstArgument, secondArgument );
 
-         var arguments = ArgumentAnalyzerHelper.Analyze( argumentClass.Type, stringArgs );
+         var arguments = ArgumentAnalyzerHelper.Analyze<ArgumentAnalyzer>( argumentClass.Type, stringArgs );
 
          // Assert
 
@@ -90,7 +90,7 @@ namespace ArguMint.IntegrationTests
 
          var stringArgs = ArrayHelper.Create( "oneargumentbutnottwo" );
 
-         var arguments = ArgumentAnalyzerHelper.Analyze( argumentClass.Type, stringArgs );
+         var arguments = ArgumentAnalyzerHelper.Analyze<ArgumentAnalyzer>( argumentClass.Type, stringArgs );
 
          // Assert
 
@@ -114,7 +114,7 @@ namespace ArguMint.IntegrationTests
 
          var stringArgs = ArrayHelper.Create( $"/f:{fileName}" );
 
-         var arguments = ArgumentAnalyzerHelper.Analyze( argumentClass.Type, stringArgs );
+         var arguments = ArgumentAnalyzerHelper.Analyze<ArgumentAnalyzer>( argumentClass.Type, stringArgs );
 
          // Assert
 
@@ -138,7 +138,7 @@ namespace ArguMint.IntegrationTests
 
          var stringArgs = ArrayHelper.Create( "-filename", fileName );
 
-         var arguments = ArgumentAnalyzerHelper.Analyze( argumentClass.Type, stringArgs );
+         var arguments = ArgumentAnalyzerHelper.Analyze<ArgumentAnalyzer>( argumentClass.Type, stringArgs );
 
          // Assert
 
@@ -165,7 +165,7 @@ namespace ArguMint.IntegrationTests
 
          var stringArgs = ArrayHelper.Create( maxSize.ToString() );
 
-         var arguments = ArgumentAnalyzerHelper.Analyze( argumentClass.Type, stringArgs );
+         var arguments = ArgumentAnalyzerHelper.Analyze<ArgumentAnalyzer>( argumentClass.Type, stringArgs );
 
          // Assert
 
@@ -192,7 +192,7 @@ namespace ArguMint.IntegrationTests
 
          var stringArgs = ArrayHelper.Create( charValue.ToString() );
 
-         var arguments = ArgumentAnalyzerHelper.Analyze( argumentClass.Type, stringArgs );
+         var arguments = ArgumentAnalyzerHelper.Analyze<ArgumentAnalyzer>( argumentClass.Type, stringArgs );
 
          // Assert
 
@@ -218,7 +218,7 @@ namespace ArguMint.IntegrationTests
 
          // Act
 
-         ArgumentAnalyzerHelper.Analyze( argumentsClass.Type, new string[0] );
+         ArgumentAnalyzerHelper.Analyze<ArgumentAnalyzer>( argumentsClass.Type, new string[0] );
 
          // Assert
 

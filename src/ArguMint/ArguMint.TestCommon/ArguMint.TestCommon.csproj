@@ -70,6 +70,7 @@
     <Compile Include="Dynamic\ClassBuilder.cs" />
     <Compile Include="Dynamic\ClassBuilderTests.cs" />
     <Compile Include="Dynamic\GlobalCallbackTable.cs" />
+    <Compile Include="Helpers\ArgumentAnalyzerHelper.cs" />
     <Compile Include="Helpers\ArrayHelper.cs" />
     <Compile Include="Helpers\ObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
