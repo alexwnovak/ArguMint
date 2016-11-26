@@ -84,5 +84,25 @@ namespace ArguMint.IntegrationTests.Scenarios.FileCopy
          argumentClass.DestinationFile.Should().Be( forceFlag );
          argumentClass.ForceCopy.Should().BeFalse();
       }
+
+      [Fact]
+      public void FileCopyScenario_OnlyHasSourceAndForceParameters_MatchesThemToSourceAndDestination()
+      {
+         const string sourceFile = @"C:\Temp\Source.txt";
+         const string forceFlag = "/force";
+         var stringArgs = ArrayHelper.Create( sourceFile, forceFlag );
+
+         // Act
+
+         var argumentAnalyzer = new ArgumentAnalyzer();
+
+         var argumentClass = argumentAnalyzer.Analyze<FileCopyArguments>( stringArgs );
+
+         // Assert
+
+         argumentClass.SourceFile.Should().Be( sourceFile );
+         argumentClass.DestinationFile.Should().Be( forceFlag );
+         argumentClass.ForceCopy.Should().BeFalse();
+      }
    }
 }
