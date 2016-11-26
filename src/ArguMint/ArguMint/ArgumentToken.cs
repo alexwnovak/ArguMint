@@ -17,5 +17,7 @@
       {
          Token = token;
       }
+
+      public override string ToString() => $"{Token}, IsMatched={IsMatched}";
    }
 }
