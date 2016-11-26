@@ -8,7 +8,7 @@
          {
             foreach ( var argument in arguments )
             {
-               if ( argument.Token == property.Attribute.Argument )
+               if ( !argument.IsMatched && argument.Token == property.Attribute.Argument )
                {
                   if ( property.PropertyType == typeof( bool ) )
                   {
@@ -32,6 +32,7 @@
                }
 
                property.SetPropertyValue( argumentClass, convertedValue );
+               arguments[index].IsMatched = true;
             }
             else
             {

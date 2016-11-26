@@ -10,7 +10,7 @@
             {
                foreach ( var argument in arguments )
                {
-                  if ( argument.Token == property.Attribute.Argument && property.PropertyType == typeof( bool ) )
+                  if ( !argument.IsMatched && argument.Token == property.Attribute.Argument && property.PropertyType == typeof( bool ) )
                   {
                      property.SetPropertyValue( argumentClass, true );
                   }
