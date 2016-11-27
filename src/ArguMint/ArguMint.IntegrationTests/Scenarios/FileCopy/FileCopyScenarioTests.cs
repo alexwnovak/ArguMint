@@ -7,6 +7,14 @@ namespace ArguMint.IntegrationTests.Scenarios.FileCopy
    public class FileCopyScenarioTests
    {
       [Fact]
+      public void FileCopyScenario_PassesEmptyArgumentArray_NotifiesWithArgumentsOmitted()
+      {
+         var argumentClass = ArgumentAnalyzer.Analyze<FileCopyArguments>( new string[0] );
+
+         argumentClass.ArgumentsOmitted.Should().BeTrue();
+      }
+
+      [Fact]
       public void FileCopyScenario_ContainsTheTwoArguments_MatchesArguments()
       {
          const string sourceFile = @"C:\Temp\Source.txt";

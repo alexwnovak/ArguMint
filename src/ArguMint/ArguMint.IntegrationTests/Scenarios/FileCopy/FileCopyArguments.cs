@@ -23,11 +23,20 @@
          set;
       }
 
+      public bool ArgumentsOmitted
+      {
+         get;
+         private set;
+      }
+
       public ArgumentError ArgumentError
       {
          get;
          private set;
       }
+
+      [ArgumentsOmittedHandler]
+      public void ArgumentsOmittedHandler() => ArgumentsOmitted = true;
 
       [ArgumentErrorHandler]
       public void ArgumentHandler( ArgumentError argumentError ) => ArgumentError = argumentError;
