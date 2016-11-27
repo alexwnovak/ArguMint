@@ -1,4 +1,6 @@
-﻿namespace ArguMint
+﻿using System.Linq;
+
+namespace ArguMint
 {
    internal class PositionalRule : IArgumentRule
    {
@@ -17,6 +19,10 @@
                   }
                }
             }
+         }
+         else if ( property.Attribute.Position == ArgumentPosition.Last )
+         {
+            property.SetPropertyValue( argumentClass, arguments.Last().Token );
          }
          else
          {
