@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using Xunit;
 
 namespace ArguMint.UnitTests
@@ -33,6 +34,26 @@ namespace ArguMint.UnitTests
          int index = argumentPosition.ToIndex();
 
          index.Should().Be( 1 );
+      }
+
+      [Fact]
+      public void ToIndex_PositionIsBelowTheFirstOption_ThrowsArgumentOutOfRangeException()
+      {
+         var argumentPosition = ArgumentPosition.Any - 1;
+
+         Action toIndex = () => argumentPosition.ToIndex();
+
+         toIndex.ShouldThrow<ArgumentOutOfRangeException>();
+      }
+
+      [Fact]
+      public void ToIndex_PositionIsAboveTheLastOption_ThrowsArgumentOutOfRangeException()
+      {
+         var argumentPosition = ArgumentPosition.Tenth + 1;
+
+         Action toIndex = () => argumentPosition.ToIndex();
+
+         toIndex.ShouldThrow<ArgumentOutOfRangeException>();
       }
    }
 }
