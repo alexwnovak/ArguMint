@@ -22,7 +22,13 @@ namespace ArguMint
          }
          else if ( property.Attribute.Position == ArgumentPosition.Last )
          {
-            property.SetPropertyValue( argumentClass, arguments.Last().Token );
+            var lastArgument = arguments.Last();
+
+            if ( !lastArgument.IsMatched )
+            {
+               property.SetPropertyValue( argumentClass, lastArgument.Token );
+               lastArgument.IsMatched = true;
+            }
          }
          else
          {

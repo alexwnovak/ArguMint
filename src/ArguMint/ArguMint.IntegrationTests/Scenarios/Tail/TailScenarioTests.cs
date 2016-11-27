@@ -52,5 +52,22 @@ namespace ArguMint.IntegrationTests.Scenarios.Tail
          argumentClass.FileName.Should().Be( fileName );
          argumentClass.Bytes.Should().Be( bytes );
       }
+
+      [Fact]
+      public void TailScenario_OnlyHasBytesButNotFileName_MatchesBytesAsFileName()
+      {
+         const int bytes = 1234;
+         string bytesArg = $"--bytes={bytes}";
+         var stringArgs = ArrayHelper.Create( bytesArg );
+
+         // Act
+
+         var argumentClass = ArgumentAnalyzer.Analyze<TailArguments>( stringArgs );
+
+         // Asserts
+
+         argumentClass.FileName.Should().Be( bytesArg );
+         argumentClass.Bytes.Should().Be( null );
+      }
    }
 }
