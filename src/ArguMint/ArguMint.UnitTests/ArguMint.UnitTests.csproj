@@ -86,6 +86,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ArgumentAttributeTests.cs" />
     <Compile Include="Dummies\ClassWithOneMarkedPrivateInstanceMethod.cs" />
     <Compile Include="Dummies\ClassWithOneMarkedPrivateStaticMethod.cs" />
     <Compile Include="Dummies\ClassWithOneMarkedPublicInstanceMethod.cs" />
