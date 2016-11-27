@@ -7,6 +7,14 @@ namespace ArguMint.IntegrationTests.Scenarios.FileCopy
    public class FileCopyScenarioTests
    {
       [Fact]
+      public void FileCopyScenario_PassesEmptyArgumentArray_NotifiesWithArgumentsOmitted()
+      {
+         var argumentClass = ArgumentAnalyzer.Analyze<FileCopyArguments>( new string[0] );
+
+         argumentClass.ArgumentsOmitted.Should().BeTrue();
+      }
+
+      [Fact]
       public void FileCopyScenario_ContainsTheTwoArguments_MatchesArguments()
       {
          const string sourceFile = @"C:\Temp\Source.txt";
@@ -93,6 +101,38 @@ namespace ArguMint.IntegrationTests.Scenarios.FileCopy
          argumentClass.SourceFile.Should().Be( sourceFile );
          argumentClass.DestinationFile.Should().Be( forceFlag );
          argumentClass.ForceCopy.Should().BeFalse();
+      }
+
+      [Fact]
+      public void FileCopyScenario_OnlyPassesForceParameter_ForceFlagIsMatchedAsSourceAndTheRestAreOmitted()
+      {
+         const string forceFlag = "/force";
+         var stringArgs = ArrayHelper.Create( forceFlag );
+
+         // Act
+
+         var argumentClass = ArgumentAnalyzer.Analyze<FileCopyArguments>( stringArgs );
+
+         // Assert
+
+         argumentClass.SourceFile.Should().Be( forceFlag );
+         argumentClass.DestinationFile.Should().BeNullOrEmpty();
+         argumentClass.ForceCopy.Should().BeFalse();
+      }
+
+      [Fact]
+      public void FileCopyScenario_OnlyPassesForceParameter_NotifiesThatDestinationIsMissing()
+      {
+         const string forceFlag = "/force";
+         var stringArgs = ArrayHelper.Create( forceFlag );
+
+         // Act
+
+         var argumentClass = ArgumentAnalyzer.Analyze<FileCopyArguments>( stringArgs );
+
+         // Assert
+
+         argumentClass.ArgumentError.Properties["PropertyName"].Should().Be( nameof( FileCopyArguments.DestinationFile ) );
       }
    }
 }
