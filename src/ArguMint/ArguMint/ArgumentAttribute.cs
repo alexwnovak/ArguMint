@@ -33,6 +33,11 @@ namespace ArguMint
       public ArgumentAttribute( string argument, Spacing spacing )
          : this( argument )
       {
+         if ( spacing < Spacing.None || spacing > Spacing.Postfix )
+         {
+            throw new ArgumentOutOfRangeException( nameof( spacing ), $"Spacing parameter value was out of range: {(int) spacing}" );
+         }
+
          Spacing = spacing;
       }
    }
