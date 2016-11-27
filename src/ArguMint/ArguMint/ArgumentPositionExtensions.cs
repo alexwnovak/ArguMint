@@ -6,7 +6,7 @@ namespace ArguMint
    {
       public static int ToIndex( this ArgumentPosition argumentPosition )
       {
-         if ( argumentPosition < ArgumentPosition.Any || argumentPosition > ArgumentPosition.Tenth )
+         if ( !Enum.IsDefined( typeof( ArgumentPosition ), argumentPosition ) )
          {
             throw new ArgumentOutOfRangeException( nameof( argumentPosition ), $"Argument position parameter value was out of range: {(int) argumentPosition}" );
          }
