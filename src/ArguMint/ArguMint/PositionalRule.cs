@@ -1,4 +1,6 @@
-﻿namespace ArguMint
+﻿using System.Linq;
+
+namespace ArguMint
 {
    internal class PositionalRule : IArgumentRule
    {
@@ -16,6 +18,16 @@
                      break;
                   }
                }
+            }
+         }
+         else if ( property.Attribute.Position == ArgumentPosition.Last )
+         {
+            var lastArgument = arguments.Last();
+
+            if ( !lastArgument.IsMatched )
+            {
+               property.SetPropertyValue( argumentClass, lastArgument.Token );
+               lastArgument.IsMatched = true;
             }
          }
          else
@@ -36,7 +48,7 @@
             }
             else
             {
-               ArgumentError.ThrowForArgumentMissing( property.PropertyName );;
+               ArgumentError.ThrowForArgumentMissing( property.PropertyName );
             }
          }
       }

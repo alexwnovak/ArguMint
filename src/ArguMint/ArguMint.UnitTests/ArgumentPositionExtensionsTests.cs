@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -39,7 +40,9 @@ namespace ArguMint.UnitTests
       [Fact]
       public void ToIndex_PositionIsBelowTheFirstOption_ThrowsArgumentOutOfRangeException()
       {
-         var argumentPosition = ArgumentPosition.Any - 1;
+         var values = (ArgumentPosition[]) Enum.GetValues( typeof( ArgumentPosition ) );
+
+         var argumentPosition = values.First() - 1;
 
          Action toIndex = () => argumentPosition.ToIndex();
 
@@ -49,7 +52,9 @@ namespace ArguMint.UnitTests
       [Fact]
       public void ToIndex_PositionIsAboveTheLastOption_ThrowsArgumentOutOfRangeException()
       {
-         var argumentPosition = ArgumentPosition.Tenth + 1;
+         var values = (ArgumentPosition[]) Enum.GetValues( typeof( ArgumentPosition ) );
+
+         var argumentPosition = values.Last() + 1;
 
          Action toIndex = () => argumentPosition.ToIndex();
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -9,7 +10,9 @@ namespace ArguMint.UnitTests
       [Fact]
       public void Ctor_SpacingParameterIsLessThanEnumBase_ThrowsArgumentOutOfRangeException()
       {
-         Action ctor = () => new ArgumentAttribute( "DoesNotMatter", Spacing.None - 1 );
+         var values = (Spacing[]) Enum.GetValues( typeof( Spacing ) );
+
+         Action ctor = () => new ArgumentAttribute( "DoesNotMatter", values.First() - 1 );
 
          ctor.ShouldThrow<ArgumentOutOfRangeException>();
       }
@@ -17,7 +20,9 @@ namespace ArguMint.UnitTests
       [Fact]
       public void Ctor_SpacingParameterIsGreaterThanEnumBounds_ThrowsArgumentOutOfRangeException()
       {
-         Action ctor = () => new ArgumentAttribute( "DoesNotMatter", Spacing.Postfix + 1 );
+         var values = (Spacing[]) Enum.GetValues( typeof( Spacing ) );
+
+         Action ctor = () => new ArgumentAttribute( "DoesNotMatter", values.Last() + 1 );
 
          ctor.ShouldThrow<ArgumentOutOfRangeException>();
       }

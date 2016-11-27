@@ -69,6 +69,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenarios\FileCopy\FileCopyArguments.cs" />
     <Compile Include="Scenarios\FileCopy\FileCopyScenarioTests.cs" />
+    <Compile Include="Scenarios\Tail\TailArguments.cs" />
+    <Compile Include="Scenarios\Tail\TailScenarioTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -23,14 +23,18 @@
                         ArgumentError.ThrowForPrefixArgumentHasNoValue( property.PropertyName );
                      }
 
-                     object convertedValue = ValueConverter.Convert( value, property.PropertyType );
-
-                     if ( convertedValue == null )
+                     if ( !argument.IsMatched )
                      {
-                        ArgumentError.ThrowForTypeMismatch( property.PropertyName, property.PropertyType.Name );
-                     }
+                        object convertedValue = ValueConverter.Convert( value, property.PropertyType );
 
-                     property.SetPropertyValue( argumentClass, convertedValue );
+                        if ( convertedValue == null )
+                        {
+                           ArgumentError.ThrowForTypeMismatch( property.PropertyName, property.PropertyType.Name );
+                        }
+
+                        property.SetPropertyValue( argumentClass, convertedValue );
+                        argument.IsMatched = true;
+                     }
                   }
                }
             }
