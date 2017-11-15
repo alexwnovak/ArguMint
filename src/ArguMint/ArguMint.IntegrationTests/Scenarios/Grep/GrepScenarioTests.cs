@@ -38,5 +38,22 @@ namespace ArguMint.IntegrationTests.Scenarios.Grep
          argumentClass.FileName.Should().Be( fileName );
          argumentClass.IgnoreCase.Should().BeTrue();
       }
+
+      [Fact]
+      public void GrepScenario_HasFileNameAndIgnoreCaseFlagInReverseOrder_()
+      {
+         const string ignoreCase = "--ignore-case";
+         const string fileName = @"C:\Temp\Document.txt";
+         var stringArgs = ArrayHelper.Create( fileName, ignoreCase );
+
+         // Act
+
+         var argumentClass = ArgumentAnalyzer.Analyze<GrepArguments>( stringArgs );
+
+         // Assert
+
+         argumentClass.FileName.Should().Be( ignoreCase );
+         argumentClass.IgnoreCase.Should().BeFalse();
+      }
    }
 }

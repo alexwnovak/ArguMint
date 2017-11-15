@@ -15,6 +15,7 @@ namespace ArguMint
                   if ( property.PropertyType == typeof( bool ) )
                   {
                      property.SetPropertyValue( argumentClass, true );
+                     argument.IsMatched = true;
                      break;
                   }
                }
